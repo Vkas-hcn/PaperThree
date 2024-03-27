@@ -1,0 +1,6 @@
+-optimizationpasses 5
+-dontskipnonpubliclibraryclassmembers
+-optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*
+-obfuscationdictionary proguard-1il.txt
+-classobfuscationdictionary proguard-1il.txt
+-packageobfuscationdictionary proguard-1il.txt
