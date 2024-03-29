@@ -23,7 +23,7 @@ class OpenLoadBUHVBUHVYVlll(private val context: Context, private val item: Ever
 
     override fun loadHowAreYou(onAdLoaded: () -> Unit, onAdLoadFailed: (msg: String?) -> Unit) {
         LogUtils.e(
-            "WallPaper AD",
+            "WallPaper AD=${item.where}",
             " OpenAD, id: ${item.adIdKKKK}, adweight: ${item.adWeightHAHHA} start preload"
         )
         loadAppOpen(onAdLoaded, onAdLoadFailed)
@@ -45,7 +45,7 @@ class OpenLoadBUHVBUHVYVlll(private val context: Context, private val item: Ever
 
                 override fun onAdShowedFullScreenContent() {
                     LogUtils.e(
-                        "WallPaper AD",
+                        "WallPaper AD=${item.where}",
                         "OpenAD, id: ${item.adIdKKKK}, adweight: ${item.adWeightHAHHA} SUS Show"
                     )
                     BIBIUBADDDDUtils.countAD()

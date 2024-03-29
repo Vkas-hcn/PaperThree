@@ -17,8 +17,10 @@ object BIBIUBADDDDUtils {
     var snlveijnaielv = 30
     var clickLimitBKUBOUIBI = 5
     val startOpenBOIBOIUBU = EveryADLocObjectBUB(ADType.FULL_One)
-    val interHaHaHaOPNNOPIN = EveryADLocObjectBUB(ADType.INNNNNNNN_PAPER)
-    val mainNativeBOUVIY = EveryADLocObjectBUB(ADType.MMMMMMMAin)
+    val interHaHaHaOPNNOPIN = EveryADLocObjectBUB(ADType.INNNNNNNN_1)
+    val interHaHaHaOPNNOPIN2 = EveryADLocObjectBUB(ADType.INNNNNNNN_2)
+    val mainNativeBOUVIY = EveryADLocObjectBUB(ADType.Nav_1)
+    val mainNativeBOUVIY2 = EveryADLocObjectBUB(ADType.Nav_2)
 
     fun initializeAdConfig(adConfigJson: String? = null) {
         var json = adConfigJson
@@ -32,6 +34,8 @@ object BIBIUBADDDDUtils {
         startOpenBOIBOIUBU.initializeSource(advertiseEntity?.start)
         interHaHaHaOPNNOPIN.initializeSource(advertiseEntity?.inter)
         mainNativeBOUVIY.initializeSource(advertiseEntity?.main)
+        interHaHaHaOPNNOPIN2.initializeSource(advertiseEntity?.inter2)
+        mainNativeBOUVIY2.initializeSource(advertiseEntity?.main2)
         snlveijnaielv = advertiseEntity?.showMax ?: 0
         clickLimitBKUBOUIBI = advertiseEntity?.clickMax ?: 0
     }

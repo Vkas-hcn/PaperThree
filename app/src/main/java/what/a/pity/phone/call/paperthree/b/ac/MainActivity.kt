@@ -1,6 +1,7 @@
 package what.a.pity.phone.call.paperthree.b.ac
 
 import android.content.Intent
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
@@ -32,6 +33,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             mBinding.nativeFrameQr.isVisible = false
         } else {
         }
+        mBinding.showLoading = false
+        BIBIUBADDDDUtils.interHaHaHaOPNNOPIN2.preload(this)
         initBanner()
         userList()
     }
@@ -46,29 +49,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun initL() {
-
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 moveTaskToBack(true)
                 PaperThreeVariable.isAppBackFor = true
-
             }
         })
-
         mBinding.wallPaperThreeMainSetRl.setOnClickListener {
             startActivity(
                 Intent(this, SettingActivity::class.java)
             )
-
         }
     }
 
     private fun initBanner() {
         mBinding.wallPaperThreeMainBanner.addBannerLifecycleObserver(this)
-            ?.setAdapter(AppImageListAdapter(PaperThreeVariable.imgBannerList))
+            ?.setAdapter(AppImageListAdapter(this, PaperThreeVariable.imgBannerList))
             ?.setBannerGalleryEffect(10, 10, 10, 0.9f)
             ?.indicator = CircleIndicator(this)
-
     }
 
     private var baseAd: SoWhatCanYouDo? = null
@@ -76,31 +74,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onResume() {
         super.onResume()
         lifecycleScope.launch(Dispatchers.Main) {
-//            while (Lifecycle.State.RESUMED != lifecycle.currentState) delay(300L)
+//            delay(200)
+            Log.e("TAG", "onResume:main-1 ")
             if (!BIBIUBADDDDUtils.canShowAD()) {
                 mBinding.nativeFrameQr.isVisible = false
             } else if (PaperThreeConstant.canRefreshHomeNative) {
+                Log.e("TAG", "onResume:main-2 ")
+
                 PaperThreeConstant.canRefreshHomeNative = false
                 BIBIUBADDDDUtils.mainNativeBOUVIY.preload(this@MainActivity)
                 mBinding.nativeFrameQr.isVisible = true
                 MainScope().launch {
                     while (true) {
                         if (BIBIUBADDDDUtils.mainNativeBOUVIY.haveCache) {
+                            Log.e("TAG", "onResume:main-3 ")
                             PaperThreeConstant.canRefreshHomeNative = false
-                            baseAd?.gandiao()
                             BIBIUBADDDDUtils.mainNativeBOUVIY.showVIUVYNativeAd(
                                 this@MainActivity,
                                 mBinding.nativeFrameQr
                             ) { baseAd = it }
+                            baseAd?.gandiao()
+
                             break
                         }
                         delay(300)
                     }
                 }
             }
-
         }
     }
-
 
 }

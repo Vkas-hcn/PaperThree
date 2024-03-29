@@ -29,6 +29,9 @@ class EveryADLocObjectBUB(private val snvlinjvk: ADType) {
         }
         baseAd.showMyNameIsHei(activity = activity, onAdDismissed = onAdDismissed)
         vsnoevn = {}
+        if(baseAd.adBean.where != "open"){
+            preload(activity)
+        }
     }
 
     fun showVIUVYNativeAd(
@@ -56,7 +59,6 @@ class EveryADLocObjectBUB(private val snvlinjvk: ADType) {
         MainScope().launch {
             if (dataList.isEmpty()) return@launch
             if (!BIBIUBADDDDUtils.canShowAD()) return@launch
-//            if (haveCache && isCacheOverTime().not()) return@launch
             if (haveCache) return@launch
             if (isLoadBHBU) return@launch
             isLoadBHBU = true

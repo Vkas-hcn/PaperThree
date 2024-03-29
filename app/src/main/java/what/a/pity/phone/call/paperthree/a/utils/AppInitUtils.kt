@@ -13,17 +13,20 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.DisplayMetrics
+import android.view.View
 import android.webkit.WebView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.blankj.utilcode.util.ToastUtils
+import androidx.lifecycle.lifecycleScope
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.Utils
 import com.google.android.gms.ads.MobileAds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -33,15 +36,18 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import what.a.pity.phone.call.paperthree.BuildConfig
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeVariable
-import what.a.pity.phone.call.paperthree.b.ac.DetailSetActivity
 import what.a.pity.phone.call.paperthree.b.ac.MainActivity
 import what.a.pity.phone.call.paperthree.b.ac.PreViewActivity
 import what.a.pity.phone.call.paperthree.d.ae.fb.PaperAppFireBaseUtils
+import what.a.pity.phone.call.paperthree.fast.KeyData
+import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
+import java.util.UUID
 
 
 class AppInitUtils {
@@ -54,6 +60,10 @@ class AppInitUtils {
             if (xaxa != czca) {
                 WebView.setDataDirectorySuffix(czca)
             }
+        }
+        GetWallDataUtils.getReferInformation(application)
+        if (SPUtils.getInstance().getString(KeyData.phone_uuid).isBlank()) {
+            SPUtils.getInstance().put(KeyData.phone_uuid, UUID.randomUUID().toString())
         }
         MobileAds.initialize(application)
         if (!BuildConfig.DEBUG) {
@@ -107,19 +117,19 @@ class AppInitUtils {
         activity.finish()
     }
 
-    fun saveImg(curImg: Int, activity: PreViewActivity) {
+    fun saveImg(activity: PreViewActivity, nextFun: () -> Unit) {
         if (!checkPer(activity)) {
-            aaa(activity, curImg)
+            aaa(activity, nextFun)
         } else {
-            saveFreshAppImageToGallery(activity, curImg)
+            nextFun()
         }
 
     }
 
-    private fun aaa(activity: PreViewActivity, curImg: Int) {
+    private fun aaa(activity: PreViewActivity, nextFun: () -> Unit) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (Environment.isExternalStorageManager()) {
-                saveFreshAppImageToGallery(activity, curImg)
+                nextFun()
             } else {
                 val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
                 intent.data = Uri.parse("package:" + activity.packageName)
@@ -154,7 +164,7 @@ class AppInitUtils {
     }
 
     @AfterPermissionGranted(200)
-    fun saveFreshAppImageToGallery(context: PreViewActivity, imageResId: Int) {
+    fun saveFreshAppImageToGallery(context: PreViewActivity, imageResId: Int,nextFun: () -> Unit) {
         val drawable = context.getDrawable(imageResId)
 
         if (drawable is BitmapDrawable) {
@@ -177,7 +187,7 @@ class AppInitUtils {
                     val outputStream = contentResolver.openOutputStream(uri)
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
                     outputStream?.close()
-                    Toast.makeText(context, "Save successfully!", Toast.LENGTH_SHORT).show()
+                    nextFun()
                     val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
                     mediaScanIntent.data = uri
                     context.sendBroadcast(mediaScanIntent)
@@ -189,45 +199,51 @@ class AppInitUtils {
         }
     }
 
-    fun goSet(curImg: Int, activity: AppCompatActivity) {
-        val intent = Intent(activity, DetailSetActivity::class.java)
-        intent.putExtra("intentImgResID", curImg)
-        activity.startActivity(intent)
-    }
-
 
     fun setFreshAppWallpaper(
-        context: Context,
+        activity: PreViewActivity,
         bitmapDrawable: BitmapDrawable,
-        isShowTip: Boolean = true
     ) {
-        if (isShowTip) ToastUtils.showLong("Setting...")
-        try {
-            val wallpaperManager = WallpaperManager.getInstance(context)
-            val bitmap = bitmapDrawable.bitmap
-            wallpaperManager.setBitmap(bitmap)
-            if (isShowTip) Toast.makeText(
-                context,
-                "Wallpaper set successfully!",
-                Toast.LENGTH_SHORT
-            ).show()
-        } catch (e: Exception) {
-            Toast.makeText(context, "Failed to set wallpaper!", Toast.LENGTH_SHORT).show()
+        GlobalScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
+                activity.mBinding.pbLoading2.visibility = View.VISIBLE
+            }
+            try {
+                val wallpaperManager = WallpaperManager.getInstance(activity)
+                val bitmap = bitmapDrawable.bitmap
+                wallpaperManager.setBitmap(bitmap)
+                withContext(Dispatchers.Main) {
+                    activity.mBinding.pbLoading2.visibility = View.GONE
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    activity.mBinding.pbLoading2.visibility = View.GONE
+                    Toast.makeText(activity, "Failed to set wallpaper!", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
 
-    fun setFreshAppLockWallPaper(context: Context, bitmapDrawable: BitmapDrawable) {
-        ToastUtils.showLong("Setting...")
-        val wallpaperManager = WallpaperManager.getInstance(context)
-        val bitmap = bitmapDrawable.bitmap
-        try {
-            wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_LOCK)
-            Toast.makeText(context, "Lockscreen wallpaper set successfully!", Toast.LENGTH_SHORT)
-                .show()
-        } catch (e: Exception) {
-            Toast.makeText(context, "Failed to set Lockscreen Wallpaper!", Toast.LENGTH_SHORT)
-                .show()
+    fun setFreshAppLockWallPaper(activity: PreViewActivity, bitmapDrawable: BitmapDrawable) {
+        GlobalScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
+                activity.mBinding.pbLoading2.visibility = View.VISIBLE
+            }
+            val wallpaperManager = WallpaperManager.getInstance(activity)
+            val bitmap = bitmapDrawable.bitmap
+            try {
+                wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_LOCK)
+                withContext(Dispatchers.Main) {
+                    activity.mBinding.pbLoading2.visibility = View.GONE
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(activity, "Failed to set Lockscreen Wallpaper!", Toast.LENGTH_SHORT)
+                        .show()
+                    activity.mBinding.pbLoading2.visibility = View.GONE
+                }
+            }
         }
     }
 

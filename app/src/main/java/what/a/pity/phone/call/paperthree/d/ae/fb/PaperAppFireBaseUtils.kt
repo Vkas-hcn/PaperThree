@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeConstant
 import what.a.pity.phone.call.paperthree.d.ad.baseeeee.BIBIUBADDDDUtils
 import what.a.pity.phone.call.paperthree.d.ad.baseeeee.AdvertiseEntity
+import what.a.pity.phone.call.paperthree.fast.KeyData
 
 object PaperAppFireBaseUtils {
 
@@ -29,7 +30,11 @@ object PaperAppFireBaseUtils {
         remoteConfig = Firebase.remoteConfig
         remoteConfig!!.fetchAndActivate().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                listAD = remoteConfig?.getString("safeeas_busy")
+                listAD = remoteConfig?.getString(KeyData.ad_key)
+                SPUtils.getInstance()
+                    .put(KeyData.ad_blocking_key, remoteConfig?.getString(KeyData.ad_blocking_key))
+                SPUtils.getInstance()
+                    .put(KeyData.ref_online, remoteConfig?.getString(KeyData.ref_online))
                 FireBaseAD.getFirebaseStringADData()
             }
         }

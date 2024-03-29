@@ -28,7 +28,7 @@ class ONIJNIIOINOIInterLoad(private val context: Context, private val item: Ever
             else -> "Inter"
         }
         LogUtils.e(
-            "WallPaper AD",
+            "WallPaper AD=${item.where}",
             " InterstitialAd, type${type} id: ${item.adIdKKKK}, adweight: ${item.adWeightHAHHA} start preload"
         )
         loadInavnisduabnviosbvaoisubvd(onAdLoaded, onAdLoadFailed)
@@ -52,7 +52,7 @@ class ONIJNIIOINOIInterLoad(private val context: Context, private val item: Ever
 
                 override fun onAdShowedFullScreenContent() {
                     LogUtils.e(
-                        "WallPaper AD",
+                        "WallPaper AD=${item.where}",
                         " InterstitialAd, id: ${item.adIdKKKK}, adweight: ${item.adWeightHAHHA} SUS Show"
                     )
                     BIBIUBADDDDUtils.countAD(true)
@@ -60,7 +60,7 @@ class ONIJNIIOINOIInterLoad(private val context: Context, private val item: Ever
 
                 override fun onAdFailedToShowFullScreenContent(e: AdError) {
                     LogUtils.e(
-                        "WallPaper AD",
+                        "WallPaper AD=${item.where}",
                         " InterstitialAd, id: ${item.adIdKKKK}, adweight: ${item.adWeightHAHHA} Failed Show"
                     )
                     val baseAct = activity as? AppCompatActivity

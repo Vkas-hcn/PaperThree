@@ -24,7 +24,7 @@ class NativeLMDWMIWM(private val context: Context, private val item: EveryADBean
 
     override fun loadHowAreYou(onAdLoaded: () -> Unit, onAdLoadFailed: (msg: String?) -> Unit) {
         LogUtils.e(
-            "WallPaper AD",
+            "WallPaper AD=${item.where}",
             " NativeAd, id: ${item.adIdKKKK}, adweight: ${item.adWeightHAHHA} start preload"
         )
         AdLoader.Builder(context, item.adIdKKKK).apply {
@@ -49,20 +49,18 @@ class NativeLMDWMIWM(private val context: Context, private val item: EveryADBean
     override fun showMyNameIsHei(activity: Activity, nativeParent: ViewGroup?, onAdDismissed: () -> Unit) {
         if (null == nativeAd) return
         LogUtils.e(
-            "WallPaper AD",
+            "WallPaper AD=${item.where}",
             " NativeAd, id: ${item.adIdKKKK}, adweight: ${item.adWeightHAHHA} SUS show"
         )
         val nativeAdView = LayoutInflater.from(activity)
             .inflate(R.layout.jajjaj, nativeParent, false) as NativeAdView
-        nativeAdView.mediaView = nativeAdView.findViewById(R.id.mlskmclskdc_cover)
-        nativeAdView.mediaView?.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+
         nativeAdView.headlineView = nativeAdView.findViewById(R.id.mlskmclskdc_app_name)
         nativeAdView.callToActionView = nativeAdView.findViewById(R.id.mlskmclskdc_action)
         nativeAdView.iconView = nativeAdView.findViewById(R.id.mlskmclskdc_app_icon)
         nativeAdView.bodyView = nativeAdView.findViewById(R.id.mlskmclskdc_app_content)
 
 
-        nativeAd?.mediaContent?.let { nativeAdView.mediaView?.setMediaContent(it) }
         (nativeAdView.headlineView as? TextView)?.text = nativeAd?.headline ?: ""
         (nativeAdView.iconView as? ImageView)?.setImageDrawable(nativeAd?.icon?.drawable)
         (nativeAdView.callToActionView as? Button)?.text = nativeAd?.callToAction

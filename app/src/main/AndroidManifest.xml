@@ -33,6 +33,7 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/google_ad_id" />
+
         <activity
             android:name=".b.ac.PaperThreeActivity"
             android:exported="true"
@@ -50,15 +51,20 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".b.ac.PreViewActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".b.ac.DetailSetActivity"
+            android:name=".b.ac.EndViewActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".b.ac.WActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".b.ac.SettingActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <meta-data
