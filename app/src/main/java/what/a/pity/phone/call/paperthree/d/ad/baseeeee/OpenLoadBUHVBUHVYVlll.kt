@@ -69,7 +69,7 @@ class OpenLoadBUHVBUHVYVlll(private val context: Context, private val item: Ever
                 }
 
                 override fun onAdClicked() {
-                    Log.e("TAG", "onAdClicked: open")
+                    Log.e("TAG", "onAdClicked: fa_c_ongre")
                     BIBIUBADDDDUtils.countAD(s = false, c = true)
                 }
             }

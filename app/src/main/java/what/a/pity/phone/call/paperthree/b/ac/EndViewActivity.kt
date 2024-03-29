@@ -36,7 +36,7 @@ class EndViewActivity : BaseActivity<EndLayoutBinding>() {
     private var baseAd: SoWhatCanYouDo? = null
     private var endAdJob:Job?=null
     override fun initV() {
-        Log.e("TAG", "initV-end: ", )
+        Log.e("TAG", "initV-fa_c_inter: ", )
         lifecycleScope.launch {
             delay(5000)
 
@@ -83,7 +83,7 @@ class EndViewActivity : BaseActivity<EndLayoutBinding>() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         PaperThreeConstant.canRefreshHomeNative = true
-        Log.e("TAG", "jumpToMain-end: ", )
+        Log.e("TAG", "jumpToMain-fa_c_inter: ", )
     }
 
     private fun timeShowMainAd(nextFun: () -> Unit, applyFun: () -> Unit) {
