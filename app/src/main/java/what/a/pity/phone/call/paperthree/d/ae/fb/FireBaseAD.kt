@@ -32,15 +32,16 @@ object FireBaseAD {
     fun getFirebaseStringADData() {
         if (PaperAppFireBaseUtils.listAD?.isNotEmpty() == true && PaperAppFireBaseUtils.listAD?.isNotBlank() == true && PaperAppFireBaseUtils.listAD != null) {
             try {
+                val listAd = String(android.util.Base64.decode(PaperAppFireBaseUtils.listAD, android.util.Base64.DEFAULT))
                 val gson = Gson()
                 val resultBean: AdvertiseEntity? =
-                    gson.fromJson(PaperAppFireBaseUtils.listAD, AdvertiseEntity::class.java)
+                    gson.fromJson(listAd, AdvertiseEntity::class.java)
                 if (resultBean != null) {
                     PaperAppFireBaseUtils.isGetADData = true
                     PaperAppFireBaseUtils.serverADData = resultBean
-                    BIBIUBADDDDUtils.initializeAdConfig(PaperAppFireBaseUtils.listAD)
+                    BIBIUBADDDDUtils.initializeAdConfig(listAd)
                     SPUtils.getInstance()
-                        .put(PaperThreeConstant.AD_HISTORY, PaperAppFireBaseUtils.listAD)
+                        .put(PaperThreeConstant.AD_HISTORY, listAd)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

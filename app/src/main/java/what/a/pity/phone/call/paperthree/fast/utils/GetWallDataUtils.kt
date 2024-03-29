@@ -41,14 +41,18 @@ import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 object GetWallDataUtils {
+    private fun decodeBase64(str: String): String {
+        return String(android.util.Base64.decode(str, android.util.Base64.DEFAULT))
+    }
      fun getLocalBlockingData(): AdBlockingBean {
         val listType = object : TypeToken<AdBlockingBean>() {}.type
         return runCatching {
             Gson().fromJson<AdBlockingBean>(
-                SPUtils.getInstance()
+                decodeBase64(SPUtils.getInstance()
                     .getString(
                         KeyData.ad_blocking_key
-                    ),
+                    ))
+                ,
                 listType
             )
         }.getOrNull() ?: Gson().fromJson(
