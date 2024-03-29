@@ -2,6 +2,7 @@ package what.a.pity.phone.call.paperthree.d.ad.baseeeee
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -15,7 +16,8 @@ import com.google.android.gms.ads.appopen.AppOpenAd
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class OpenLoadBUHVBUHVYVlll(private val context: Context, private val item: EveryADBean) : SoWhatCanYouDo(item) {
+class OpenLoadBUHVBUHVYVlll(private val context: Context, private val item: EveryADBean) :
+    SoWhatCanYouDo(item) {
 
     private var ad: Any? = null
     private val adRequest: AdRequest get() = AdRequest.Builder().build()
@@ -29,7 +31,11 @@ class OpenLoadBUHVBUHVYVlll(private val context: Context, private val item: Ever
         loadAppOpen(onAdLoaded, onAdLoadFailed)
     }
 
-    override fun showMyNameIsHei(activity: Activity, nativeParent: ViewGroup?, onAdDismissed: () -> Unit) {
+    override fun showMyNameIsHei(
+        activity: Activity,
+        nativeParent: ViewGroup?,
+        onAdDismissed: () -> Unit
+    ) {
         val callback: FullScreenContentCallback by lazy {
             object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
@@ -62,7 +68,10 @@ class OpenLoadBUHVBUHVYVlll(private val context: Context, private val item: Ever
                     } else onAdDismissed.invoke()
                 }
 
-                override fun onAdClicked() = BIBIUBADDDDUtils.countAD(s = false, c = true)
+                override fun onAdClicked() {
+                    Log.e("TAG", "onAdClicked: open")
+                    BIBIUBADDDDUtils.countAD(s = false, c = true)
+                }
             }
         }
 
@@ -74,6 +83,7 @@ class OpenLoadBUHVBUHVYVlll(private val context: Context, private val item: Ever
                         show(activity)
                     }
                 }
+
                 else -> onAdDismissed.invoke()
             }
         }
@@ -90,6 +100,11 @@ class OpenLoadBUHVBUHVYVlll(private val context: Context, private val item: Ever
                 override fun onAdLoaded(appOpenAd: AppOpenAd) {
                     ad = appOpenAd
                     onAdLoaded.invoke()
+                    appOpenAd.setOnPaidEventListener { adValue ->
+                        adValue.let {
+                            BIBIUBADDDDUtils.putPointAdOnline(adValue.valueMicros)
+                        }
+                    }
                 }
 
                 override fun onAdFailedToLoad(e: LoadAdError) = onAdLoadFailed.invoke(e.message)

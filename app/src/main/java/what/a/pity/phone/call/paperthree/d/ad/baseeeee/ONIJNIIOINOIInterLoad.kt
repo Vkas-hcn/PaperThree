@@ -2,6 +2,7 @@ package what.a.pity.phone.call.paperthree.d.ad.baseeeee
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -74,8 +75,10 @@ class ONIJNIIOINOIInterLoad(private val context: Context, private val item: Ever
                     } else onAdDismissed.invoke()
                 }
 
-                override fun onAdClicked() = BIBIUBADDDDUtils.countAD(s = false, c = true)
-            }
+                override fun onAdClicked() {
+                    Log.e("TAG", "onAdClicked: Int" )
+                    BIBIUBADDDDUtils.countAD(s = false, c = true)
+                }            }
         }
 
         fun showAdMobFullScreenAd() {
@@ -103,6 +106,9 @@ class ONIJNIIOINOIInterLoad(private val context: Context, private val item: Ever
                 override fun onAdLoaded(interstitialAd: InterstitialAd) {
                     ad = interstitialAd
                     onAdLoaded.invoke()
+                    interstitialAd.setOnPaidEventListener { adValue ->
+                        BIBIUBADDDDUtils.putPointAdOnline(adValue.valueMicros)
+                    }
                 }
 
                 override fun onAdFailedToLoad(e: LoadAdError) = onAdLoadFailed.invoke(e.message)

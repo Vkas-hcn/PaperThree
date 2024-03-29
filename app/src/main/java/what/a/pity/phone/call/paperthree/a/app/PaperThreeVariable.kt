@@ -15,11 +15,11 @@ class PaperThreeVariable {
         var isToRequestPer = false
 
         var imgBannerList = mutableListOf(
-            R.mipmap.qiuqiu21,
-            R.mipmap.qiuqiu22,
-            R.mipmap.qiuqiu23,
-            R.mipmap.qiuqiu19,
-            R.mipmap.qiuqiu18,
+            R.mipmap.qiuqiu31,
+            R.mipmap.qiuqiu32,
+            R.mipmap.qiuqiu33,
+            R.mipmap.qiuqiu34,
+            R.mipmap.qiuqiu35,
         )
 
         var imageList = mutableListOf(
@@ -46,6 +46,18 @@ class PaperThreeVariable {
             R.mipmap.qiuqiu21,
             R.mipmap.qiuqiu22,
             R.mipmap.qiuqiu23,
+
+            R.mipmap.qiuqiu31,
+            R.mipmap.qiuqiu32,
+            R.mipmap.qiuqiu33,
+            R.mipmap.qiuqiu34,
+            R.mipmap.qiuqiu35,
+            R.mipmap.qiuqiu36,
+            R.mipmap.qiuqiu37,
+            R.mipmap.qiuqiu38,
+            R.mipmap.qiuqiu39,
+            R.mipmap.qiuqiu40,
+
         )
 
     }

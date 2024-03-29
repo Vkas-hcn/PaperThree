@@ -2,6 +2,7 @@ package what.a.pity.phone.call.paperthree.d.ad.baseeeee
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.ViewGroup
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -29,7 +30,7 @@ class EveryADLocObjectBUB(private val snvlinjvk: ADType) {
         }
         baseAd.showMyNameIsHei(activity = activity, onAdDismissed = onAdDismissed)
         vsnoevn = {}
-        if(baseAd.adBean.where != "open"){
+        if (baseAd.adBean.where != "open") {
             preload(activity)
         }
     }
@@ -39,8 +40,12 @@ class EveryADLocObjectBUB(private val snvlinjvk: ADType) {
         parent: ViewGroup?,
         onBaseAd: (SoWhatCanYouDo) -> Unit
     ) {
-        if (cacheListncsudbca.isEmpty()) return
+        if (cacheListncsudbca.isEmpty()) {
+            Log.e("TAG", "showVIUVYNativeAd: 1", )
+            return
+        }
         val baseAd = adCaData() ?: return
+        Log.e("TAG", "showVIUVYNativeAd: 2")
         baseAd.showMyNameIsHei(activity = activity, nativeParent = parent)
         onBaseAd.invoke(baseAd)
         vsnoevn = {}
@@ -59,7 +64,12 @@ class EveryADLocObjectBUB(private val snvlinjvk: ADType) {
         MainScope().launch {
             if (dataList.isEmpty()) return@launch
             if (!BIBIUBADDDDUtils.canShowAD()) return@launch
-            if (haveCache) return@launch
+            if (haveCache && isCacheOverTime().not()) {
+                return@launch
+            }
+            if (haveCache) {
+                return@launch
+            }
             if (isLoadBHBU) return@launch
             isLoadBHBU = true
             LLKLKMNCNWmnLLADLoad(context, snvlinjvk, dataList, cacheListncsudbca) {
@@ -71,10 +81,12 @@ class EveryADLocObjectBUB(private val snvlinjvk: ADType) {
 
     private fun isCacheOverTime(): Boolean {
         val item = cacheListncsudbca.firstOrNull() ?: return false
-        return if (System.currentTimeMillis() - item.loadTime >= item.adBean.adCacheInvalidTime * 60000L) {
+        return if (System.currentTimeMillis() - item.loadTime >= (1000L * 60L * 60L)) {
             cacheListncsudbca.remove(item)
             true
-        } else false
+        } else {
+            false
+        }
     }
 
     fun natileWaitWhileLoad(context: Context, block: (Boolean) -> Unit = {}) {

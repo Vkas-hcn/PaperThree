@@ -17,8 +17,7 @@
             android:layout_marginStart="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/logo" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/mlskmclskdc_app_name"
@@ -35,8 +34,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toStartOf="@id/mlskmclskdc_action"
             app:layout_constraintStart_toEndOf="@id/mlskmclskdc_app_icon"
-            app:layout_constraintTop_toTopOf="@id/mlskmclskdc_app_icon"
-            tools:text="Hxap,wlxaigh Schawlx,ool Esmaolkmcacape 2" />
+            app:layout_constraintTop_toTopOf="@id/mlskmclskdc_app_icon" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/mlskmclskdc_app_content"
@@ -51,8 +49,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintEnd_toStartOf="@id/mlskmclskdc_action"
             app:layout_constraintStart_toStartOf="@id/mlskmclskdc_app_name"
-            app:layout_constraintTop_toBottomOf="@id/mlskmclskdc_app_name"
-            tools:text="Hiavwevawevaweavwevagh Schadecasecool Esbcaubcacape 2" />
+            app:layout_constraintTop_toBottomOf="@id/mlskmclskdc_app_name"/>
 
 
         <androidx.appcompat.widget.AppCompatTextView

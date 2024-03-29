@@ -55,7 +55,6 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
         curImg = intent.getIntExtra("intentImgResID", R.mipmap.qiuqiu1)
         mBinding.curImage.setImageResource(curImg)
         BIBIUBADDDDUtils.interHaHaHaOPNNOPIN.preload(this)
-        PaperThreeConstant.canRefreshHomeNative = true
         PaperThreeConstant.canRefreshHomeNative2 = true
     }
 
@@ -76,7 +75,9 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
             }
             isClickTypeDown = 2
             BIBIUBADDDDUtils.interHaHaHaOPNNOPIN.preload(this)
-            showConfirmationDialog(this, mBinding.curImage)
+            onePerInt {
+                showConfirmationDialog(this, mBinding.curImage)
+            }
         }
         mBinding.pagerThreeBack.setOnClickListener {
             smklllllcmnjiaecnuibbaiusybdcaiyvba()
@@ -302,20 +303,21 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
                 return@setOnClickListener
             }
             timeShowApplyAd({
+                alertDialog.dismiss()
                 showLoadingAd {
                     AppInitUtils().setFreshAppWallpaper(
                         detailSetActivity,
                         imageView.drawable as BitmapDrawable
                     )
-                    alertDialog.dismiss()
                     goEndPaper()
                 }
             }, {
+                alertDialog.dismiss()
+
                 AppInitUtils().setFreshAppWallpaper(
                     detailSetActivity,
                     imageView.drawable as BitmapDrawable
                 )
-                alertDialog.dismiss()
                 goEndPaper()
             })
 
@@ -327,13 +329,13 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
             }
             timeShowApplyAd({
                 showLoadingAd {
-                    checkPer(imageView)
                     alertDialog.dismiss()
+                    checkPer(imageView)
                     goEndPaper()
                 }
             }, {
-                checkPer(imageView)
                 alertDialog.dismiss()
+                checkPer(imageView)
                 goEndPaper()
             })
         }
@@ -343,21 +345,21 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
             }
             timeShowApplyAd({
                 showLoadingAd {
+                    alertDialog.dismiss()
                     checkPer(imageView)
                     AppInitUtils().setFreshAppWallpaper(
                         detailSetActivity,
                         imageView.drawable as BitmapDrawable,
                     )
-                    alertDialog.dismiss()
                     goEndPaper()
                 }
             }, {
+                alertDialog.dismiss()
                 checkPer(imageView)
                 AppInitUtils().setFreshAppWallpaper(
                     detailSetActivity,
                     imageView.drawable as BitmapDrawable,
                 )
-                alertDialog.dismiss()
                 goEndPaper()
             })
         }
@@ -371,6 +373,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
     }
 
     private fun goEndPaper() {
+        PaperThreeConstant.canRefreshEndNative = true
         val intent = Intent(this, EndViewActivity::class.java)
         startActivity(intent)
     }
@@ -387,6 +390,25 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
                         this@PreViewActivity,
                         curImg as BitmapDrawable
                     )
+                }
+
+                override fun onDenied() {
+                    PaperThreeVariable.isToRequestPer = false
+                    ToastUtils.showLong("Permission Denied !")
+                }
+            })
+        }
+    }
+
+    private fun onePerInt(nextFun: () -> Unit) {
+        if (Settings.System.canWrite(this)) {
+            nextFun()
+        } else {
+            PaperThreeVariable.isToRequestPer = true
+            PermissionUtils.requestWriteSettings(object : PermissionUtils.SimpleCallback {
+                override fun onGranted() {
+                    PaperThreeVariable.isToRequestPer = false
+                    nextFun()
                 }
 
                 override fun onDenied() {

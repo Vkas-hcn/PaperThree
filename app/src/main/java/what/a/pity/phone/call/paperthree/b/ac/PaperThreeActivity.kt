@@ -43,18 +43,19 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
     private lateinit var consentInformation: ConsentInformation
 
     override fun initV() {
-//        updateUserOpinions()
+        updateUserOpinions()
         GetWallDataUtils.getBlackData(this)
         PaperThreeConstant.canRefreshHomeNative = true
         PaperThreeConstant.canRefreshHomeNative2 = true
+        PaperThreeConstant.canRefreshEndNative = true
         checkAD()
         beforeA()
     }
 
     private fun beforeA() {
-//        if(!SPUtils.getInstance().getBoolean(KeyData.ad_user_state)){
-//            return
-//        }
+        if(!SPUtils.getInstance().getBoolean(KeyData.ad_user_state)){
+            return
+        }
         if (BIBIUBADDDDUtils.canShowAD()) {
             job = AppInitUtils().countDown(100, 100, MainScope(), {
                 mBinding.clakemcpb.progress = it
@@ -137,7 +138,7 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
         val debugSettings =
             ConsentDebugSettings.Builder(this)
                 .setDebugGeography(ConsentDebugSettings.DebugGeography.DEBUG_GEOGRAPHY_EEA)
-                .addTestDeviceHashedId("AC2561437987A1BF036B1ADB0A89BDB4")
+                .addTestDeviceHashedId("FB2D8129B0FE1EB562D7FE7C0B2F4013")
                 .build()
         val params = ConsentRequestParameters
             .Builder()

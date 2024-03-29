@@ -2,11 +2,14 @@ package what.a.pity.phone.call.paperthree.d.ad.baseeeee
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.isVisible
 import com.blankj.utilcode.util.LogUtils
 import com.google.android.gms.ads.AdListener
@@ -31,13 +34,22 @@ class NativeLMDWMIWM(private val context: Context, private val item: EveryADBean
             forNativeAd { ad ->
                 nativeAd = ad
                 onAdLoaded.invoke()
+                ad.setOnPaidEventListener {advalue->
+                    ad.responseInfo?.let { nav ->
+                        BIBIUBADDDDUtils.putPointAdOnline(advalue.valueMicros)
+                    }
+                }
             }
             withAdListener(object : AdListener() {
                 override fun onAdFailedToLoad(e: LoadAdError) {
                     onAdLoadFailed.invoke(e.message)
                 }
 
-                override fun onAdClicked() = BIBIUBADDDDUtils.countAD(s = false, c = true)
+                override fun onAdOpened() {
+                    super.onAdOpened()
+                    Log.e("TAG", "onAdClicked: Nat" )
+                    BIBIUBADDDDUtils.countAD(s = false, c = true)
+                }
             })
             withNativeAdOptions(NativeAdOptions.Builder().apply {
                 setAdChoicesPlacement(NativeAdOptions.ADCHOICES_TOP_RIGHT)
@@ -55,17 +67,25 @@ class NativeLMDWMIWM(private val context: Context, private val item: EveryADBean
         val nativeAdView = LayoutInflater.from(activity)
             .inflate(R.layout.jajjaj, nativeParent, false) as NativeAdView
 
-        nativeAdView.headlineView = nativeAdView.findViewById(R.id.mlskmclskdc_app_name)
-        nativeAdView.callToActionView = nativeAdView.findViewById(R.id.mlskmclskdc_action)
-        nativeAdView.iconView = nativeAdView.findViewById(R.id.mlskmclskdc_app_icon)
-        nativeAdView.bodyView = nativeAdView.findViewById(R.id.mlskmclskdc_app_content)
+        nativeAdView.findViewById<AppCompatTextView?>(R.id.mlskmclskdc_app_name).let {
+            nativeAdView.headlineView =it
+            it.text = nativeAd?.headline
+        }
+        nativeAdView.findViewById<AppCompatTextView?>(R.id.mlskmclskdc_action).let {
+            nativeAdView.callToActionView =it
+            it.text = nativeAd?.callToAction
+        }
+
+        nativeAdView.findViewById<ImageView>(R.id.mlskmclskdc_app_icon)?.let { iconView ->
+            nativeAdView.iconView = iconView
+            iconView.setImageDrawable(nativeAd?.icon?.drawable)
+        }
 
 
-        (nativeAdView.headlineView as? TextView)?.text = nativeAd?.headline ?: ""
-        (nativeAdView.iconView as? ImageView)?.setImageDrawable(nativeAd?.icon?.drawable)
-        (nativeAdView.callToActionView as? Button)?.text = nativeAd?.callToAction
-        (nativeAdView.bodyView as? TextView)?.text = nativeAd?.body
-
+        nativeAdView.findViewById<TextView>(R.id.mlskmclskdc_app_content)?.let { bodyView ->
+            nativeAdView.bodyView = bodyView
+            bodyView.text = nativeAd?.body
+        }
 
         nativeAd?.let { nativeAdView.setNativeAd(it) }
         nativeParent?.isVisible = true

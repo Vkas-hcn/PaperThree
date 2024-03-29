@@ -4,10 +4,13 @@ import android.content.Intent
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
+import com.facebook.appevents.AppEventsLogger
+import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeConstant
 import what.a.pity.phone.call.paperthree.b.ac.MainActivity
 import what.a.pity.phone.call.paperthree.b.ac.PaperThreeActivity
 import java.text.SimpleDateFormat
+import java.util.Currency
 import java.util.Date
 import java.util.Locale
 
@@ -85,5 +88,10 @@ object BIBIUBADDDDUtils {
                 activity.finish()
             }
         }
+    }
+    fun putPointAdOnline(adValue: Long) {
+        AppEventsLogger.newLogger(PaperThreeApp.instance).logPurchase(
+            (adValue / 1000000.0).toBigDecimal(), Currency.getInstance("USD")
+        )
     }
 }

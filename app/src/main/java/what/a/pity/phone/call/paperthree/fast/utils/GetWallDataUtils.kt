@@ -88,9 +88,9 @@ object GetWallDataUtils {
         if (referrer.isNotBlank()) {
             return
         }
-        installReferrer = "facebook"
+//        installReferrer = "facebook"
 //        installReferrer = "utm_source=(not%20set)&utm_medium=(not%20set)"
-        SPUtils.getInstance().put(KeyData.phone_ref,installReferrer)
+//        SPUtils.getInstance().put(KeyData.phone_ref,installReferrer)
         runCatching {
             val referrerClient = InstallReferrerClient.newBuilder(context).build()
             referrerClient.startConnection(object : InstallReferrerStateListener {
@@ -99,7 +99,7 @@ object GetWallDataUtils {
                         InstallReferrerClient.InstallReferrerResponse.OK -> {
                             val installReferrer =
                                 referrerClient.installReferrer.installReferrer ?: ""
-                            SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
+//                            SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
 
                         }
                     }
@@ -117,8 +117,9 @@ object GetWallDataUtils {
     private fun isFacebookUser(): Boolean {
         val refData = SPUtils.getInstance().getString(KeyData.phone_ref)
         val pattern = getRefTypeData()
-        Log.e("TAG", "isFacebookUser:refData=$refData")
-        Log.e("TAG", "isFacebookUser:pattern=$pattern")
+        if(refData.isBlank()){
+            return false
+        }
         return (pattern.contains(refData,true))
     }
 

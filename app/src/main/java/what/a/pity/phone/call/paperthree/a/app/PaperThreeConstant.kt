@@ -7,6 +7,9 @@ class PaperThreeConstant {
 
         var canRefreshHomeNative = true
         var canRefreshHomeNative2 = true
+
+        var canRefreshEndNative = true
+
         const val AD_HISTORY = "ad_history"
         const val nfskjnkkk = """
             {
@@ -146,16 +149,16 @@ class PaperThreeConstant {
         """
 
         const val adBlockingData = """
-            {
+  {
     "tsdesk": "1",
-    "quoswer": "1",
-    "preback": "0",
+    "quoswer": "2",
+    "preback": "2",
     "preuse": "0",
-    "preenter": "0",
-    "rescontinue": "0"
+    "preenter": "2",
+    "rescontinue": "1"
 }
         """
 
-        const val ref_load_data = """fb4a&facebook"""
+        const val ref_load_data = """fb4a&"""
     }
 }
