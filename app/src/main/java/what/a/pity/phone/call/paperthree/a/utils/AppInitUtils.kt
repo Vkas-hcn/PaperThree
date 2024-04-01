@@ -49,6 +49,10 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.initialize
+
 class AppInitUtils {
 
     fun initAppLifeObserver(application: Application) {
@@ -66,6 +70,8 @@ class AppInitUtils {
         }
         MobileAds.initialize(application)
         if (!BuildConfig.DEBUG) {
+            Firebase.initialize(application)
+            FirebaseApp.initializeApp(application)
             PaperAppFireBaseUtils.getFirebaseRemoteConfigData()
             PaperAppFireBaseUtils.fourAppWait4SecondsToGetData()
             MainScope().launch {
