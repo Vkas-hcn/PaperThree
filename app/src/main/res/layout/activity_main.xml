@@ -98,7 +98,7 @@
             <FrameLayout
                 android:id="@+id/native_frame_qr"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="65dp"
                 android:background="@mipmap/qqqaqaqa"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 

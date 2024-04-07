@@ -337,12 +337,12 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
             timeShowApplyAd({
                 showLoadingAd {
                     alertDialog.dismiss()
-                    checkPer(imageView)
+                    checkPer(imageView,true)
                     goEndPaper()
                 }
             }, {
                 alertDialog.dismiss()
-                checkPer(imageView)
+                checkPer(imageView,true)
                 goEndPaper()
             })
         }
@@ -388,12 +388,13 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
         startActivity(intent)
     }
 
-    private fun checkPer(imageView: ImageView) {
+    private fun checkPer(imageView: ImageView,isLock:Boolean =false) {
         if (Settings.System.canWrite(this)) {
             AppInitUtils().setFreshAppLockWallPaper(
                 this,
                 imageView.drawable as BitmapDrawable,
-                "Lock screen"
+                "Lock screen",
+                isLock
             )
         } else {
             PaperThreeVariable.isToRequestPer = true
@@ -402,7 +403,8 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
                     PaperThreeVariable.isToRequestPer = false
                     AppInitUtils().setFreshAppLockWallPaper(
                         this@PreViewActivity,
-                        curImg as BitmapDrawable, "Lock screen"
+                        curImg as BitmapDrawable, "Lock screen",
+                        isLock
                     )
                 }
 

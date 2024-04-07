@@ -108,7 +108,7 @@ object GetWallDataUtils {
                         InstallReferrerClient.InstallReferrerResponse.OK -> {
                             val installReferrer =
                                 referrerClient.installReferrer.installReferrer ?: ""
-                            SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
+//                            SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
                             if (!SPUtils.getInstance().getBoolean(KeyData.haveWallInstall)) {
                                 runCatching {
                                     installReferrer?.run {

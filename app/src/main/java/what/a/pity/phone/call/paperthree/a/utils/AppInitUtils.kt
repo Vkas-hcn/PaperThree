@@ -130,47 +130,35 @@ class AppInitUtils {
 
     fun saveImg(activity: PreViewActivity, nextFun: () -> Unit) {
         if (!checkPer(activity)) {
-            aaa(activity, nextFun)
+            aaa(activity)
         } else {
             nextFun()
         }
 
     }
 
-    private fun aaa(activity: PreViewActivity, nextFun: () -> Unit) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (Environment.isExternalStorageManager()) {
-                nextFun()
-            } else {
-                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                intent.data = Uri.parse("package:" + activity.packageName)
-                activity.startActivityForResult(intent, 200)
-            }
-        } else {
-            val perm = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-            PaperThreeVariable.isToRequestPer = true
-            EasyPermissions.requestPermissions(
-                PermissionRequest.Builder(
-                    activity,
-                    200,
-                    perm
-                )
-                    .build()
+    private fun aaa(activity: PreViewActivity) {
+
+        val perm = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        PaperThreeVariable.isToRequestPer = true
+        EasyPermissions.requestPermissions(
+            PermissionRequest.Builder(
+                activity,
+                200,
+                perm
             )
-        }
+                .build()
+        )
     }
 
     private fun checkPer(activity: PreViewActivity): Boolean {
-        return if (Build.VERSION.SDK_INT >= 30) {
-            EasyPermissions.hasPermissions(
-                activity,
-                android.Manifest.permission.MANAGE_EXTERNAL_STORAGE
-            )
-        } else {
+        return if (Build.VERSION.SDK_INT < 29) {
             EasyPermissions.hasPermissions(
                 activity,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
+        } else {
+            return true
         }
     }
 
@@ -281,14 +269,18 @@ class AppInitUtils {
 
     fun setFreshAppLockWallPaper(
         activity: PreViewActivity, bitmapDrawable: BitmapDrawable,
-        type: String
+        type: String,
+        isLock:Boolean =false
     ) {
         GlobalScope.launch(Dispatchers.IO) {
             val wallpaperManager = WallpaperManager.getInstance(activity)
             val bitmap = bitmapDrawable.bitmap
+
             try {
                 wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_LOCK)
-                WallNetDataUtils.postPotIntData(activity, "wa10ll", "fa", type)
+                if(isLock){
+                    WallNetDataUtils.postPotIntData(activity, "wa10ll", "fa", type)
+                }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
