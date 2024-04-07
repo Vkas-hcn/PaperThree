@@ -10,6 +10,7 @@ import android.util.Log
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.SpanUtils
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -23,8 +24,10 @@ import kotlinx.coroutines.withContext
 import okhttp3.CacheControl
 import okhttp3.Call
 import okhttp3.HttpUrl.Companion.toHttpUrl
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody
 import okhttp3.Response
 import okio.ByteString.Companion.decodeBase64
 import okio.IOException
@@ -44,15 +47,17 @@ object GetWallDataUtils {
     private fun decodeBase64(str: String): String {
         return String(android.util.Base64.decode(str, android.util.Base64.DEFAULT))
     }
-     fun getLocalBlockingData(): AdBlockingBean {
+
+    fun getLocalBlockingData(): AdBlockingBean {
         val listType = object : TypeToken<AdBlockingBean>() {}.type
         return runCatching {
             Gson().fromJson<AdBlockingBean>(
-                decodeBase64(SPUtils.getInstance()
-                    .getString(
-                        KeyData.ad_blocking_key
-                    ))
-                ,
+                decodeBase64(
+                    SPUtils.getInstance()
+                        .getString(
+                            KeyData.ad_blocking_key
+                        )
+                ),
                 listType
             )
         }.getOrNull() ?: Gson().fromJson(
@@ -92,9 +97,9 @@ object GetWallDataUtils {
         if (referrer.isNotBlank()) {
             return
         }
-//        installReferrer = "facebook"
+        installReferrer = "facebook"
 //        installReferrer = "utm_source=(not%20set)&utm_medium=(not%20set)"
-//        SPUtils.getInstance().put(KeyData.phone_ref,installReferrer)
+        SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
         runCatching {
             val referrerClient = InstallReferrerClient.newBuilder(context).build()
             referrerClient.startConnection(object : InstallReferrerStateListener {
@@ -103,8 +108,14 @@ object GetWallDataUtils {
                         InstallReferrerClient.InstallReferrerResponse.OK -> {
                             val installReferrer =
                                 referrerClient.installReferrer.installReferrer ?: ""
-//                            SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
-
+                            SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
+                            if (!SPUtils.getInstance().getBoolean(KeyData.haveWallInstall)) {
+                                runCatching {
+                                    installReferrer?.run {
+                                        WallNetDataUtils.getInstallList(context, referrerClient.installReferrer)
+                                    }
+                                }.exceptionOrNull()
+                            }
                         }
                     }
                     referrerClient.endConnection()
@@ -114,17 +125,26 @@ object GetWallDataUtils {
                 }
             })
         }.onFailure { e ->
-            // 处理异常
         }
+    }
+
+    private fun findOnlineRefList(inputString: String, refData: String): Boolean {
+        val stringArray = inputString.split("&").toTypedArray()
+        stringArray.forEach {
+            if (it.contains(refData, true)) {
+                return true
+            }
+        }
+        return false
     }
 
     private fun isFacebookUser(): Boolean {
         val refData = SPUtils.getInstance().getString(KeyData.phone_ref)
         val pattern = getRefTypeData()
-        if(refData.isBlank()){
+        if (refData.isBlank()) {
             return false
         }
-        return (pattern.contains(refData,true))
+        return findOnlineRefList(pattern, refData)
     }
 
 
@@ -295,9 +315,28 @@ object GetWallDataUtils {
         })
     }
 
-//    fun getCurrentTimeFormatted(): String {
-//        val currentTime = LocalDateTime.now()
-//        val formatter = DateTimeFormatter.ofPattern("HH:mm EEEE M.dd", Locale.ENGLISH)
-//        return currentTime.format(formatter)
-//    }
+    fun postWallPaperData(url: String, body: String, callback: Callback) {
+        val requestBody =
+            RequestBody.create("application/json".toMediaTypeOrNull(), body)
+        val request = Request.Builder()
+            .url(url)
+            .post(requestBody)
+            .tag(body)
+            .build()
+
+        client.newCall(request).enqueue(object : okhttp3.Callback {
+            override fun onResponse(call: Call, response: Response) {
+                val responseBody = response.body?.string()
+                if (response.isSuccessful && responseBody != null) {
+                    callback.onSuccess(responseBody)
+                } else {
+                    callback.onFailure(responseBody.toString())
+                }
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                callback.onFailure("Network error:$e")
+            }
+        })
+    }
 }

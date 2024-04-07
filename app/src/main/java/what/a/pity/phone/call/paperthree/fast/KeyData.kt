@@ -1,5 +1,7 @@
 package what.a.pity.phone.call.paperthree.fast
 
+import what.a.pity.phone.call.paperthree.BuildConfig
+
 object KeyData {
     const val ad_key = "fa_c_crev"
     const val ad_blocking_key = "fa_c_wert"
@@ -17,5 +19,11 @@ object KeyData {
 
 
     const val ad_user_state = "ump_state_dialog"
-
+    val tba_wall_url = if (BuildConfig.DEBUG) {
+        "https://test-loess.khdwallpaper.com/aquinas/info"
+    } else {
+        "https://loess.khdwallpaper.com/six/burst/hysteric"
+    }
+    const val haveWallInstall = "haveWallInstall"
+    const val gidDataWall = "gidDataWall"
 }

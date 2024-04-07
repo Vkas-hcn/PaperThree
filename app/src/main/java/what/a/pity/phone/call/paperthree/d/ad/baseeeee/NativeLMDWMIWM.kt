@@ -11,6 +11,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.isVisible
+import com.adjust.sdk.Adjust
+import com.adjust.sdk.AdjustAdRevenue
+import com.adjust.sdk.AdjustConfig
 import com.blankj.utilcode.util.LogUtils
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
@@ -20,8 +23,11 @@ import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdOptions
 import com.google.android.gms.ads.nativead.NativeAdView
 import what.a.pity.phone.call.paperthree.R
+import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
+import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 
-class NativeLMDWMIWM(private val context: Context, private val item: EveryADBean) : SoWhatCanYouDo(item) {
+class NativeLMDWMIWM(private val context: Context, private val item: EveryADBean) :
+    SoWhatCanYouDo(item) {
 
     private var nativeAd: NativeAd? = null
 
@@ -34,10 +40,20 @@ class NativeLMDWMIWM(private val context: Context, private val item: EveryADBean
             forNativeAd { ad ->
                 nativeAd = ad
                 onAdLoaded.invoke()
-                ad.setOnPaidEventListener {advalue->
+                ad.setOnPaidEventListener { advalue ->
                     ad.responseInfo?.let { nav ->
+                        WallNetDataUtils.getAdList(
+                            PaperThreeApp.instance,
+                            advalue,
+                            nav,
+                            item
+                        )
                         BIBIUBADDDDUtils.putPointAdOnline(advalue.valueMicros)
                     }
+                    val adRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_ADMOB)
+                    adRevenue.setRevenue(advalue.valueMicros / 1000000.0, advalue.currencyCode)
+                    adRevenue.setAdRevenueNetwork(ad.responseInfo?.mediationAdapterClassName)
+                    Adjust.trackAdRevenue(adRevenue)
                 }
             }
             withAdListener(object : AdListener() {
@@ -47,7 +63,7 @@ class NativeLMDWMIWM(private val context: Context, private val item: EveryADBean
 
                 override fun onAdOpened() {
                     super.onAdOpened()
-                    Log.e("TAG", "onAdClicked: Nat" )
+                    Log.e("TAG", "onAdClicked: Nat")
                     BIBIUBADDDDUtils.countAD(s = false, c = true)
                 }
             })
@@ -58,7 +74,11 @@ class NativeLMDWMIWM(private val context: Context, private val item: EveryADBean
         }.build().loadAd(adRequest)
     }
 
-    override fun showMyNameIsHei(activity: Activity, nativeParent: ViewGroup?, onAdDismissed: () -> Unit) {
+    override fun showMyNameIsHei(
+        activity: Activity,
+        nativeParent: ViewGroup?,
+        onAdDismissed: () -> Unit
+    ) {
         if (null == nativeAd) return
         LogUtils.e(
             "WallPaper AD=${item.where}",
@@ -68,11 +88,11 @@ class NativeLMDWMIWM(private val context: Context, private val item: EveryADBean
             .inflate(R.layout.jajjaj, nativeParent, false) as NativeAdView
 
         nativeAdView.findViewById<AppCompatTextView?>(R.id.mlskmclskdc_app_name).let {
-            nativeAdView.headlineView =it
+            nativeAdView.headlineView = it
             it.text = nativeAd?.headline
         }
         nativeAdView.findViewById<AppCompatTextView?>(R.id.mlskmclskdc_action).let {
-            nativeAdView.callToActionView =it
+            nativeAdView.callToActionView = it
             it.text = nativeAd?.callToAction
         }
 

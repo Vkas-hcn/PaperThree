@@ -19,6 +19,7 @@ import what.a.pity.phone.call.paperthree.c.mlskd.ImageKKKK
 import what.a.pity.phone.call.paperthree.d.ad.baseeeee.BIBIUBADDDDUtils
 import what.a.pity.phone.call.paperthree.fast.KeyData
 import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
+import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 
 
 class AppImageListAdapter(private val activity: MainActivity, mData: List<Int?>?) :
@@ -47,6 +48,8 @@ class AppImageListAdapter(private val activity: MainActivity, mData: List<Int?>?
         val resID: Int? = data
         holder?.imageView?.setOnClickListener { v: View? ->
             resID?.let {
+                WallNetDataUtils.postPotIntData(activity,"wa2ll","fa",it.toString())
+
                 timeShowDetailAd(
                     {
                         showJumpDetailAdTime(holder, it)
@@ -63,6 +66,7 @@ class AppImageListAdapter(private val activity: MainActivity, mData: List<Int?>?
         )
         intent.putExtra("intentImgResID", resID)
         holder.itemView.context.startActivity(intent)
+        WallNetDataUtils.postPotIntData(activity,"wa4ll","fa",resID.toString())
     }
 
     inner class BannerViewHolder(var imageView: ImageView) : RecyclerView.ViewHolder(imageView)

@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import com.adjust.sdk.Adjust
+import com.adjust.sdk.AdjustAdRevenue
+import com.adjust.sdk.AdjustConfig
 import com.blankj.utilcode.util.LogUtils
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
@@ -15,6 +18,8 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
+import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 
 class OpenLoadBUHVBUHVYVlll(private val context: Context, private val item: EveryADBean) :
     SoWhatCanYouDo(item) {
@@ -102,8 +107,18 @@ class OpenLoadBUHVBUHVYVlll(private val context: Context, private val item: Ever
                     onAdLoaded.invoke()
                     appOpenAd.setOnPaidEventListener { adValue ->
                         adValue.let {
+                            WallNetDataUtils.getAdList(
+                                PaperThreeApp.instance,
+                                adValue,
+                                appOpenAd.responseInfo,
+                                item
+                            )
                             BIBIUBADDDDUtils.putPointAdOnline(adValue.valueMicros)
                         }
+                        val adRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_ADMOB)
+                        adRevenue.setRevenue(adValue.valueMicros / 1000000.0, adValue.currencyCode)
+                        adRevenue.setAdRevenueNetwork(appOpenAd.responseInfo.mediationAdapterClassName)
+                        Adjust.trackAdRevenue(adRevenue)
                     }
                 }
 

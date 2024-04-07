@@ -71,15 +71,14 @@
             android:id="@+id/ad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
+            android:layout_marginTop="4dp"
             android:background="#FF5F05"
             android:text="AD"
-            android:layout_marginStart="6dp"
             android:textColor="@color/white"
             android:textSize="12sp"
-            app:layout_constraintTop_toTopOf="@id/mlskmclskdc_app_name"
-            app:layout_constraintStart_toEndOf="@id/mlskmclskdc_app_name"
-            app:layout_constraintBottom_toBottomOf="@id/mlskmclskdc_app_name" />
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.gms.ads.nativead.NativeAdView>

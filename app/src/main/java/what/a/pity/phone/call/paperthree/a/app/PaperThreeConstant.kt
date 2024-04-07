@@ -17,7 +17,7 @@ class PaperThreeConstant {
     "fa_c_firma": 5,
     "fa_c_ongre": [
         {
-            "fa_c_les": "ca-app-pub-3940256099942544/3419835294",
+            "fa_c_les": "ca-app-pub-3940256099942544/9257395921",
             "fa_c_ail": "admob",
             "fa_c_eous": "plai",
             "cache_time": 50,
@@ -32,7 +32,7 @@ class PaperThreeConstant {
             "fa_c_eous": "nibi",
             "cache_time": 50,
             "fa_c_oute": 1,
-            "where": "fa_c_ongre"
+            "where": "fa_c_pach"
         }
     ],
     "fa_c_osur": [
@@ -79,6 +79,6 @@ class PaperThreeConstant {
 }
         """
 
-        const val ref_load_data = """fb4a&"""
+        const val ref_load_data = """fb4a&facebook"""
     }
 }

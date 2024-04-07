@@ -40,6 +40,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         BIBIUBADDDDUtils.interHaHaHaOPNNOPIN2.preload(this)
         initBanner()
         userList()
+        PaperThreeConstant.canRefreshHomeNative = true
     }
 
     private fun userList() {
@@ -85,7 +86,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             if (!BIBIUBADDDDUtils.canShowAD()) {
                 mBinding.nativeFrameQr.isVisible = false
             } else if (PaperThreeConstant.canRefreshHomeNative) {
-                PaperThreeConstant.canRefreshHomeNative = false
                 BIBIUBADDDDUtils.mainNativeBOUVIY.preload(this@MainActivity)
                 mBinding.nativeFrameQr.isVisible = true
                     while (true) {
@@ -95,7 +95,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                                 this@MainActivity,
                                 mBinding.nativeFrameQr
                             ) { baseAd = it }
-                            baseAd?.gandiao()
                             break
                         }
                         delay(300)

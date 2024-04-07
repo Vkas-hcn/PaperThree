@@ -32,6 +32,7 @@ import what.a.pity.phone.call.paperthree.d.ae.fb.PaperAppFireBaseUtils
 import what.a.pity.phone.call.paperthree.databinding.SsssssssssBinding
 import what.a.pity.phone.call.paperthree.fast.KeyData
 import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
+import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 
 class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
 
@@ -39,7 +40,6 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
 
     var job: Job? = null
     var job2: Job? = null
-    private var jobStartWall: Job? = null
     private lateinit var consentInformation: ConsentInformation
 
     override fun initV() {
@@ -50,6 +50,8 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
         PaperThreeConstant.canRefreshEndNative = true
         checkAD()
         beforeA()
+        WallNetDataUtils.getSessionList(this)
+        WallNetDataUtils.postPotIntData(this,"wa1ll")
     }
 
     private fun beforeA() {

@@ -38,6 +38,7 @@ import what.a.pity.phone.call.paperthree.d.ad.baseeeee.SoWhatCanYouDo
 import what.a.pity.phone.call.paperthree.databinding.PreviewLayoutBinding
 import what.a.pity.phone.call.paperthree.fast.KeyData
 import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
+import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 
 class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.PermissionCallbacks {
 
@@ -56,10 +57,12 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
         mBinding.curImage.setImageResource(curImg)
         BIBIUBADDDDUtils.interHaHaHaOPNNOPIN.preload(this)
         PaperThreeConstant.canRefreshHomeNative2 = true
+        WallNetDataUtils.postPotIntData(this, "wa5ll")
     }
 
     override fun initL() {
         mBinding.downloadCl.setOnClickListener {
+            WallNetDataUtils.postPotIntData(this, "wa7ll")
             if (haveCanNext()) {
                 return@setOnClickListener
             }
@@ -70,6 +73,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
             }
         }
         mBinding.clApply.setOnClickListener {
+            WallNetDataUtils.postPotIntData(this, "wa8ll")
             if (haveCanNext()) {
                 return@setOnClickListener
             }
@@ -182,6 +186,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
     }
 
     private fun smklllllcmnjiaecnuibbaiusybdcaiyvba() {
+        WallNetDataUtils.postPotIntData(this, "wa6ll")
         if (haveCanNext()) {
             return
         }
@@ -307,7 +312,8 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
                 showLoadingAd {
                     AppInitUtils().setFreshAppWallpaper(
                         detailSetActivity,
-                        imageView.drawable as BitmapDrawable
+                        imageView.drawable as BitmapDrawable,
+                        "wallpaper"
                     )
                     goEndPaper()
                 }
@@ -316,7 +322,8 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
 
                 AppInitUtils().setFreshAppWallpaper(
                     detailSetActivity,
-                    imageView.drawable as BitmapDrawable
+                    imageView.drawable as BitmapDrawable,
+                    "wallpaper"
                 )
                 goEndPaper()
             })
@@ -350,6 +357,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
                     AppInitUtils().setFreshAppWallpaper(
                         detailSetActivity,
                         imageView.drawable as BitmapDrawable,
+                        "both"
                     )
                     goEndPaper()
                 }
@@ -359,11 +367,13 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
                 AppInitUtils().setFreshAppWallpaper(
                     detailSetActivity,
                     imageView.drawable as BitmapDrawable,
+                    "both"
                 )
                 goEndPaper()
             })
         }
         setCancel.setOnClickListener {
+            WallNetDataUtils.postPotIntData(detailSetActivity, "wa9ll")
             if (haveCanNext()) {
                 return@setOnClickListener
             }
@@ -380,7 +390,11 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
 
     private fun checkPer(imageView: ImageView) {
         if (Settings.System.canWrite(this)) {
-            AppInitUtils().setFreshAppLockWallPaper(this, imageView.drawable as BitmapDrawable)
+            AppInitUtils().setFreshAppLockWallPaper(
+                this,
+                imageView.drawable as BitmapDrawable,
+                "Lock screen"
+            )
         } else {
             PaperThreeVariable.isToRequestPer = true
             PermissionUtils.requestWriteSettings(object : PermissionUtils.SimpleCallback {
@@ -388,7 +402,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
                     PaperThreeVariable.isToRequestPer = false
                     AppInitUtils().setFreshAppLockWallPaper(
                         this@PreViewActivity,
-                        curImg as BitmapDrawable
+                        curImg as BitmapDrawable, "Lock screen"
                     )
                 }
 

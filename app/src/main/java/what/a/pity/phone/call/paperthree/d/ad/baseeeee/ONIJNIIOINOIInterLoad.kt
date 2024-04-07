@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import com.adjust.sdk.Adjust
+import com.adjust.sdk.AdjustAdRevenue
+import com.adjust.sdk.AdjustConfig
 import com.blankj.utilcode.util.LogUtils
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
@@ -16,6 +19,8 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
+import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 
 class ONIJNIIOINOIInterLoad(private val context: Context, private val item: EveryADBean) :
     SoWhatCanYouDo(item) {
@@ -107,7 +112,17 @@ class ONIJNIIOINOIInterLoad(private val context: Context, private val item: Ever
                     ad = interstitialAd
                     onAdLoaded.invoke()
                     interstitialAd.setOnPaidEventListener { adValue ->
+                        WallNetDataUtils.getAdList(
+                            PaperThreeApp.instance,
+                            adValue,
+                            interstitialAd.responseInfo,
+                            item
+                        )
                         BIBIUBADDDDUtils.putPointAdOnline(adValue.valueMicros)
+                        val adRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_ADMOB)
+                        adRevenue.setRevenue(adValue.valueMicros / 1000000.0, adValue.currencyCode)
+                        adRevenue.setAdRevenueNetwork(interstitialAd.responseInfo.mediationAdapterClassName)
+                        Adjust.trackAdRevenue(adRevenue)
                     }
                 }
 

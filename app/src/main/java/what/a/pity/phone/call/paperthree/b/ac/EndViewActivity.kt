@@ -26,6 +26,7 @@ import what.a.pity.phone.call.paperthree.databinding.EndLayoutBinding
 import what.a.pity.phone.call.paperthree.databinding.PreviewLayoutBinding
 import what.a.pity.phone.call.paperthree.fast.KeyData
 import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
+import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 
 class EndViewActivity : BaseActivity<EndLayoutBinding>() {
 
@@ -36,24 +37,23 @@ class EndViewActivity : BaseActivity<EndLayoutBinding>() {
     private var baseAd: SoWhatCanYouDo? = null
     private var endAdJob:Job?=null
     override fun initV() {
-        Log.e("TAG", "initV-fa_c_inter: ", )
-        lifecycleScope.launch {
-            delay(5000)
-
-        }
-
+        WallNetDataUtils.postPotIntData(this,"wa11ll")
     }
 
     override fun initL() {
         mBinding.actContinue.setOnClickListener {
+            WallNetDataUtils.postPotIntData(this,"wa13ll")
             backToMainFun()
         }
 
         mBinding.pagerThreeBack.setOnClickListener {
+            WallNetDataUtils.postPotIntData(this,"wa12ll")
+
             backToMainFun()
         }
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                WallNetDataUtils.postPotIntData(this@EndViewActivity,"wa12ll")
                 backToMainFun()
             }
         })

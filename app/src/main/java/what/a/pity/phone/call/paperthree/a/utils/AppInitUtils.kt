@@ -52,6 +52,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
+import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 
 class AppInitUtils {
 
@@ -85,6 +86,7 @@ class AppInitUtils {
         SPUtils.getInstance().remove(KeyData.local_preuse)
         SPUtils.getInstance().remove(KeyData.local_preenter)
         SPUtils.getInstance().remove(KeyData.local_rescontinue)
+        WallNetDataUtils.getGid(application)
     }
 
     fun screenAndroid(context: Context) {
@@ -173,7 +175,11 @@ class AppInitUtils {
     }
 
     @AfterPermissionGranted(200)
-    fun saveFreshAppImageToGallery2(context: PreViewActivity, imageResId: Int,nextFun: () -> Unit) {
+    fun saveFreshAppImageToGallery2(
+        context: PreViewActivity,
+        imageResId: Int,
+        nextFun: () -> Unit
+    ) {
         val drawable = context.getDrawable(imageResId)
 
         if (drawable is BitmapDrawable) {
@@ -209,7 +215,11 @@ class AppInitUtils {
     }
 
 
-    fun saveFreshAppImageToGallery(context: AppCompatActivity, imageResId: Int, nextFun: () -> Unit) {
+    fun saveFreshAppImageToGallery(
+        context: AppCompatActivity,
+        imageResId: Int,
+        nextFun: () -> Unit
+    ) {
         val drawable = context.getDrawable(imageResId)
 
         if (drawable is BitmapDrawable) {
@@ -249,16 +259,17 @@ class AppInitUtils {
     }
 
 
-
     fun setFreshAppWallpaper(
         activity: PreViewActivity,
         bitmapDrawable: BitmapDrawable,
+        type: String
     ) {
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val wallpaperManager = WallpaperManager.getInstance(activity)
                 val bitmap = bitmapDrawable.bitmap
                 wallpaperManager.setBitmap(bitmap)
+                WallNetDataUtils.postPotIntData(activity, "wa10ll", "fa", type)
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(activity, "Failed to set wallpaper!", Toast.LENGTH_SHORT).show()
@@ -268,16 +279,23 @@ class AppInitUtils {
     }
 
 
-    fun setFreshAppLockWallPaper(activity: PreViewActivity, bitmapDrawable: BitmapDrawable) {
+    fun setFreshAppLockWallPaper(
+        activity: PreViewActivity, bitmapDrawable: BitmapDrawable,
+        type: String
+    ) {
         GlobalScope.launch(Dispatchers.IO) {
             val wallpaperManager = WallpaperManager.getInstance(activity)
             val bitmap = bitmapDrawable.bitmap
             try {
                 wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_LOCK)
-
+                WallNetDataUtils.postPotIntData(activity, "wa10ll", "fa", type)
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(activity, "Failed to set Lockscreen Wallpaper!", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        activity,
+                        "Failed to set Lockscreen Wallpaper!",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
                 }
             }

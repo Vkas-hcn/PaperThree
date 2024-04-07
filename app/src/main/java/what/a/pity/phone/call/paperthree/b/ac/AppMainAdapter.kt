@@ -23,6 +23,7 @@ import what.a.pity.phone.call.paperthree.c.mlskd.ImageKKKK
 import what.a.pity.phone.call.paperthree.d.ad.baseeeee.BIBIUBADDDDUtils
 import what.a.pity.phone.call.paperthree.fast.KeyData
 import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
+import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 
 
 class AppMainAdapter(private val activity: MainActivity, private val dataList: List<Int>) :
@@ -72,6 +73,7 @@ class AppMainAdapter(private val activity: MainActivity, private val dataList: L
         val intent = Intent(holder.itemView.context, PreViewActivity::class.java)
         intent.putExtra("intentImgResID", resId)
         holder.itemView.context.startActivity(intent)
+        WallNetDataUtils.postPotIntData(activity,"wa4ll","fa",resId.toString())
     }
 
     private fun showJumpDetailAd(holder: ViewHolder, resId: Int) {
