@@ -4,9 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
@@ -68,7 +66,7 @@ class NativeLMDWMIWM(private val context: Context, private val item: EveryADBean
                 }
             })
             withNativeAdOptions(NativeAdOptions.Builder().apply {
-                setAdChoicesPlacement(NativeAdOptions.ADCHOICES_TOP_RIGHT)
+                setAdChoicesPlacement(NativeAdOptions.ADCHOICES_BOTTOM_RIGHT)
             }.build())
 
         }.build().loadAd(adRequest)

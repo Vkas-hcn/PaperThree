@@ -97,8 +97,8 @@ object GetWallDataUtils {
         if (referrer.isNotBlank()) {
             return
         }
-        installReferrer = "facebook"
-//        installReferrer = "utm_source=(not%20set)&utm_medium=(not%20set)"
+//        installReferrer = "facebook"
+        installReferrer = "utm_source=google-play&utm_medium=organic"
         SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
         runCatching {
             val referrerClient = InstallReferrerClient.newBuilder(context).build()
@@ -131,7 +131,7 @@ object GetWallDataUtils {
     private fun findOnlineRefList(inputString: String, refData: String): Boolean {
         val stringArray = inputString.split("&").toTypedArray()
         stringArray.forEach {
-            if (it.contains(refData, true)) {
+            if (refData.contains(it, true)) {
                 return true
             }
         }
