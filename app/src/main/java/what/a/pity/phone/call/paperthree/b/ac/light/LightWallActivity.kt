@@ -35,7 +35,7 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
     private var imageLightListData: MutableList<LightWallBean> = ArrayList()
     private lateinit var imageLightData: LightWallBean
     private var lightName: String = ""
-    private var wallPaperData = R.mipmap.qiuqiu1
+    private var wallPaperData = R.drawable.ic_blck
 
     var isOpenLightPermission =
         SPUtils.getInstance().getBoolean(KeyData.isOpenLightPermission, false)
@@ -73,9 +73,9 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
 
     private fun showImageType() {
         lightName = intent.getStringExtra("lightWall") ?: ""
-        LightWindow.getInstance().closeThePasswordBox()
+//        LightWindow.getInstance().closeThePasswordBox()
         isGifImage = lightName.contains("top")
-        mBinding.lightView.setGradientSetting()
+        mBinding.lightView.setGradientSetting2()
     }
 
     private fun showPerUi() {
@@ -103,6 +103,9 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
             imageLightData.haveCheck = false
             imageLightListData.add(imageLightData)
         }
+        imageLightListData[0].haveCheck = true
+        mBinding.clDialog.visibility = View.VISIBLE
+
         val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = layoutManager
         val adapter = LightAdapter(this, imageLightListData)
@@ -158,7 +161,7 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 val duration = (1000 - (progress * 5)).toLong()
                 mBinding.lightView.setAnimationDuration(duration)
-                KeyData.lightSpeed = duration
+                KeyData.lightSpeedApp = duration
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -170,8 +173,7 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
         mBinding.sbBorder.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 mBinding.lightView.setStrokeWidth((progress).toFloat())
-                KeyData.lightBorder = (progress).toFloat()
-
+                KeyData.lightBorderApp = (progress).toFloat()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

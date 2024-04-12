@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.BitmapFactory
 import android.util.Log
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.LogUtils
@@ -14,20 +15,11 @@ import com.google.android.ump.ConsentDebugSettings
 import com.google.android.ump.ConsentInformation
 import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.remoteConfig
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.TimeoutCancellationException
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeout
-import what.a.pity.phone.call.paperthree.BuildConfig
 import what.a.pity.phone.call.paperthree.R
 import what.a.pity.phone.call.paperthree.a.app.BaseActivity
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
@@ -46,6 +38,7 @@ import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
 import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 import java.io.IOException
 
+
 class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
 
     override var viewID: Int = R.layout.ssssssssss
@@ -55,8 +48,10 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
     private lateinit var consentInformation: ConsentInformation
 
     override fun initV() {
-//        startWallpaperSettings()
-//        return
+        window.decorView.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE
+
+        window.navigationBarColor = resources.getColor(what.a.pity.phone.call.paperthree.R.color.navigation_bar_color)
         updateUserOpinions()
         GetWallDataUtils.getBlackData(this)
         PaperThreeConstant.canRefreshHomeNative = true
@@ -65,30 +60,33 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
         checkAD()
         beforeA()
         WallNetDataUtils.getSessionList(this)
-        WallNetDataUtils.postPotIntData(this,"wa1ll")
+        WallNetDataUtils.postPotIntData(this, "wa1ll")
         startServiceAndBroadcast()
     }
+
     private fun startWallpaperSettings() {
         PaperThreeApp.isGifImage = true
         lifecycleScope.launch(Dispatchers.IO) {
             val wallpaperManager = WallpaperManager.getInstance(this@PaperThreeActivity)
-            val defaultWallpaper = BitmapFactory.decodeResource(this@PaperThreeActivity.resources, R.drawable.ic_blck)
+            val defaultWallpaper =
+                BitmapFactory.decodeResource(this@PaperThreeActivity.resources, R.drawable.ic_blck)
             try {
                 wallpaperManager.setBitmap(defaultWallpaper)
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     PaperThreeVariable.isToRequestPer = true
                     val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
                     intent.putExtra(
                         WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
                         ComponentName(this@PaperThreeActivity, GifWallpaperService::class.java)
                     )
-                    startActivityForResult(intent,0)
+                    startActivityForResult(intent, 0)
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
             }
         }
     }
+
     private fun startServiceAndBroadcast() {
         val innerReceiver = LightBroadcast()
         val intentFilter = IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
@@ -96,8 +94,9 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
         val intentOne = Intent(this, LightService::class.java)
         startService(intentOne)
     }
+
     private fun beforeA() {
-        if(!SPUtils.getInstance().getBoolean(KeyData.ad_user_state)){
+        if (!SPUtils.getInstance().getBoolean(KeyData.ad_user_state)) {
             return
         }
         if (BIBIUBADDDDUtils.canShowAD()) {

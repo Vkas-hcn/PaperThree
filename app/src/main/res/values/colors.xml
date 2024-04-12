@@ -6,5 +6,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="lightText">#FFFFFF</color>
     <color name="darkText">#777B8C</color>
-
+    <color name="navigation_bar_color">#3B3D46</color>
 </resources>

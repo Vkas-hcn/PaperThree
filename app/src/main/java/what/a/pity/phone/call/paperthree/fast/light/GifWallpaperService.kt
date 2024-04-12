@@ -36,8 +36,6 @@ class GifWallpaperService : WallpaperService() {
         private var wallpaperView: View? = null
         var scrImage: RotatingGradientRectangleView? = null
         var gifImage: MyGifImageView? = null
-        var gifImage2: LottieAnimationView? = null
-
         var imageWindow: WinDowImageView? = null
         private val drawRunnable = Runnable {
             draw()
@@ -87,13 +85,13 @@ class GifWallpaperService : WallpaperService() {
                     }
                     scrImage?.isVisible = true
                     gifImage?.isVisible = false
-                    scrImage?.setGradientSetting()
+                    scrImage?.setGradientSetting2()
                     wallpaperView?.measure(canvas.width, canvas.height)
                     wallpaperView?.layout(0, 0, canvas.width, canvas.height)
-                    if (PaperThreeApp.isGifImage) {
-                        gifImage?.measure(canvas.width, canvas.height)
-                        gifImage?.layout(0, 0, canvas.width, canvas.height)
-                    }
+//                    if (PaperThreeApp.isGifImage) {
+//                        gifImage?.measure(canvas.width, canvas.height)
+//                        gifImage?.layout(0, 0, canvas.width, canvas.height)
+//                    }
                 }
                 wallpaperView?.draw(canvas)
                 surfaceHolder.unlockCanvasAndPost(canvas)

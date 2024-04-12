@@ -96,6 +96,18 @@ class RotatingGradientRectangleView : View {
         invalidate()
     }
 
+    fun setGradientSetting2() {
+        gradientColors = if (PaperThreeApp.isGifImage) {
+            nameToGradientColorsTop(KeyData.isImagePosApp)
+        } else {
+            nameToGradientColors(KeyData.isImagePosApp)
+        }
+        setStrokeWidth(KeyData.lightBorderApp)
+        setAnimationDuration(KeyData.lightSpeedApp)
+        invalidate()
+    }
+
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         startRotationAnimation()

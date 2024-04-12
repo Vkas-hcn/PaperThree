@@ -36,15 +36,6 @@
             tools:layout_editor_absoluteX="26dp"
             tools:listitem="@layout/item_light_wall" />
 
-        <what.a.pity.phone.call.paperthree.b.ac.light.RotatingGradientRectangleView
-            android:id="@+id/lightView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_dialog"
@@ -153,6 +144,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_border" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <what.a.pity.phone.call.paperthree.b.ac.light.RotatingGradientRectangleView
+            android:id="@+id/lightView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

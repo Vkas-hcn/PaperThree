@@ -28,12 +28,7 @@ object KeyData {
     const val haveWallInstall = "haveWallInstall"
     const val gidDataWall = "gidDataWall"
     const val isOpenLightPermission = "isOpenLightPermission"
-    var isImagePos = 0
-        set(value) {
-            SPUtils.getInstance().put("isImagePos", value)
-            field = value
-        }
-        get() = SPUtils.getInstance().getInt("isImagePos", 0)
+
     var lightWallData = 0
         set(value) {
             SPUtils.getInstance().put("lightWallData", value)
@@ -41,12 +36,21 @@ object KeyData {
         }
         get() = SPUtils.getInstance().getInt("lightWallData", 0)
 
-    var lightSpeed = 200L
+
+
+
+    var isImagePos = 0
+        set(value) {
+            SPUtils.getInstance().put("isImagePos", value)
+            field = value
+        }
+        get() = SPUtils.getInstance().getInt("isImagePos", 0)
+    var lightSpeed = 40L
         set(value) {
             SPUtils.getInstance().put("lightSpeed", value)
             field = value
         }
-        get() = SPUtils.getInstance().getLong("lightSpeed", 200L)
+        get() = SPUtils.getInstance().getLong("lightSpeed", 40L)
 
 
     var lightBorder = 50f
@@ -55,5 +59,34 @@ object KeyData {
             field = value
         }
         get() = SPUtils.getInstance().getFloat("lightBorder", 50f)
+
+
+
+
+
+
+
+
+    var isImagePosApp = isImagePos
+        set(value) {
+            SPUtils.getInstance().put("isImagePosApp", value)
+            field = value
+        }
+        get() = SPUtils.getInstance().getInt("isImagePosApp", isImagePos)
+
+    var lightSpeedApp = lightSpeed
+        set(value) {
+            SPUtils.getInstance().put("lightSpeedApp", value)
+            field = value
+        }
+        get() = SPUtils.getInstance().getLong("lightSpeedApp", lightSpeed)
+
+
+    var lightBorderApp = lightBorder
+        set(value) {
+            SPUtils.getInstance().put("lightBorderApp", value)
+            field = value
+        }
+        get() = SPUtils.getInstance().getFloat("lightBorderApp", lightBorder)
 
 }

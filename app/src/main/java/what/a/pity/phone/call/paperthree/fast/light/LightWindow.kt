@@ -32,7 +32,7 @@ class LightWindow {
     var mFloatingLayout: View? = null
     var scrImage: RotatingGradientRectangleView? = null
     var gifImage: ImageView? = null
-
+    var haveShow: Boolean = false
     private lateinit var context: Context
 
 
@@ -71,7 +71,6 @@ class LightWindow {
         mFloatingLayout = inflater.inflate(R.layout.layout_lock_screen2, null)
         scrImage = mFloatingLayout?.findViewById(R.id.lightView)
         gifImage = mFloatingLayout?.findViewById(R.id.lightGif)
-
     }
 
 
@@ -80,9 +79,6 @@ class LightWindow {
             if (PaperThreeApp.isGifImage) {
                 scrImage?.isVisible = false
                 gifImage?.isVisible = true
-                if (gifImage != null) {
-//                    GetWallDataUtils.loadDrawableGif(context, R.drawable.gif_ad_fire01, gifImage!!)
-                }
             } else {
                 scrImage?.isVisible = true
                 gifImage?.isVisible = false
@@ -92,12 +88,16 @@ class LightWindow {
                 mWindowManager?.removeView(mFloatingLayout)
             }
             mWindowManager?.addView(mFloatingLayout, wmParams)
+            haveShow = true
         }
     }
+
 
     fun closeThePasswordBox() {
         if (mWindowManager != null && mFloatingLayout?.parent != null) {
             mWindowManager?.removeView(mFloatingLayout)
+            haveShow = false
+
         }
     }
 

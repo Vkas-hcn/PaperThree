@@ -37,7 +37,7 @@ class LightMainAdapter(private val activity: MainActivity, private val dataList:
         )
         holder.imageView.setOnClickListener {
             jumpToDetail(holder, resId)
-            KeyData.isImagePos = position
+            KeyData.isImagePosApp = position
         }
     }
 

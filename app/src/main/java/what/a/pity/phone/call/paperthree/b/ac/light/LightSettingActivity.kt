@@ -60,7 +60,7 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
             mBinding.haveLightView = false
         } else {
             mBinding.haveLightView = true
-            mBinding.lightView.setGradientSetting()
+            mBinding.lightView.setGradientSetting2()
         }
     }
 
@@ -71,6 +71,11 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
             if (isOpenLightPermission) {
                 stopGifWallpaperService()
                 startWallpaperSettings()
+                KeyData.isImagePos = KeyData.isImagePosApp
+
+                KeyData.lightSpeed = KeyData.lightSpeedApp
+
+                KeyData.lightBorder = KeyData.lightBorderApp
                 LightWindow.getInstance().showPasswordBox()
             } else {
                 stopGifWallpaperService()
@@ -92,6 +97,7 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
     private fun goEndPaper() {
         val intent = Intent(this, EndViewActivity::class.java)
         startActivity(intent)
+        PaperThreeApp.isHaveLight = true
     }
 
     private fun stopGifWallpaperService() {

@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 import what.a.pity.phone.call.paperthree.R
 import what.a.pity.phone.call.paperthree.a.app.BaseActivity
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
+import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp.Companion.isHaveLight
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeConstant
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeVariable
 import what.a.pity.phone.call.paperthree.b.ac.light.LightAdapter
@@ -28,6 +29,7 @@ import what.a.pity.phone.call.paperthree.d.ad.baseeeee.BIBIUBADDDDUtils
 import what.a.pity.phone.call.paperthree.d.ad.baseeeee.SoWhatCanYouDo
 import what.a.pity.phone.call.paperthree.databinding.ActivityMainBinding
 import what.a.pity.phone.call.paperthree.fast.KeyData
+import what.a.pity.phone.call.paperthree.fast.light.LightWindow
 import kotlin.system.exitProcess
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -120,11 +122,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             if (PaperThreeApp.isGifImage) {
                 mBinding.haveLightView = 2
             } else {
-                mBinding.lightView.setGradientSetting()
+                mBinding.lightView.setGradientSetting2()
                 mBinding.haveLightView = 1
             }
+            LightWindow.getInstance().closeThePasswordBox()
         } else {
             mBinding.haveLightView = 0
+            if (isHaveLight) {
+                LightWindow.getInstance().showPasswordBox()
+            }
         }
     }
 
