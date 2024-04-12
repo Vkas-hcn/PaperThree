@@ -58,7 +58,6 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
     private fun showImageType() {
         if (PaperThreeApp.isGifImage) {
             mBinding.haveLightView = false
-//            GetWallDataUtils.loadDrawableGif(this, R.drawable.gif_ad_fire01, mBinding.lightGif)
         } else {
             mBinding.haveLightView = true
             mBinding.lightView.setGradientSetting()

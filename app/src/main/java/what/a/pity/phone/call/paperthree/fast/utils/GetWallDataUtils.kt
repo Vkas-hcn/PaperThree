@@ -34,6 +34,8 @@ import java.nio.charset.StandardCharsets
 import java.util.concurrent.TimeUnit
 import android.content.Context
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -348,5 +350,7 @@ object GetWallDataUtils {
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(imageView)
     }
-
+    fun AppCompatActivity.isVisible(): Boolean {
+        return lifecycle.currentState == Lifecycle.State.RESUMED
+    }
 }

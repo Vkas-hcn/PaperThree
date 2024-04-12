@@ -1,16 +1,24 @@
 package what.a.pity.phone.call.paperthree.b.ac.light
 
+import android.app.Activity
+import android.app.WallpaperManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.MediaController
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.core.net.toUri
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.blankj.utilcode.util.SPUtils
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import what.a.pity.phone.call.paperthree.R
 import what.a.pity.phone.call.paperthree.a.app.BaseActivity
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
@@ -18,7 +26,9 @@ import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp.Companion.isGifImag
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeVariable
 import what.a.pity.phone.call.paperthree.databinding.ActivityLightWallBinding
 import what.a.pity.phone.call.paperthree.fast.KeyData
+import what.a.pity.phone.call.paperthree.fast.light.GifWallpaperService
 import what.a.pity.phone.call.paperthree.fast.light.LightWindow
+import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils.isVisible
 import java.io.IOException
 
 class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
@@ -130,10 +140,11 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
         if (!Settings.canDrawOverlays(context)
         ) {
             runCatching {
-                startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).apply {
+                val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).apply {
                     data = "package:${applicationContext.packageName}".toUri()
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                })
+                }
+                startActivityForResult(intent, 0x4556)
             }
         } else {
             nextFun()
@@ -141,11 +152,11 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
     }
 
     fun setSeekBar() {
-        mBinding.sbSpeed.progress = (1000 - KeyData.lightSpeed.toInt()) / 10
+        mBinding.sbSpeed.progress = (1000 - KeyData.lightSpeed.toInt()) / 5
         mBinding.sbBorder.progress = KeyData.lightBorder.toInt()
         mBinding.sbSpeed.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val duration = (1000 - (progress * 10)).toLong()
+                val duration = (1000 - (progress * 5)).toLong()
                 mBinding.lightView.setAnimationDuration(duration)
                 KeyData.lightSpeed = duration
             }
@@ -170,4 +181,22 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
             }
         })
     }
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == 0x4556) {
+//            lifecycleScope.launch {
+//                delay(1000)
+//                if(this@LightWallActivity.isVisible()){
+//                    if (resultCode == Activity.RESULT_OK) {
+//                        // 用户成功设置了动态壁纸
+//                        Log.e("TAG", "有权限了: ", )
+//                    }else{
+//                        Log.e("TAG", "mei权限了: ", )
+//                    }
+//                }
+//            }
+//
+//        }
+//    }
 }

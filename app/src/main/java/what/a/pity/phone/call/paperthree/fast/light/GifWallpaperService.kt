@@ -72,13 +72,11 @@ class GifWallpaperService : WallpaperService() {
             }
 
             if (canvas != null) {
-                // 清空画布
                 canvas.drawColor(Color.BLACK)
                 if (wallpaperView == null) {
                     wallpaperView = layoutInflater.inflate(R.layout.layout_lock_screen2, null)
                     scrImage = wallpaperView?.findViewById(R.id.lightView)
                     gifImage = wallpaperView?.findViewById(R.id.lightGif)
-                    gifImage2 = wallpaperView?.findViewById(R.id.lav_smile)
                     imageWindow = wallpaperView?.findViewById(R.id.image_window)
 
                     imageWindow?.isVisible = true
@@ -87,17 +85,9 @@ class GifWallpaperService : WallpaperService() {
                     } else {
                         imageWindow?.setImageResource(R.drawable.ic_blck)
                     }
-
-                    if (PaperThreeApp.isGifImage) {
-                        scrImage?.isVisible = false
-                        gifImage?.isVisible = true
-                        Log.e("TAG", "draw: 1111")
-                    } else {
-                        Log.e("TAG", "draw: 3333")
-                        scrImage?.isVisible = true
-                        gifImage?.isVisible = false
-                        scrImage?.setGradientSetting()
-                    }
+                    scrImage?.isVisible = true
+                    gifImage?.isVisible = false
+                    scrImage?.setGradientSetting()
                     wallpaperView?.measure(canvas.width, canvas.height)
                     wallpaperView?.layout(0, 0, canvas.width, canvas.height)
                     if (PaperThreeApp.isGifImage) {

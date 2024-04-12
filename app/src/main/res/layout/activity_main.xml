@@ -88,8 +88,7 @@
                 android:text="Advanced"
                 android:textColor="#FFFFFFFF"
                 android:textSize="15sp"
-                android:visibility="@{isLight ? View.VISIBLE : View.GONE}"
-
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/wallPaperThreeMainTitle" />
 
@@ -99,7 +98,7 @@
                 android:layout_height="130dp"
                 android:layout_marginHorizontal="26dp"
                 android:layout_marginTop="20dp"
-                android:visibility="@{isLight ? View.VISIBLE : View.GONE}"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_ad" />
 
@@ -179,7 +178,7 @@
                     android:background="@{isLight ? null :@drawable/bg_edge}"
                     android:gravity="center"
                     android:paddingVertical="22dp"
-                    android:text="edge lighting"
+                    android:text="Wallpaper"
                     android:textColor="@{isLight ? @color/darkText:@color/lightText}"
                     android:textSize="12sp" />
 
@@ -191,7 +190,7 @@
                     android:background="@{isLight ? @drawable/bg_wall :null}"
                     android:gravity="center"
                     android:paddingVertical="22dp"
-                    android:text="Wallpaper"
+                    android:text="Edge Lighting"
                     android:textColor="@{isLight ? @color/lightText:@color/darkText}"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -213,7 +212,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:visibility="@{haveLightView == 2 ? View.VISIBLE : View.GONE}"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
