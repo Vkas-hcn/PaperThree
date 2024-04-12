@@ -7,10 +7,6 @@
 
         <import type="android.view.View" />
 
-        <variable
-            name="haveLightView"
-            type="Boolean"
-            android:value="false" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,34 +41,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:visibility="@{haveLightView ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <what.a.pity.phone.call.paperthree.b.ac.light.MyGifImageView
-            android:id="@+id/lightGif"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="@{haveLightView ? View.GONE : View.VISIBLE}"
-            android:layout_gravity="center"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lav_smile"
-            android:layout_width="match_parent"
-            android:scaleType="fitXY"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="fire01.json"
-            app:lottie_loop="true" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_dialog"
             android:layout_width="match_parent"

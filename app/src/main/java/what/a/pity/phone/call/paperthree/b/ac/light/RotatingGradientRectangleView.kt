@@ -86,7 +86,11 @@ class RotatingGradientRectangleView : View {
     }
 
     fun setGradientSetting() {
-        gradientColors = nameToGradientColors(KeyData.isImagePos)
+        gradientColors = if (PaperThreeApp.isGifImage) {
+            nameToGradientColorsTop(KeyData.isImagePos)
+        } else {
+            nameToGradientColors(KeyData.isImagePos)
+        }
         setStrokeWidth(KeyData.lightBorder)
         setAnimationDuration(KeyData.lightSpeed)
         invalidate()
@@ -182,9 +186,6 @@ class RotatingGradientRectangleView : View {
                 )
             }
 
-
-
-
             6 -> {
                 intArrayOf(
                     Color.parseColor("#FEB2BD"),
@@ -195,6 +196,7 @@ class RotatingGradientRectangleView : View {
                     Color.parseColor("#D0F4C0")
                 )
             }
+
             7 -> {
                 intArrayOf(
                     Color.parseColor("#494BEA"),
@@ -205,6 +207,7 @@ class RotatingGradientRectangleView : View {
                     Color.parseColor("#F78769")
                 )
             }
+
             8 -> {
                 intArrayOf(
                     Color.parseColor("#33C698"),
@@ -216,12 +219,6 @@ class RotatingGradientRectangleView : View {
                 )
             }
 
-
-
-
-
-
-
             9 -> {
                 intArrayOf(
                     Color.parseColor("#BC4394"),
@@ -232,6 +229,7 @@ class RotatingGradientRectangleView : View {
                     Color.parseColor("#0551C1")
                 )
             }
+
             10 -> {
                 intArrayOf(
                     Color.parseColor("#C6CC4B"),
@@ -242,6 +240,7 @@ class RotatingGradientRectangleView : View {
                     Color.parseColor("#FD282D")
                 )
             }
+
             11 -> {
                 intArrayOf(
                     Color.parseColor("#42FEB2"),
@@ -254,11 +253,6 @@ class RotatingGradientRectangleView : View {
             }
 
 
-
-
-
-
-
             12 -> {
                 intArrayOf(
                     Color.parseColor("#351731"),
@@ -269,6 +263,7 @@ class RotatingGradientRectangleView : View {
                     Color.parseColor("#DBD6D5")
                 )
             }
+
             13 -> {
                 intArrayOf(
                     Color.parseColor("#7048C9"),
@@ -279,6 +274,7 @@ class RotatingGradientRectangleView : View {
                     Color.parseColor("#E53B4D")
                 )
             }
+
             14 -> {
                 intArrayOf(
                     Color.parseColor("#B428FF"),
@@ -291,7 +287,6 @@ class RotatingGradientRectangleView : View {
             }
 
 
-
             15 -> {
                 intArrayOf(
                     Color.parseColor("#DA4DF5"),
@@ -302,6 +297,7 @@ class RotatingGradientRectangleView : View {
                     Color.parseColor("#4BE8D3")
                 )
             }
+
             16 -> {
                 intArrayOf(
                     Color.parseColor("#FF982C"),
@@ -312,6 +308,7 @@ class RotatingGradientRectangleView : View {
                     Color.parseColor("#3ADCFB")
                 )
             }
+
             17 -> {
                 intArrayOf(
                     Color.parseColor("#D5FAF7"),
@@ -324,8 +321,6 @@ class RotatingGradientRectangleView : View {
             }
 
 
-
-
             18 -> {
                 intArrayOf(
                     Color.parseColor("#25F852"),
@@ -336,6 +331,7 @@ class RotatingGradientRectangleView : View {
                     Color.parseColor("#F23038")
                 )
             }
+
             19 -> {
                 intArrayOf(
                     Color.parseColor("#FC56EA"),
@@ -359,6 +355,56 @@ class RotatingGradientRectangleView : View {
             }
         }
     }
+
+
+    private fun nameToGradientColorsTop(pos: Int): IntArray {
+        return when (pos) {
+            0 -> {
+                intArrayOf(
+                    Color.parseColor("#8FA5FF"),
+                    Color.parseColor("#B1A4C3"),
+                    Color.parseColor("#CDA297"),
+                    Color.parseColor("#E2A077"),
+                    Color.parseColor("#EEA05F"),
+                    Color.parseColor("#FF9E42")
+                )
+            }
+
+            1 -> {
+                intArrayOf(
+                    Color.parseColor("#FF982C"),
+                    Color.parseColor("#FC676E"),
+                    Color.parseColor("#F435B7"),
+                    Color.parseColor("#CB5AC5"),
+                    Color.parseColor("#8C92DC"),
+                    Color.parseColor("#3ADCFB")
+                )
+            }
+
+            2 -> {
+                intArrayOf(
+                    Color.parseColor("#D5FAF7"),
+                    Color.parseColor("#DBF7EB"),
+                    Color.parseColor("#E3EFD4"),
+                    Color.parseColor("#EDE8BE"),
+                    Color.parseColor("#F4E4AD"),
+                    Color.parseColor("#FADD9A")
+                )
+            }
+
+            else -> {
+                intArrayOf(
+                    Color.parseColor("#ECEA41"),
+                    Color.parseColor("#C3E76E"),
+                    Color.parseColor("#A1E691"),
+                    Color.parseColor("#7FDABA"),
+                    Color.parseColor("#63C8DD"),
+                    Color.parseColor("#53BDF2")
+                )
+            }
+        }
+    }
+
 }
 
 

@@ -64,20 +64,8 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
     private fun showImageType() {
         lightName = intent.getStringExtra("lightWall") ?: ""
         LightWindow.getInstance().closeThePasswordBox()
-        if (lightName.contains("gif")) {
-            isGifImage = true
-            mBinding.haveLightView = false
-            try {
-//                val gifDrawable = GifDrawable(assets, "gif_ad_ass_01.gif")
-//                mBinding.lightGif?.setImageDrawable(gifDrawable)
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        } else {
-            isGifImage = false
-            mBinding.lightView.setGradientSetting()
-            mBinding.haveLightView = true
-        }
+        isGifImage = lightName.contains("top")
+        mBinding.lightView.setGradientSetting()
     }
 
     private fun showPerUi() {
@@ -123,7 +111,7 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
         imageLightListData[position].haveCheck = true
         wallPaperData = imageLightListData[position].imageData
         adapter.notifyDataSetChanged()
-        if (mBinding.haveLightView == false) {
+        if (isGifImage) {
             mBinding.textView2.visibility = View.GONE
             mBinding.sbSpeed.visibility = View.GONE
             mBinding.tvBorder.visibility = View.GONE
