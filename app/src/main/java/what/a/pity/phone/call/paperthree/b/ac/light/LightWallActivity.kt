@@ -64,7 +64,7 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
     private fun showImageType() {
         lightName = intent.getStringExtra("lightWall") ?: ""
         LightWindow.getInstance().closeThePasswordBox()
-        if (lightName.contains("gif")) {
+        if (lightName.contains("top")) {
             isGifImage = true
             mBinding.haveLightView = false
             try {

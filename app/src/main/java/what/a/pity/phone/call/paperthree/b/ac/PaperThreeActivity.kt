@@ -55,8 +55,8 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
     private lateinit var consentInformation: ConsentInformation
 
     override fun initV() {
-//        startWallpaperSettings()
-//        return
+        startWallpaperSettings()
+        return
         updateUserOpinions()
         GetWallDataUtils.getBlackData(this)
         PaperThreeConstant.canRefreshHomeNative = true

@@ -9,13 +9,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+    >
+
         <what.a.pity.phone.call.paperthree.b.ac.light.WinDowImageView
             android:id="@+id/image_window"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
         <what.a.pity.phone.call.paperthree.b.ac.light.RotatingGradientRectangleView
             android:id="@+id/lightView"
             android:layout_width="match_parent"
@@ -25,6 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <what.a.pity.phone.call.paperthree.b.ac.light.MyGifImageView
             android:id="@+id/lightGif"
             android:layout_width="match_parent"
@@ -34,19 +39,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lav_smile"
             android:layout_width="match_parent"
-            android:scaleType="fitXY"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_fileName="fire01.json"
+            app:lottie_fileName="top_1.json"
+            app:lottie_imageAssetsFolder="top_1_images"
             app:lottie_loop="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
