@@ -1,8 +1,6 @@
 package what.a.pity.phone.call.paperthree.fast.utils
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
@@ -10,7 +8,6 @@ import android.util.Log
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.SpanUtils
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -20,7 +17,6 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import okhttp3.CacheControl
 import okhttp3.Call
 import okhttp3.HttpUrl.Companion.toHttpUrl
@@ -29,19 +25,19 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
-import okio.ByteString.Companion.decodeBase64
 import okio.IOException
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeConstant
 import what.a.pity.phone.call.paperthree.d.ad.baseeeee.AdBlockingBean
-import what.a.pity.phone.call.paperthree.d.ad.baseeeee.AdvertiseEntity
-import what.a.pity.phone.call.paperthree.d.ae.fb.PaperAppFireBaseUtils
 import what.a.pity.phone.call.paperthree.fast.KeyData
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Locale
 import java.util.concurrent.TimeUnit
+import android.content.Context
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 
 object GetWallDataUtils {
     private fun decodeBase64(str: String): String {
@@ -112,7 +108,10 @@ object GetWallDataUtils {
                             if (!SPUtils.getInstance().getBoolean(KeyData.haveWallInstall)) {
                                 runCatching {
                                     installReferrer?.run {
-                                        WallNetDataUtils.getInstallList(context, referrerClient.installReferrer)
+                                        WallNetDataUtils.getInstallList(
+                                            context,
+                                            referrerClient.installReferrer
+                                        )
                                     }
                                 }.exceptionOrNull()
                             }
@@ -339,4 +338,15 @@ object GetWallDataUtils {
             }
         })
     }
+
+
+    fun loadDrawableGif(context: Context, resourceId: Int, imageView: ImageView) {
+        Glide.with(context)
+            .asGif()
+            .load(resourceId) // Drawable资源ID
+            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(imageView)
+    }
+
 }

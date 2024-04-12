@@ -4,11 +4,15 @@
     package="what.a.pity.phone.call.paperthree">
 
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.BIND_WALLPAPER"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW"/>
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32"
@@ -29,6 +33,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PaperThree"
         tools:targetApi="31">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <service android:name=".fast.light.LightService"/>
+        <service
+            android:name=".fast.light.GifWallpaperService"
+            android:label="My Wallpaper"
+            android:permission="android.permission.BIND_WALLPAPER"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/wallpaper_info" />
+        </service>
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/google_ad_id" />
@@ -65,10 +91,19 @@
             android:name=".b.ac.SettingActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".b.ac.light.LightWallActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".b.ac.light.LightSettingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook" />
+
+
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/curImage"
                 android:layout_width="match_parent"
@@ -154,7 +155,6 @@
                 android:layout_height="65dp"
                 android:background="@mipmap/qqqaqaqa"
                 app:layout_constraintBottom_toBottomOf="parent"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

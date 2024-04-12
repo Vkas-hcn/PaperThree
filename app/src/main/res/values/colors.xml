@@ -4,4 +4,7 @@
     <color name="haahaha">#00000000</color>
 
     <color name="white">#FFFFFFFF</color>
+    <color name="lightText">#FFFFFF</color>
+    <color name="darkText">#777B8C</color>
+
 </resources>

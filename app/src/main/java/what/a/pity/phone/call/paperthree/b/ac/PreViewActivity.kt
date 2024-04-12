@@ -1,6 +1,7 @@
 package what.a.pity.phone.call.paperthree.b.ac
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.provider.Settings
@@ -14,6 +15,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -37,6 +39,7 @@ import what.a.pity.phone.call.paperthree.d.ad.baseeeee.BIBIUBADDDDUtils
 import what.a.pity.phone.call.paperthree.d.ad.baseeeee.SoWhatCanYouDo
 import what.a.pity.phone.call.paperthree.databinding.PreviewLayoutBinding
 import what.a.pity.phone.call.paperthree.fast.KeyData
+import what.a.pity.phone.call.paperthree.fast.light.LightWindow
 import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
 import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 
@@ -166,6 +169,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
             }
         }
     }
+
 
     private fun timeShowApplyAd(nextFun: () -> Unit, applyFun: () -> Unit) {
         val num = GetWallDataUtils.getLocalBlockingData().preuse?.toInt()
@@ -310,20 +314,18 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
             timeShowApplyAd({
                 alertDialog.dismiss()
                 showLoadingAd {
-                    AppInitUtils().setFreshAppWallpaper(
+                    AppInitUtils().setFreshAppHomeWallpaper(
                         detailSetActivity,
-                        imageView.drawable as BitmapDrawable,
-                        "wallpaper"
+                        imageView.drawable as BitmapDrawable
                     )
                     goEndPaper()
                 }
             }, {
                 alertDialog.dismiss()
 
-                AppInitUtils().setFreshAppWallpaper(
+                AppInitUtils().setFreshAppHomeWallpaper(
                     detailSetActivity,
-                    imageView.drawable as BitmapDrawable,
-                    "wallpaper"
+                    imageView.drawable as BitmapDrawable
                 )
                 goEndPaper()
             })
@@ -337,12 +339,12 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
             timeShowApplyAd({
                 showLoadingAd {
                     alertDialog.dismiss()
-                    checkPer(imageView,true)
+                    checkPer(imageView, true)
                     goEndPaper()
                 }
             }, {
                 alertDialog.dismiss()
-                checkPer(imageView,true)
+                checkPer(imageView, true)
                 goEndPaper()
             })
         }
@@ -356,9 +358,8 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
                     checkPer(imageView)
                     AppInitUtils().setFreshAppWallpaper(
                         detailSetActivity,
-                        imageView.drawable as BitmapDrawable,
-                        "both"
-                    )
+                        imageView.drawable as BitmapDrawable
+                    ) {}
                     goEndPaper()
                 }
             }, {
@@ -366,9 +367,8 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
                 checkPer(imageView)
                 AppInitUtils().setFreshAppWallpaper(
                     detailSetActivity,
-                    imageView.drawable as BitmapDrawable,
-                    "both"
-                )
+                    imageView.drawable as BitmapDrawable
+                ){}
                 goEndPaper()
             })
         }
@@ -388,7 +388,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
         startActivity(intent)
     }
 
-    private fun checkPer(imageView: ImageView,isLock:Boolean =false) {
+    private fun checkPer(imageView: ImageView, isLock: Boolean = false) {
         if (Settings.System.canWrite(this)) {
             AppInitUtils().setFreshAppLockWallPaper(
                 this,

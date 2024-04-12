@@ -2,6 +2,7 @@ package what.a.pity.phone.call.paperthree.fast.utils
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
@@ -22,6 +23,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 import what.a.pity.phone.call.paperthree.BuildConfig
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
+import what.a.pity.phone.call.paperthree.a.app.PaperThreeVariable.Companion.imageList
 import what.a.pity.phone.call.paperthree.d.ad.baseeeee.EveryADBean
 import what.a.pity.phone.call.paperthree.fast.KeyData
 import what.a.pity.phone.call.paperthree.fast.KeyData.tba_wall_url
@@ -388,4 +390,15 @@ object WallNetDataUtils {
             Firebase.analytics.logEvent(name, bundleOf("fa" to time))
         }
     }
+    fun postImageNameData(context: Context,name: String,resId:Int){
+        postPotIntData(context,name,"fa",getResourceNameFromId(context,resId))
+    }
+    private fun getResourceNameFromId(context: Context, resourceId: Int): String {
+        return try {
+            context.resources.getResourceEntryName(resourceId)
+        } catch (e: Resources.NotFoundException) {
+            ""
+        }
+    }
+
 }

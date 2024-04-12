@@ -1,6 +1,10 @@
 package what.a.pity.phone.call.paperthree.b.ac
 
+import android.app.WallpaperManager
+import android.content.ComponentName
 import android.content.Intent
+import android.content.IntentFilter
+import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +16,7 @@ import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -20,19 +25,26 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import what.a.pity.phone.call.paperthree.BuildConfig
 import what.a.pity.phone.call.paperthree.R
 import what.a.pity.phone.call.paperthree.a.app.BaseActivity
+import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeConstant
+import what.a.pity.phone.call.paperthree.a.app.PaperThreeVariable
 import what.a.pity.phone.call.paperthree.a.utils.AppInitUtils
 import what.a.pity.phone.call.paperthree.d.ad.baseeeee.BIBIUBADDDDUtils
 import what.a.pity.phone.call.paperthree.d.ae.fb.FireBaseAD
 import what.a.pity.phone.call.paperthree.d.ae.fb.PaperAppFireBaseUtils
 import what.a.pity.phone.call.paperthree.databinding.SsssssssssBinding
 import what.a.pity.phone.call.paperthree.fast.KeyData
+import what.a.pity.phone.call.paperthree.fast.light.GifWallpaperService
+import what.a.pity.phone.call.paperthree.fast.light.LightBroadcast
+import what.a.pity.phone.call.paperthree.fast.light.LightService
 import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
 import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
+import java.io.IOException
 
 class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
 
@@ -43,6 +55,8 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
     private lateinit var consentInformation: ConsentInformation
 
     override fun initV() {
+//        startWallpaperSettings()
+//        return
         updateUserOpinions()
         GetWallDataUtils.getBlackData(this)
         PaperThreeConstant.canRefreshHomeNative = true
@@ -52,8 +66,36 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
         beforeA()
         WallNetDataUtils.getSessionList(this)
         WallNetDataUtils.postPotIntData(this,"wa1ll")
+        startServiceAndBroadcast()
     }
-
+    private fun startWallpaperSettings() {
+        PaperThreeApp.isGifImage = true
+        lifecycleScope.launch(Dispatchers.IO) {
+            val wallpaperManager = WallpaperManager.getInstance(this@PaperThreeActivity)
+            val defaultWallpaper = BitmapFactory.decodeResource(this@PaperThreeActivity.resources, R.drawable.ic_blck)
+            try {
+                wallpaperManager.setBitmap(defaultWallpaper)
+                withContext(Dispatchers.Main){
+                    PaperThreeVariable.isToRequestPer = true
+                    val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
+                    intent.putExtra(
+                        WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
+                        ComponentName(this@PaperThreeActivity, GifWallpaperService::class.java)
+                    )
+                    startActivityForResult(intent,0)
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+    private fun startServiceAndBroadcast() {
+        val innerReceiver = LightBroadcast()
+        val intentFilter = IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
+        registerReceiver(innerReceiver, intentFilter)
+        val intentOne = Intent(this, LightService::class.java)
+        startService(intentOne)
+    }
     private fun beforeA() {
         if(!SPUtils.getInstance().getBoolean(KeyData.ad_user_state)){
             return

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="haveLightView"
+            type="Boolean"
+            android:value="false" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/curImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/pagerThreeBack"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="49dp"
+                android:src="@mipmap/backkkkkk"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="49dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ProgressBar
+                    android:id="@+id/pb_loading"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:progress="45"
+                    android:progressDrawable="@drawable/bg_dow_pb" />
+
+                <TextView
+                    android:id="@+id/tv_loading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:text="Apply..."
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clApply"
+                android:layout_width="142dp"
+                android:layout_height="59dp"
+                android:layout_marginBottom="59dp"
+                android:background="@drawable/gray_15"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/b"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/add_collection"
+                    app:layout_constraintBottom_toBottomOf="@id/apply"
+                    app:layout_constraintEnd_toStartOf="@id/apply"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/apply" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/apply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Apply"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/b"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <what.a.pity.phone.call.paperthree.b.ac.light.RotatingGradientRectangleView
+            android:id="@+id/lightView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:visibility="@{haveLightView ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/lightGif"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:visibility="@{haveLightView ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -33,9 +33,6 @@ class EndViewActivity : BaseActivity<EndLayoutBinding>() {
     override var viewID: Int
         get() = R.layout.end_layout
         set(value) {}
-    private var curImg = R.mipmap.qiuqiu1
-    private var baseAd: SoWhatCanYouDo? = null
-    private var endAdJob:Job?=null
     override fun initV() {
         WallNetDataUtils.postPotIntData(this,"wa11ll")
     }
@@ -103,42 +100,8 @@ class EndViewActivity : BaseActivity<EndLayoutBinding>() {
         }
         nextFun()
     }
-    fun tryFun(nextFun: () -> Unit){
-        try {
-            nextFun()
-        }catch (e:Exception){
-            Log.e("TAG", "tryFun: $e", )
-        }
-    }
     override fun onResume() {
         super.onResume()
-//        tryFun{
-//            endAdJob = lifecycleScope.launch(Dispatchers.Main) {
-//                delay(200)
-//                if (!BIBIUBADDDDUtils.canShowAD() || !GetWallDataUtils.showAdCenter() || !GetWallDataUtils.showAdBlacklist()) {
-//                    mBinding.nativeFrameEnd.isVisible = false
-//                } else if (PaperThreeConstant.canRefreshEndNative) {
-//                    Log.e("TAG", "onResume-end: 1", )
-//                    PaperThreeConstant.canRefreshEndNative = false
-//                    BIBIUBADDDDUtils.mainNativeBOUVIY.preload(this@EndViewActivity)
-//                    mBinding.nativeFrameEnd.isVisible = true
-//                    while (true) {
-//                        if (BIBIUBADDDDUtils.mainNativeBOUVIY.haveCache) {
-//                            Log.e("TAG", "onResume-end: 2", )
-//                            PaperThreeConstant.canRefreshEndNative = false
-//                            BIBIUBADDDDUtils.mainNativeBOUVIY.showVIUVYNativeAd(
-//                                this@EndViewActivity,
-//                                mBinding.nativeFrameEnd
-//                            ) { baseAd = it }
-//                            endAdJob?.cancel()
-//                            endAdJob = null
-//                            break
-//                        }
-//                        delay(300)
-//                    }
-//                }
-//            }
-//        }
     }
 
     override fun onDestroy() {

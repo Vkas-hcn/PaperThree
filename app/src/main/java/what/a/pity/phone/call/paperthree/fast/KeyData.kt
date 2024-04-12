@@ -1,5 +1,6 @@
 package what.a.pity.phone.call.paperthree.fast
 
+import com.blankj.utilcode.util.SPUtils
 import what.a.pity.phone.call.paperthree.BuildConfig
 
 object KeyData {
@@ -26,4 +27,33 @@ object KeyData {
     }
     const val haveWallInstall = "haveWallInstall"
     const val gidDataWall = "gidDataWall"
+    const val isOpenLightPermission = "isOpenLightPermission"
+    var isImagePos = 0
+        set(value) {
+            SPUtils.getInstance().put("isImagePos", value)
+            field = value
+        }
+        get() = SPUtils.getInstance().getInt("isImagePos", 0)
+    var lightWallData = 0
+        set(value) {
+            SPUtils.getInstance().put("lightWallData", value)
+            field = value
+        }
+        get() = SPUtils.getInstance().getInt("lightWallData", 0)
+
+    var lightSpeed = 200L
+        set(value) {
+            SPUtils.getInstance().put("lightSpeed", value)
+            field = value
+        }
+        get() = SPUtils.getInstance().getLong("lightSpeed", 200L)
+
+
+    var lightBorder = 50f
+        set(value) {
+            SPUtils.getInstance().put("lightBorder", value)
+            field = value
+        }
+        get() = SPUtils.getInstance().getFloat("lightBorder", 50f)
+
 }

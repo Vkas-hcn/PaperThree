@@ -246,18 +246,37 @@ class AppInitUtils {
         }
     }
 
-
-    fun setFreshAppWallpaper(
-        activity: PreViewActivity,
+    fun setFreshAppHomeWallpaper(
+        activity: AppCompatActivity,
         bitmapDrawable: BitmapDrawable,
-        type: String
+    ) {
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                val wallpaperManager = WallpaperManager.getInstance(activity)
+                val bitmap = bitmapDrawable.bitmap
+                wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_SYSTEM)
+                WallNetDataUtils.postPotIntData(activity, "wa10ll", "fa", "home")
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(activity, "Failed to set wallpaper!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+    fun setFreshAppWallpaper(
+        activity: AppCompatActivity,
+        bitmapDrawable: BitmapDrawable,
+        nextFun: () -> Unit
     ) {
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 val wallpaperManager = WallpaperManager.getInstance(activity)
                 val bitmap = bitmapDrawable.bitmap
                 wallpaperManager.setBitmap(bitmap)
-                WallNetDataUtils.postPotIntData(activity, "wa10ll", "fa", type)
+                WallNetDataUtils.postPotIntData(activity, "wa10ll", "fa", "both")
+                withContext(Dispatchers.Main){
+                    nextFun()
+                }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(activity, "Failed to set wallpaper!", Toast.LENGTH_SHORT).show()

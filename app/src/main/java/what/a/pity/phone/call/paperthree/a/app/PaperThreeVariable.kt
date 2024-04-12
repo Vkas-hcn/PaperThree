@@ -152,6 +152,47 @@ class PaperThreeVariable {
             R.mipmap.qiuqiu587,
             R.mipmap.qiuqiu588,
         )
+        var imgLightAdList = mutableListOf(
+            R.drawable.ic_top_1,
+        )
+
+        var imgLightPopList = mutableListOf(
+            R.drawable.ic_57,
+            R.drawable.ic_58,
+            R.drawable.ic_59,
+            R.drawable.ic_60,
+            R.drawable.ic_61,
+            R.drawable.ic_62,
+            R.drawable.ic_63,
+            R.drawable.ic_64,
+            R.drawable.ic_65,
+            R.drawable.ic_66,
+            R.drawable.ic_67,
+            R.drawable.ic_68,
+            R.drawable.ic_69,
+            R.drawable.ic_70,
+            R.drawable.ic_71,
+            R.drawable.ic_72,
+            R.drawable.ic_73,
+            R.drawable.ic_74,
+            R.drawable.ic_75,
+            R.drawable.ic_76,
+        )
+
+        var imageLightWallList = mutableListOf(
+            0,
+            R.mipmap.qiuqiu12,
+            R.mipmap.qiuqiu23,
+            R.mipmap.qiuqiu39,
+            R.mipmap.qiuqiu40,
+            R.mipmap.qiuqiu519,
+            R.mipmap.qiuqiu520,
+            R.mipmap.qiuqiu527,
+            R.mipmap.qiuqiu528,
+            R.mipmap.qiuqiu529,
+            R.mipmap.qiuqiu538,
+            R.mipmap.qiuqiu539,
+        )
 
     }
 }

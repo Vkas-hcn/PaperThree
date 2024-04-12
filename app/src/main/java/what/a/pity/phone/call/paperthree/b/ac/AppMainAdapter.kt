@@ -73,7 +73,7 @@ class AppMainAdapter(private val activity: MainActivity, private val dataList: L
         val intent = Intent(holder.itemView.context, PreViewActivity::class.java)
         intent.putExtra("intentImgResID", resId)
         holder.itemView.context.startActivity(intent)
-        WallNetDataUtils.postPotIntData(activity,"wa4ll","fa",resId.toString())
+        WallNetDataUtils.postImageNameData(activity,"wa4ll",resId)
     }
 
     private fun showJumpDetailAd(holder: ViewHolder, resId: Int) {

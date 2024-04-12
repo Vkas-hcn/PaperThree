@@ -21,7 +21,7 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "what.a.pity.phone.call.paperthree"
+        applicationId = "what.pity.call.paperthree"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
@@ -32,9 +32,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            zipAlignEnabled true
-            shrinkResources true
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
@@ -75,9 +75,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2"
 
 
-    implementation('com.github.bumptech.glide:glide:4.12.0') {
-        exclude group: "com.android.support"
-    }
+
+
     implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'
 
     implementation platform('com.google.firebase:firebase-bom:31.2.2')
@@ -86,7 +85,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
 
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     implementation "io.github.cymchad:BaseRecyclerViewAdapterHelper:4.0.0-beta06"
 
@@ -105,5 +105,6 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.11.0'
     implementation("com.google.android.ump:user-messaging-platform:2.2.0")
     implementation 'com.adjust.sdk:adjust-android:4.33.5'
+    implementation 'com.airbnb.android:lottie:5.0.3'
 
 }

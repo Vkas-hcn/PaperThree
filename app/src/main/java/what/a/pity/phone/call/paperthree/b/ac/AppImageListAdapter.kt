@@ -48,8 +48,7 @@ class AppImageListAdapter(private val activity: MainActivity, mData: List<Int?>?
         val resID: Int? = data
         holder?.imageView?.setOnClickListener { v: View? ->
             resID?.let {
-                WallNetDataUtils.postPotIntData(activity,"wa2ll","fa",it.toString())
-
+                WallNetDataUtils.postImageNameData(activity,"wa2ll",it)
                 timeShowDetailAd(
                     {
                         showJumpDetailAdTime(holder, it)
@@ -66,7 +65,7 @@ class AppImageListAdapter(private val activity: MainActivity, mData: List<Int?>?
         )
         intent.putExtra("intentImgResID", resID)
         holder.itemView.context.startActivity(intent)
-        WallNetDataUtils.postPotIntData(activity,"wa4ll","fa",resID.toString())
+        WallNetDataUtils.postImageNameData(activity,"wa4ll",resID)
     }
 
     inner class BannerViewHolder(var imageView: ImageView) : RecyclerView.ViewHolder(imageView)
