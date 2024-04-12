@@ -71,8 +71,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clApply"
-                android:layout_width="142dp"
+                android:layout_width="wrap_content"
                 android:layout_height="59dp"
+                android:paddingHorizontal="12dp"
                 android:layout_marginBottom="59dp"
                 android:background="@drawable/gray_15"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Apply"
+                    android:text="Apply(Edge Lighting)"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold"

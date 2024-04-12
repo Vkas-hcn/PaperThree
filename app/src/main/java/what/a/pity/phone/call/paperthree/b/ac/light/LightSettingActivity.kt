@@ -10,11 +10,13 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SpanUtils
+import com.blankj.utilcode.util.ToastUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -77,6 +79,8 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
 
                 KeyData.lightBorder = KeyData.lightBorderApp
                 LightWindow.getInstance().showPasswordBox()
+                Toast.makeText(this,"Successful application.",Toast.LENGTH_SHORT).show()
+
             } else {
                 stopGifWallpaperService()
                 startWallpaperSettings()
