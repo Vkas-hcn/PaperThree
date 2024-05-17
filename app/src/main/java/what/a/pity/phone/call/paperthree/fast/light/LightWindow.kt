@@ -82,7 +82,7 @@ class LightWindow {
             return
         }
         if (mWindowManager != null) {
-            if (PaperThreeApp.isGifImage) {
+            if (PaperThreeApp.isGifImageApp) {
                 scrImage?.isVisible = false
                 gifImage?.isVisible = true
                 gifImage?.setGifResource(R.drawable.ic_gif_1)

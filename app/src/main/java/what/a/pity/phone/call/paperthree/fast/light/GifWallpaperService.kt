@@ -86,7 +86,7 @@ class GifWallpaperService : WallpaperService() {
 
                     wallpaperView?.measure(canvas.width, canvas.height)
                     wallpaperView?.layout(0, 0, canvas.width, canvas.height)
-                    if (PaperThreeApp.isGifImage) {
+                    if (PaperThreeApp.isGifImageApp) {
                         gifImage?.isVisible = true
                         scrImage?.isVisible = false
                         gifImage?.setGifResource(R.drawable.ic_gif_1)

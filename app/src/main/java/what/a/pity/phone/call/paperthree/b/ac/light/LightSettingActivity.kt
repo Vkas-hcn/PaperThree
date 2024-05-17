@@ -77,14 +77,14 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
     }
 
     private fun applyFun() {
-        val gaoji = if(PaperThreeApp.isGifImage || PaperThreeApp.isAdImage){
+        val gaoji = if (PaperThreeApp.isGifImage || PaperThreeApp.isAdImage) {
             "1"
-        }else{
+        } else {
             "2"
         }
         val isOpenLightPermission =
             SPUtils.getInstance().getBoolean(KeyData.isOpenLightPermission, false)
-        val sheRe = (gaoji=="2") && (KeyData.lightWallData != 0 && KeyData.lightWallData != -1)
+        val sheRe = (gaoji == "2") && (KeyData.lightWallData != 0 && KeyData.lightWallData != -1)
         WallNetDataUtils.postPotIntData(
             this,
             "wa21ll",
@@ -95,7 +95,7 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
             "fa2",
             sheRe.toString(),
         )
-
+        PaperThreeApp.isGifImageApp = PaperThreeApp.isGifImage
         if (isOpenLightPermission) {
             stopGifWallpaperService()
             startWallpaperSettings()
@@ -193,14 +193,14 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
         startActivity(intent)
 
         PaperThreeApp.isHaveLight = true
-        val gaoji = if(PaperThreeApp.isGifImage || PaperThreeApp.isAdImage){
+        val gaoji = if (PaperThreeApp.isGifImage || PaperThreeApp.isAdImage) {
             "1"
-        }else{
+        } else {
             "2"
         }
         val isOpenLightPermission =
             SPUtils.getInstance().getBoolean(KeyData.isOpenLightPermission, false)
-        val sheRe = (gaoji=="2") && (KeyData.lightWallData != 0 && KeyData.lightWallData != -1)
+        val sheRe = (gaoji == "2") && (KeyData.lightWallData != 0 && KeyData.lightWallData != -1)
         WallNetDataUtils.postPotIntData(
             this,
             "wa22ll",
