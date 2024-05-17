@@ -130,7 +130,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
 
 
     private fun showLoadingPro(isBack: Boolean = false, nextFun: (isBlocking: Boolean) -> Unit) {
-        if (isClickTypeDown != 0 && (!GetWallDataUtils.showAdCenter() || !GetWallDataUtils.showAdBlacklist()) || !BIBIUBADDDDUtils.canShowAD()) {
+        if (isClickTypeDown != 0 && (!GetWallDataUtils.showAdBlacklist()) || !BIBIUBADDDDUtils.canShowAD()) {
             nextFun(true)
             return
         }
@@ -191,10 +191,13 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
 
     private fun smklllllcmnjiaecnuibbaiusybdcaiyvba() {
         WallNetDataUtils.postPotIntData(this, "wa6ll")
-        if (haveCanNext()) {
+        if (haveCanNext() ) {
             return
         }
-
+        if(!GetWallDataUtils.showAdCenter()){
+            finish()
+            return
+        }
         isClickTypeDown = 0
         timeShowBackAd {
             showLoadingPro(true) {
