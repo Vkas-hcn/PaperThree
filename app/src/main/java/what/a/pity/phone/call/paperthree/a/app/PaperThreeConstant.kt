@@ -106,7 +106,7 @@ class PaperThreeConstant {
     "preuse": "1",
     "preenter": "2",
     "rescontinue": "0",
-    "ootom":"1"
+    "ootom":"2"
 }
         """
 
