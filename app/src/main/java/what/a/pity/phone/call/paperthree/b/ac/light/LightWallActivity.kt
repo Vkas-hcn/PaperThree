@@ -60,6 +60,8 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
     }
 
     override fun initL() {
+        mBinding.clDialog.setOnClickListener {
+        }
         mBinding.clLight.setOnClickListener {
             mBinding.clDialog.visibility = View.GONE
         }

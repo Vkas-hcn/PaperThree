@@ -161,7 +161,10 @@ class PaperThreeVariable {
             R.drawable.ic_beautiful_6,
             R.drawable.ic_beautiful_7,
             R.drawable.ic_beautiful_8,
-            R.drawable.ic_beautiful_9
+            R.drawable.ic_beautiful_9,
+            R.drawable.ic_beautiful_10,
+            R.drawable.ic_beautiful_11,
+            R.drawable.ic_beautiful_12
         )
         var imageListNature = mutableListOf(
             R.drawable.ic_nature_1,
