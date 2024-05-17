@@ -1,17 +1,12 @@
-package what.a.pity.phone.call.paperthree.g.ui.type
+package what.a.pity.phone.call.paperthree.guide.ui.type
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import what.a.pity.phone.call.paperthree.R
-import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
-import what.a.pity.phone.call.paperthree.a.app.PaperThreeVariable
-import what.a.pity.phone.call.paperthree.b.ac.light.LightWallActivity
 import what.a.pity.phone.call.paperthree.fast.KeyData
 
 class TypeAdapter(private val activity: TypeActivity, private val dataList: List<String>) :

@@ -1,6 +1,5 @@
-package what.a.pity.phone.call.paperthree.g.ui.con
+package what.a.pity.phone.call.paperthree.guide.ui.con
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.View
 import androidx.activity.OnBackPressedCallback
@@ -11,12 +10,11 @@ import kotlinx.coroutines.MainScope
 import what.a.pity.phone.call.paperthree.R
 import what.a.pity.phone.call.paperthree.a.app.BaseActivity
 import what.a.pity.phone.call.paperthree.a.utils.AppInitUtils
-import what.a.pity.phone.call.paperthree.b.ac.PreViewActivity
 import what.a.pity.phone.call.paperthree.d.ad.baseeeee.BIBIUBADDDDUtils
 import what.a.pity.phone.call.paperthree.databinding.WallpaperGuideBinding
 import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
 import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
-import what.a.pity.phone.call.paperthree.g.ui.type.TypeActivity
+import what.a.pity.phone.call.paperthree.guide.ui.type.TypeActivity
 
 class WallPaperActivity : BaseActivity<WallpaperGuideBinding>() {
 

@@ -1,4 +1,4 @@
-package what.a.pity.phone.call.paperthree.g.ui.con
+package what.a.pity.phone.call.paperthree.guide.ui.con
 
 import android.content.Intent
 import android.view.LayoutInflater

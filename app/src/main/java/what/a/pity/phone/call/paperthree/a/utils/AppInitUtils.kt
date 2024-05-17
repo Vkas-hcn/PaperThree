@@ -25,7 +25,6 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
 import what.a.pity.phone.call.paperthree.BuildConfig
@@ -48,7 +47,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
-import what.a.pity.phone.call.paperthree.g.ui.con.WallPaperActivity
+import what.a.pity.phone.call.paperthree.guide.ui.con.WallPaperActivity
 
 class AppInitUtils {
 

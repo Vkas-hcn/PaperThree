@@ -1,4 +1,4 @@
-package what.a.pity.phone.call.paperthree.g.ui.type
+package what.a.pity.phone.call.paperthree.guide.ui.type
 
 import android.view.View
 import androidx.activity.OnBackPressedCallback
