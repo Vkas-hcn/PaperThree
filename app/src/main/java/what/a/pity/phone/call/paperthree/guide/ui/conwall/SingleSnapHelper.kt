@@ -1,4 +1,4 @@
-package what.a.pity.phone.call.paperthree.guide.ui.con
+package what.a.pity.phone.call.paperthree.guide.ui.conwall
 
 import android.view.View
 import androidx.recyclerview.widget.LinearSnapHelper

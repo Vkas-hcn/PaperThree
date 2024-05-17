@@ -99,10 +99,10 @@
             android:name=".b.ac.light.LightSettingActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".guide.ui.con.WallPaperActivity"
+        <activity android:name=".guide.ui.conwall.WallPaperActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".guide.ui.type.TypeActivity"
+        <activity android:name=".guide.ui.typewall.TypeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <meta-data

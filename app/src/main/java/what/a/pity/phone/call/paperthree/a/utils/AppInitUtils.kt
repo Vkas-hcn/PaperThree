@@ -47,7 +47,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
-import what.a.pity.phone.call.paperthree.guide.ui.con.WallPaperActivity
+import what.a.pity.phone.call.paperthree.guide.ui.conwall.WallPaperActivity
 
 class AppInitUtils {
 
