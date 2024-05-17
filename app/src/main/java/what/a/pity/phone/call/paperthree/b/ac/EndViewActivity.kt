@@ -29,28 +29,30 @@ import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
 import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 
 class EndViewActivity : BaseActivity<EndLayoutBinding>() {
-
+    var type = 0
     override var viewID: Int
         get() = R.layout.end_layout
         set(value) {}
+
     override fun initV() {
-        WallNetDataUtils.postPotIntData(this,"wa11ll")
+         type = intent.getIntExtra("type", 0)
+        WallNetDataUtils.postPotIntData(this, "wa11ll", "fa", type.toString())
     }
 
     override fun initL() {
         mBinding.actContinue.setOnClickListener {
-            WallNetDataUtils.postPotIntData(this,"wa13ll")
+            WallNetDataUtils.postPotIntData(this, "wa13ll", "fa", type.toString())
             backToMainFun()
         }
 
         mBinding.pagerThreeBack.setOnClickListener {
-            WallNetDataUtils.postPotIntData(this,"wa12ll")
+            WallNetDataUtils.postPotIntData(this, "wa12ll", "fa", type.toString())
 
             backToMainFun()
         }
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                WallNetDataUtils.postPotIntData(this@EndViewActivity,"wa12ll")
+                WallNetDataUtils.postPotIntData(this@EndViewActivity, "wa12ll", "fa", type.toString())
                 backToMainFun()
             }
         })
@@ -80,7 +82,7 @@ class EndViewActivity : BaseActivity<EndLayoutBinding>() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         PaperThreeConstant.canRefreshHomeNative = true
-        Log.e("TAG", "jumpToMain-fa_c_inter: ", )
+        Log.e("TAG", "jumpToMain-fa_c_inter: ")
     }
 
     private fun timeShowMainAd(nextFun: () -> Unit, applyFun: () -> Unit) {
@@ -100,6 +102,7 @@ class EndViewActivity : BaseActivity<EndLayoutBinding>() {
         }
         nextFun()
     }
+
     override fun onResume() {
         super.onResume()
     }

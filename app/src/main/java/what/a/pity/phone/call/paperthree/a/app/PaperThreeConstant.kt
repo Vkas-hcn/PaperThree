@@ -64,6 +64,36 @@ class PaperThreeConstant {
             "fa_c_oute": 2,
             "where": "fa_c_inter"
         }
+    ],
+    "introductionIV": [
+        {
+            "fa_c_les": "ca-app-pub-3940256099942544/8691691433",
+            "fa_c_ail": "admob",
+            "fa_c_eous": "ity",
+            "cache_time": 50,
+            "fa_c_oute": 1,
+            "where": "introductionIV"
+        }
+    ],
+    "personalizeIV": [
+        {
+            "fa_c_les": "ca-app-pub-3940256099942544/8691691433",
+            "fa_c_ail": "admob",
+            "fa_c_eous": "ity",
+            "cache_time": 50,
+            "fa_c_oute": 1,
+            "where": "personalizeIV"
+        }
+    ],
+    "RV": [
+        {
+            "fa_c_les": "ca-app-pub-3940256099942544/5224354917",
+            "fa_c_ail": "admob",
+            "fa_c_eous": "ity",
+            "cache_time": 50,
+            "fa_c_oute": 2,
+            "where": "RV"
+        }
     ]
 }
         """
@@ -75,10 +105,19 @@ class PaperThreeConstant {
     "preback": "2",
     "preuse": "1",
     "preenter": "2",
-    "rescontinue": "0"
+    "rescontinue": "0",
+    "ootom":"1"
 }
         """
 
         const val ref_load_data = """fb4a&facebook"""
+
+        const val yyq="""
+{
+    "wp": "ic_beautiful_2,ic_beautiful_3",
+    "bb": "ic_top_fire,ic_58,ic_59,ic_6"
+}
+        """
+
     }
 }

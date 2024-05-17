@@ -18,9 +18,13 @@ import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.SpanUtils
 import com.blankj.utilcode.util.ToastUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import what.a.pity.phone.call.paperthree.R
@@ -29,12 +33,14 @@ import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeVariable
 import what.a.pity.phone.call.paperthree.a.utils.AppInitUtils
 import what.a.pity.phone.call.paperthree.b.ac.EndViewActivity
+import what.a.pity.phone.call.paperthree.d.ad.baseeeee.BIBIUBADDDDUtils
 import what.a.pity.phone.call.paperthree.d.ad.baseeeee.SoWhatCanYouDo
 import what.a.pity.phone.call.paperthree.databinding.LightSettingLayoutBinding
 import what.a.pity.phone.call.paperthree.fast.KeyData
 import what.a.pity.phone.call.paperthree.fast.light.GifWallpaperService
 import what.a.pity.phone.call.paperthree.fast.light.LightWindow
 import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
+import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 import java.io.IOException
 
 class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
@@ -46,62 +52,156 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
     private var curImg = R.mipmap.qiuqiu1
     private var baseAd: SoWhatCanYouDo? = null
     val REQUEST_CODE_SET_WALLPAPER = 0x756
+    private var jobBackAd: Job? = null
+    private var jobApplyAd: Job? = null
 
     override fun initV() {
         curImg = KeyData.lightWallData
-        if (curImg != 0) {
+        if (curImg != 0 && curImg != -1) {
             mBinding.curImage.setImageResource(curImg)
         } else {
             mBinding.curImage.setImageResource(R.drawable.ic_blck)
         }
         showImageType()
+        WallNetDataUtils.postPotIntData(this, "wa19ll")
     }
 
     private fun showImageType() {
         if (PaperThreeApp.isGifImage) {
             mBinding.haveLightView = false
+            mBinding.lightGif.setGifResource(R.drawable.ic_gif_1)
         } else {
             mBinding.haveLightView = true
             mBinding.lightView.setGradientSetting2()
         }
     }
 
+    private fun applyFun() {
+        val gaoji = PaperThreeApp.isGifImage || PaperThreeApp.isAdImage
+        val isOpenLightPermission =
+            SPUtils.getInstance().getBoolean(KeyData.isOpenLightPermission, false)
+        val sheRe = !gaoji && (KeyData.lightWallData != 0 && KeyData.lightWallData != -1)
+        WallNetDataUtils.postPotIntData(
+            this,
+            "wa21ll",
+            "fa",
+            isOpenLightPermission.toString(),
+            "fa1",
+            gaoji.toString(),
+            "fa2",
+            sheRe.toString(),
+        )
+
+        if (isOpenLightPermission) {
+            stopGifWallpaperService()
+            startWallpaperSettings()
+            KeyData.isImagePos = KeyData.isImagePosApp
+
+            KeyData.lightSpeed = KeyData.lightSpeedApp
+
+            KeyData.lightBorder = KeyData.lightBorderApp
+            LightWindow.getInstance().showPasswordBox()
+            Toast.makeText(this, "Successful application.", Toast.LENGTH_SHORT).show()
+
+        } else {
+            stopGifWallpaperService()
+            startWallpaperSettings()
+        }
+        mBinding.lightView.visibility = View.GONE
+        mBinding.lightGif.visibility = View.GONE
+    }
+
     override fun initL() {
         mBinding.clApply.setOnClickListener {
-            val isOpenLightPermission =
-                SPUtils.getInstance().getBoolean(KeyData.isOpenLightPermission, false)
-            if (isOpenLightPermission) {
-                stopGifWallpaperService()
-                startWallpaperSettings()
-                KeyData.isImagePos = KeyData.isImagePosApp
-
-                KeyData.lightSpeed = KeyData.lightSpeedApp
-
-                KeyData.lightBorder = KeyData.lightBorderApp
-                LightWindow.getInstance().showPasswordBox()
-                Toast.makeText(this,"Successful application.",Toast.LENGTH_SHORT).show()
-
-            } else {
-                stopGifWallpaperService()
-                startWallpaperSettings()
-            }
-            mBinding.lightView.visibility = View.GONE
-            mBinding.lightGif.visibility = View.GONE
+            waitForApplyAdData()
         }
         mBinding.pagerThreeBack.setOnClickListener {
-            finish()
+            waitForAdData()
         }
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                finish()
+                waitForAdData()
             }
+        })
+        mBinding.viewLoad.setOnClickListener { }
+    }
+
+    private fun backTOMain() {
+        mBinding.haveLoad = false
+        BIBIUBADDDDUtils.interHaHaHaOPNNOPIN.showFullScreenAdBIUYBUI(this) {
+            finish()
+        }
+    }
+
+    private fun applyWallFun() {
+        mBinding.haveLoad = false
+        BIBIUBADDDDUtils.interHaHaHaOPNNOPIN2.showFullScreenAdBIUYBUI(this) {
+            applyFun()
+        }
+    }
+
+    fun waitForAdData() {
+        WallNetDataUtils.postPotIntData(this, "wa20ll")
+        if ((!GetWallDataUtils.showAdCenter() || !BIBIUBADDDDUtils.canShowAD())) {
+            finish()
+            return
+        }
+        mBinding.haveLoad = true
+        jobBackAd?.cancel()
+        jobBackAd = AppInitUtils().countDown(100, 150, MainScope(), {
+            if (it < 100 && BIBIUBADDDDUtils.interHaHaHaOPNNOPIN.haveCache) {
+                jobBackAd?.cancel()
+                backTOMain()
+            }
+        }, {
+            mBinding.haveLoad = false
+            jobBackAd?.cancel()
+            finish()
+        })
+    }
+
+    private fun waitForApplyAdData() {
+        if (!BIBIUBADDDDUtils.canShowAD()) {
+            applyFun()
+            return
+        }
+        mBinding.haveLoad = true
+        jobApplyAd?.cancel()
+        jobApplyAd = AppInitUtils().countDown(100, 150, MainScope(), {
+            if (it < 100 && BIBIUBADDDDUtils.interHaHaHaOPNNOPIN2.haveCache) {
+                jobApplyAd?.cancel()
+                applyWallFun()
+            }
+        }, {
+            mBinding.haveLoad = false
+            jobApplyAd?.cancel()
+            applyFun()
         })
     }
 
     private fun goEndPaper() {
         val intent = Intent(this, EndViewActivity::class.java)
         startActivity(intent)
+        if (PaperThreeApp.isGifImage || PaperThreeApp.isAdImage) {
+            intent.putExtra("type", 2)
+        } else {
+            intent.putExtra("type", 3)
+        }
         PaperThreeApp.isHaveLight = true
+        val gaoji = PaperThreeApp.isGifImage || PaperThreeApp.isAdImage
+        val isOpenLightPermission =
+            SPUtils.getInstance().getBoolean(KeyData.isOpenLightPermission, false)
+        val sheRe = !gaoji && (KeyData.lightWallData != 0 && KeyData.lightWallData != -1)
+        WallNetDataUtils.postPotIntData(
+            this,
+            "wa22ll",
+            "fa",
+            isOpenLightPermission.toString(),
+            "fa1",
+            gaoji.toString(),
+            "fa2",
+            sheRe.toString(),
+        )
     }
 
     private fun stopGifWallpaperService() {
@@ -112,10 +212,13 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
     private fun startWallpaperSettings() {
         lifecycleScope.launch(Dispatchers.IO) {
             val wallpaperManager = WallpaperManager.getInstance(this@LightSettingActivity)
-            val defaultWallpaper = BitmapFactory.decodeResource(this@LightSettingActivity.resources, R.drawable.ic_blck)
+            val defaultWallpaper = BitmapFactory.decodeResource(
+                this@LightSettingActivity.resources,
+                R.drawable.ic_blck
+            )
             try {
                 wallpaperManager.setBitmap(defaultWallpaper)
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     PaperThreeVariable.isToRequestPer = true
                     val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
                     intent.putExtra(
@@ -166,7 +269,6 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
                 PaperThreeVariable.isToRequestPer = false
             }
             if (resultCode == Activity.RESULT_OK) {
-                // 用户成功设置了动态壁纸
                 goEndPaper()
             }
         }

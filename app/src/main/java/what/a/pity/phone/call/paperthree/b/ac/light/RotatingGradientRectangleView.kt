@@ -89,7 +89,11 @@ class RotatingGradientRectangleView : View {
         gradientColors = if (PaperThreeApp.isGifImage) {
             nameToGradientColorsTop(KeyData.isImagePos)
         } else {
-            nameToGradientColors(KeyData.isImagePos)
+            if (PaperThreeApp.isAdImage) {
+                nameToGradientColorsTop(KeyData.isImagePos)
+            } else {
+                nameToGradientColors(KeyData.isImagePos)
+            }
         }
         setStrokeWidth(KeyData.lightBorder)
         setAnimationDuration(KeyData.lightSpeed)
@@ -100,7 +104,11 @@ class RotatingGradientRectangleView : View {
         gradientColors = if (PaperThreeApp.isGifImage) {
             nameToGradientColorsTop(KeyData.isImagePosApp)
         } else {
-            nameToGradientColors(KeyData.isImagePosApp)
+            if (PaperThreeApp.isAdImage) {
+                nameToGradientColorsTop(KeyData.isImagePosApp)
+            } else {
+                nameToGradientColors(KeyData.isImagePosApp)
+            }
         }
         setStrokeWidth(KeyData.lightBorderApp)
         setAnimationDuration(KeyData.lightSpeedApp)
@@ -371,36 +379,83 @@ class RotatingGradientRectangleView : View {
 
     private fun nameToGradientColorsTop(pos: Int): IntArray {
         return when (pos) {
-            0 -> {
-                intArrayOf(
-                    Color.parseColor("#8FA5FF"),
-                    Color.parseColor("#B1A4C3"),
-                    Color.parseColor("#CDA297"),
-                    Color.parseColor("#E2A077"),
-                    Color.parseColor("#EEA05F"),
-                    Color.parseColor("#FF9E42")
-                )
-            }
 
             1 -> {
                 intArrayOf(
-                    Color.parseColor("#FF982C"),
-                    Color.parseColor("#FC676E"),
-                    Color.parseColor("#F435B7"),
-                    Color.parseColor("#CB5AC5"),
-                    Color.parseColor("#8C92DC"),
-                    Color.parseColor("#3ADCFB")
+                    Color.parseColor("#8FA5FF"),
+                    Color.parseColor("#A2A4E1"),
+                    Color.parseColor("#B0A4C7"),
+                    Color.parseColor("#C2A2A7"),
+                    Color.parseColor("#E1A078"),
+                    Color.parseColor("#FF9F43")
                 )
             }
 
             2 -> {
                 intArrayOf(
-                    Color.parseColor("#D5FAF7"),
-                    Color.parseColor("#DBF7EB"),
-                    Color.parseColor("#E3EFD4"),
-                    Color.parseColor("#EDE8BE"),
-                    Color.parseColor("#F4E4AD"),
-                    Color.parseColor("#FADD9A")
+                    Color.parseColor("#41D5D8"),
+                    Color.parseColor("#51D4CE"),
+                    Color.parseColor("#7ED0B5"),
+                    Color.parseColor("#A0CDA1"),
+                    Color.parseColor("#D5C984"),
+                    Color.parseColor("#FFC56E")
+                )
+            }
+
+
+            3 -> {
+                intArrayOf(
+                    Color.parseColor("#5773FF"),
+                    Color.parseColor("#5380EE"),
+                    Color.parseColor("#48A2C9"),
+                    Color.parseColor("#42B2B7"),
+                    Color.parseColor("#37DA88"),
+                    Color.parseColor("#2CFB66")
+                )
+            }
+
+
+            4 -> {
+                intArrayOf(
+                    Color.parseColor("#B622FE"),
+                    Color.parseColor("#A831FA"),
+                    Color.parseColor("#766EF8"),
+                    Color.parseColor("#6F75F8"),
+                    Color.parseColor("#41ACFD"),
+                    Color.parseColor("#22D4FF")
+                )
+            }
+
+            5 -> {
+                intArrayOf(
+                    Color.parseColor("#ABFF24"),
+                    Color.parseColor("#7DF05A"),
+                    Color.parseColor("#58FA97"),
+                    Color.parseColor("#4FDF9C"),
+                    Color.parseColor("#33A8D8"),
+                    Color.parseColor("#217AFC")
+                )
+            }
+
+            6 -> {
+                intArrayOf(
+                    Color.parseColor("#5A73FF"),
+                    Color.parseColor("#9770C1"),
+                    Color.parseColor("#F9806A"),
+                    Color.parseColor("#FDBD65"),
+                    Color.parseColor("#F6808F"),
+                    Color.parseColor("#F435BA")
+                )
+            }
+
+            7 -> {
+                intArrayOf(
+                    Color.parseColor("#41D5D8"),
+                    Color.parseColor("#51D4CE"),
+                    Color.parseColor("#7ED0B5"),
+                    Color.parseColor("#A0CDA1"),
+                    Color.parseColor("#D5C984"),
+                    Color.parseColor("#FFC56E")
                 )
             }
 

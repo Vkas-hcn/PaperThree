@@ -12,12 +12,28 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        mainYesterday()
+       println(getClassNameList())
+        println(getClassNameList2())
+
     }
-    fun mainYesterday() {
-        val inputString = "fb4a&facebook"
-        val stringArray = inputString.split("&").toTypedArray()
-        stringArray.forEach { println(it) }
+    fun getClassNameList(): List<String> {
+        val list = mutableListOf("Nature", "Beautiful", "Art", "Animals", "City", "Cool")
+        var checkTheType: String = "Nature"
+        if (list.contains(checkTheType)) {
+            list.remove(checkTheType)
+            list.add(0, checkTheType)
+        }
+        return list
+    }
+
+    fun getClassNameList2(): List<String> {
+        val list = mutableListOf("Nature", "Beautiful", "Art", "Animals", "City", "Cool")
+        var checkTheType: String = "Animals"
+        if (list.contains(checkTheType)) {
+            list.remove(checkTheType)
+            list.add(0, checkTheType)
+        }
+        return list
     }
 
 }

@@ -12,9 +12,12 @@ import android.view.WindowManager
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isVisible
+import com.blankj.utilcode.util.SPUtils
 import what.a.pity.phone.call.paperthree.R
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
+import what.a.pity.phone.call.paperthree.b.ac.light.MyGifImageView
 import what.a.pity.phone.call.paperthree.b.ac.light.RotatingGradientRectangleView
+import what.a.pity.phone.call.paperthree.fast.KeyData
 import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
 
 class LightWindow {
@@ -31,7 +34,7 @@ class LightWindow {
     var wmParams: WindowManager.LayoutParams? = null
     var mFloatingLayout: View? = null
     var scrImage: RotatingGradientRectangleView? = null
-    var gifImage: ImageView? = null
+    var gifImage: MyGifImageView? = null
     var haveShow: Boolean = false
     private lateinit var context: Context
 
@@ -75,10 +78,14 @@ class LightWindow {
 
 
     fun showPasswordBox() {
+        if (!SPUtils.getInstance().getBoolean(KeyData.isOpenLightPermission, false)) {
+            return
+        }
         if (mWindowManager != null) {
             if (PaperThreeApp.isGifImage) {
                 scrImage?.isVisible = false
                 gifImage?.isVisible = true
+                gifImage?.setGifResource(R.drawable.ic_gif_1)
             } else {
                 scrImage?.isVisible = true
                 gifImage?.isVisible = false

@@ -15,8 +15,11 @@ import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.OnUserEarnedRewardListener
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
@@ -27,7 +30,7 @@ class ONIJNIIOINOIInterLoad(private val context: Context, private val item: Ever
 
     private var ad: Any? = null
     private val adRequest: AdRequest get() = AdRequest.Builder().build()
-
+    private var rewardComplete = false
     override fun loadHowAreYou(onAdLoaded: () -> Unit, onAdLoadFailed: (msg: String?) -> Unit) {
         val type = when (item.adYype) {
             "plai" -> "Open"
@@ -41,7 +44,22 @@ class ONIJNIIOINOIInterLoad(private val context: Context, private val item: Ever
 
     }
 
-    override fun showMyNameIsHei(activity: Activity, nativeParent: ViewGroup?, onAdDismissed: () -> Unit) {
+    fun showRvNext(nextFun: () -> Unit) {
+        if (item.where == "RV") {
+            if (rewardComplete) {
+                nextFun()
+                rewardComplete = false
+            }
+        } else {
+            nextFun()
+        }
+    }
+
+    override fun showMyNameIsHei(
+        activity: Activity,
+        nativeParent: ViewGroup?,
+        onAdDismissed: () -> Unit
+    ) {
         val callback: FullScreenContentCallback by lazy {
             object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
@@ -51,9 +69,15 @@ class ONIJNIIOINOIInterLoad(private val context: Context, private val item: Ever
                             while (Lifecycle.State.RESUMED != baseAct.lifecycle.currentState) delay(
                                 200L
                             )
+                            showRvNext {
+                                onAdDismissed.invoke()
+                            }
+                        }
+                    } else {
+                        showRvNext {
                             onAdDismissed.invoke()
                         }
-                    } else onAdDismissed.invoke()
+                    }
                 }
 
                 override fun onAdShowedFullScreenContent() {
@@ -81,9 +105,10 @@ class ONIJNIIOINOIInterLoad(private val context: Context, private val item: Ever
                 }
 
                 override fun onAdClicked() {
-                    Log.e("TAG", "onAdClicked: Int" )
+                    Log.e("TAG", "onAdClicked: Int")
                     BIBIUBADDDDUtils.countAD(s = false, c = true)
-                }            }
+                }
+            }
         }
 
         fun showAdMobFullScreenAd() {
@@ -95,6 +120,19 @@ class ONIJNIIOINOIInterLoad(private val context: Context, private val item: Ever
                     }
                 }
 
+                is RewardedAd -> {
+                    adF.let { ad ->
+                        ad.fullScreenContentCallback = callback
+                        ad.show(activity) { rewardItem ->
+                            // Handle the reward.
+                            val rewardAmount = rewardItem.amount
+                            val rewardType = rewardItem.type
+                            rewardComplete = true
+                            Log.d("TAG", "User earned the reward.")
+                        }
+                    }
+                }
+
                 else -> onAdDismissed.invoke()
             }
         }
@@ -103,31 +141,61 @@ class ONIJNIIOINOIInterLoad(private val context: Context, private val item: Ever
     }
 
 
-    private fun loadInavnisduabnviosbvaoisubvd(onAdLoaded: () -> Unit, onAdLoadFailed: (msg: String?) -> Unit) {
-        InterstitialAd.load(context,
-            item.adIdKKKK,
-            adRequest,
-            object : InterstitialAdLoadCallback() {
-                override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                    ad = interstitialAd
+    private fun loadInavnisduabnviosbvaoisubvd(
+        onAdLoaded: () -> Unit,
+        onAdLoadFailed: (msg: String?) -> Unit
+    ) {
+        if (item.where == "RV") {
+            RewardedAd.load(context, item.adIdKKKK, adRequest, object : RewardedAdLoadCallback() {
+                override fun onAdFailedToLoad(e: LoadAdError) = onAdLoadFailed.invoke(e.message)
+                override fun onAdLoaded(rewardedAd: RewardedAd) {
+                    ad = rewardedAd
                     onAdLoaded.invoke()
-                    interstitialAd.setOnPaidEventListener { adValue ->
+                    rewardedAd.setOnPaidEventListener { adValue ->
                         WallNetDataUtils.getAdList(
                             PaperThreeApp.instance,
                             adValue,
-                            interstitialAd.responseInfo,
+                            rewardedAd.responseInfo,
                             item
                         )
                         BIBIUBADDDDUtils.putPointAdOnline(adValue.valueMicros)
                         val adRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_ADMOB)
                         adRevenue.setRevenue(adValue.valueMicros / 1000000.0, adValue.currencyCode)
-                        adRevenue.setAdRevenueNetwork(interstitialAd.responseInfo.mediationAdapterClassName)
+                        adRevenue.setAdRevenueNetwork(rewardedAd.responseInfo.mediationAdapterClassName)
                         Adjust.trackAdRevenue(adRevenue)
                     }
                 }
-
-                override fun onAdFailedToLoad(e: LoadAdError) = onAdLoadFailed.invoke(e.message)
             })
+        } else {
+            InterstitialAd.load(context,
+                item.adIdKKKK,
+                adRequest,
+                object : InterstitialAdLoadCallback() {
+                    override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                        ad = interstitialAd
+                        onAdLoaded.invoke()
+                        interstitialAd.setOnPaidEventListener { adValue ->
+                            WallNetDataUtils.getAdList(
+                                PaperThreeApp.instance,
+                                adValue,
+                                interstitialAd.responseInfo,
+                                item
+                            )
+                            BIBIUBADDDDUtils.putPointAdOnline(adValue.valueMicros)
+                            val adRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_ADMOB)
+                            adRevenue.setRevenue(
+                                adValue.valueMicros / 1000000.0,
+                                adValue.currencyCode
+                            )
+                            adRevenue.setAdRevenueNetwork(interstitialAd.responseInfo.mediationAdapterClassName)
+                            Adjust.trackAdRevenue(adRevenue)
+                        }
+                    }
+
+                    override fun onAdFailedToLoad(e: LoadAdError) = onAdLoadFailed.invoke(e.message)
+                })
+        }
+
     }
 
 

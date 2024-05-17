@@ -107,6 +107,7 @@ object GetWallDataUtils {
                             val installReferrer =
                                 referrerClient.installReferrer.installReferrer ?: ""
 //                            SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
+                            WallNetDataUtils.postPotIntData(context, "wa27ll")
                             if (!SPUtils.getInstance().getBoolean(KeyData.haveWallInstall)) {
                                 runCatching {
                                     installReferrer?.run {
@@ -188,7 +189,15 @@ object GetWallDataUtils {
         }
     }
 
-
+    fun isOrganic(): Boolean {
+        val referrer = SPUtils.getInstance().getString(KeyData.phone_ref)
+        if(referrer.isBlank()){
+            return false
+        }
+        Log.e("TAG", "isOrganic1: ${referrer.contains("organic", true)}")
+        Log.e("TAG", "isOrganic2: ${getLocalBlockingData().ootom == "1"}")
+        return referrer.contains("organic", true) && getLocalBlockingData().ootom == "1"
+    }
     fun getBlackData(context: Context) {
         GlobalScope.launch(Dispatchers.IO) {
             getGid(context)

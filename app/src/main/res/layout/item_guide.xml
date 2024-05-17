@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#202227"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_bg_guide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_guide_0" />
+
+    <TextView
+        android:id="@+id/tv_guide_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:gravity="center"
+        android:text="express your style with our vast wallpaper selection"
+        android:textColor="#FFFFFFFF"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/view_1"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:background="@drawable/ic_guide_oval_check" />
+
+        <View
+            android:id="@+id/view_2"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/ic_guide_oval_diss" />
+
+        <View
+            android:id="@+id/view_3"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:background="@drawable/ic_guide_oval_diss" />
+    </LinearLayout>
+</LinearLayout>

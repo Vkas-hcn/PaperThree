@@ -6,6 +6,9 @@ import android.util.Log
 import android.view.ViewGroup
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import what.a.pity.phone.call.paperthree.b.ac.PreViewActivity
+import what.a.pity.phone.call.paperthree.fast.KeyData
+import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
 
 
 class EveryADLocObjectBUB(private val snvlinjvk: ADType) {
@@ -19,6 +22,7 @@ class EveryADLocObjectBUB(private val snvlinjvk: ADType) {
     private fun adCaData(): SoWhatCanYouDo? = cacheListncsudbca.removeFirstOrNull()
 
     fun showFullScreenAdBIUYBUI(activity: Activity, onAdDismissed: () -> Unit) {
+
         if (cacheListncsudbca.isEmpty()) {
             onAdDismissed.invoke()
             return
@@ -81,21 +85,11 @@ class EveryADLocObjectBUB(private val snvlinjvk: ADType) {
 
     private fun isCacheOverTime(): Boolean {
         val item = cacheListncsudbca.firstOrNull() ?: return false
-        return if (System.currentTimeMillis() - item.loadTime >= (1000L * 60L * 60L)) {
+        return if (System.currentTimeMillis() - item.loadTime >= (1000L * 60L * 50L)) {
             cacheListncsudbca.remove(item)
             true
         } else {
             false
         }
     }
-
-    fun natileWaitWhileLoad(context: Context, block: (Boolean) -> Unit = {}) {
-//        if (haveCache && isCacheOverTime().not()) block.invoke(true)
-//        else {
-//            vsnoevn = block
-//            preload(context)
-//        }
-    }
-
-
 }

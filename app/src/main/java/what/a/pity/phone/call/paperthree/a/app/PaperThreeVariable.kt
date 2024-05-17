@@ -21,7 +21,6 @@ class PaperThreeVariable {
             R.mipmap.qiuqiu34,
             R.mipmap.qiuqiu35,
         )
-
         var imageList = mutableListOf(
             R.mipmap.qiuqiu1,
             R.mipmap.qiuqiu2,
@@ -152,8 +151,84 @@ class PaperThreeVariable {
             R.mipmap.qiuqiu587,
             R.mipmap.qiuqiu588,
         )
+
+        var imageListBeautiful = mutableListOf(
+            R.drawable.ic_beautiful_0,
+            R.drawable.ic_beautiful_2,
+            R.drawable.ic_beautiful_3,
+            R.drawable.ic_beautiful_4,
+            R.drawable.ic_beautiful_5,
+            R.drawable.ic_beautiful_6,
+            R.drawable.ic_beautiful_7,
+            R.drawable.ic_beautiful_8,
+            R.drawable.ic_beautiful_9
+        )
+        var imageListNature = mutableListOf(
+            R.drawable.ic_nature_1,
+            R.drawable.ic_nature_2,
+            R.drawable.ic_nature_3,
+            R.drawable.ic_nature_4,
+            R.drawable.ic_nature_5,
+            R.drawable.ic_nature_6,
+            R.drawable.ic_nature_7,
+            R.drawable.ic_nature_8,
+            R.drawable.ic_nature_9,
+            R.drawable.ic_nature_10
+        )
+        var imageListCity = mutableListOf(
+            R.drawable.ic_city_0,
+            R.drawable.ic_city_2,
+            R.drawable.ic_city_3,
+            R.drawable.ic_city_4,
+            R.drawable.ic_city_5,
+            R.drawable.ic_city_6,
+            R.drawable.ic_city_7,
+            R.drawable.ic_city_8,
+            R.drawable.ic_city_9
+        )
+        var imageListArt = mutableListOf(
+            R.drawable.ic_art_0,
+            R.drawable.ic_art_2,
+            R.drawable.ic_art_3,
+            R.drawable.ic_art_4,
+            R.drawable.ic_art_5,
+            R.drawable.ic_art_6,
+            R.drawable.ic_art_7,
+            R.drawable.ic_art_8,
+            R.drawable.ic_art_9
+        )
+        var imageListAnime = mutableListOf(
+            R.drawable.ic_animals_0,
+            R.drawable.ic_animals_2,
+            R.drawable.ic_animals_3,
+            R.drawable.ic_animals_4,
+            R.drawable.ic_animals_5,
+            R.drawable.ic_animals_6,
+            R.drawable.ic_animals_7,
+            R.drawable.ic_animals_8,
+            R.drawable.ic_animals_9
+        )
+        var imageListCool = mutableListOf(
+            R.drawable.ic_cool_1,
+            R.drawable.ic_cool_2,
+            R.drawable.ic_cool_3,
+            R.drawable.ic_cool_4,
+            R.drawable.ic_cool_5,
+            R.drawable.ic_cool_6,
+            R.drawable.ic_cool_7,
+            R.drawable.ic_cool_8,
+            R.drawable.ic_cool_9,
+            R.drawable.ic_cool_10
+        )
+
         var imgLightAdList = mutableListOf(
-            R.drawable.ic_top_1,
+            R.drawable.ic_top_fire,
+            R.drawable.ic_ad_2,
+            R.drawable.ic_ad_3,
+            R.drawable.ic_ad_4,
+            R.drawable.ic_ad_5,
+            R.drawable.ic_ad_6,
+            R.drawable.ic_ad_7
         )
 
         var imgLightPopList = mutableListOf(

@@ -50,11 +50,15 @@ enum class ADType(val placeName: String) {
     Nav_2("acnncalicliejanliecnckejsnalw"),
     INNNNNNNN_1("amvpoesinvapiwbevnaoewubvaourbvaouwehv"),
     INNNNNNNN_2("vaouwehvnaoewamvpwbeuoesinvapibvaourbv"),
+    INT_INTRODUCE ("euoesinvinvaiaintIntroducepiwbevnaoewu"),
+    INT_TYPE ("ecnckejanliecncintTypewehvnaoewamsinvap"),
+    REW_AD("sinjanliecnckejrbvaoenvapibvaehvnaoewamvp"),
 
 }
 
 @Keep
 data class AdvertiseEntity(
+
     @SerializedName("fa_c_local")
     val showMax: Int = 0,
     @SerializedName("fa_c_firma")
@@ -65,11 +69,18 @@ data class AdvertiseEntity(
     val main: MutableList<EveryADBean>?,
     @SerializedName("fa_c_osur")
     val inter: MutableList<EveryADBean>?,
-
     @SerializedName("fa_c_pre")
     val main2: MutableList<EveryADBean>?,
     @SerializedName("fa_c_inter")
     val inter2: MutableList<EveryADBean>?,
+
+    @SerializedName("introductionIV")
+    val intIntroduce: MutableList<EveryADBean>?,
+    @SerializedName("personalizeIV")
+    val intType: MutableList<EveryADBean>?,
+    @SerializedName("RV")
+    val rewAd: MutableList<EveryADBean>?,
+
 )
 
 @Keep
@@ -80,6 +91,10 @@ data class AdBlockingBean(
     val preuse: String?= "1",
     val preenter: String?= "2",
     val rescontinue: String?= "0",
-
-
+    val ootom: String?= "0"
+)
+@Keep
+data class Yyq(
+    val bb: String,
+    val wp: String
 )

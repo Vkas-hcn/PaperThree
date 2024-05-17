@@ -183,19 +183,17 @@ object WallNetDataUtils {
         }.toString()
     }
 
-    private fun getTbaTimeDataJson(
-        context: Context,
-        name: String,
-        parameterName: String,
-        time: String?,
-        ): String {
-        val data = JSONObject()
-        data.put(parameterName, time)
-        return getTopLevelJsonData(context).apply {
-            put("poultry", name)
-            put("${parameterName}@verify",time)
-        }.toString()
-    }
+//    private fun getTbaTimeDataJson(
+//        context: Context,
+//        name: String,
+//        parameterName: String,
+//        time: String?,
+//        ): String {
+//        return getTopLevelJsonData(context).apply {
+//            put("poultry", name)
+//            put("${parameterName}@verify",time)
+//        }.toString()
+//    }
 
     private fun putPointAdKK(adValue: Long) {
         if (!BuildConfig.DEBUG) {
@@ -351,10 +349,41 @@ object WallNetDataUtils {
         putPointAdKK(adValue.valueMicros)
     }
 
-    fun postPotIntData(context: Context, name: String, key: String? = null, time: String? =null) {
-        val data = if (key != null) {
-            putPointTimeGreen(name, time)
-            getTbaTimeDataJson(context, name, key, time)
+    fun getTbaTimeListDataJson(
+        context: Context,
+        name: String,
+        pName1: String?,
+        pValue1: String?,
+        pName2: String?,
+        pValue2: String?,
+        pName3: String?,
+        pValue3: String?,
+    ): String {
+        return getTopLevelJsonData(context).apply {
+            put("poultry", name)
+            if (pName1 != null) {
+                put("${pName1}@verify", pValue1)
+            }
+            if (pName2 != null) {
+                put("${pName1}@verify", pValue2)
+            }
+            if (pName3 != null) {
+                put("${pName1}@verify", pValue3)
+            }
+        }.toString()
+    }
+
+    fun postPotIntData(
+        context: Context, name: String, key1: String? = null,
+        keyValue1: String? = null,
+        key2: String? = null,
+        keyValue2: String? = null,
+        key3: String? = null,
+        keyValue3: String? = null,
+    ) {
+        val data = if (key1 != null) {
+            putPointTimeGreen(name, keyValue1)
+            getTbaTimeListDataJson(context, name, key1, keyValue1, key2, keyValue2, key3, keyValue3)
         } else {
             putPointGreen(name)
             getTbaDataJson(context, name)
@@ -390,9 +419,11 @@ object WallNetDataUtils {
             Firebase.analytics.logEvent(name, bundleOf("fa" to time))
         }
     }
-    fun postImageNameData(context: Context,name: String,resId:Int){
-        postPotIntData(context,name,"fa",getResourceNameFromId(context,resId))
+
+    fun postImageNameData(context: Context, name: String, resId: Int) {
+        postPotIntData(context, name, "fa", getResourceNameFromId(context, resId))
     }
+
     private fun getResourceNameFromId(context: Context, resourceId: Int): String {
         return try {
             context.resources.getResourceEntryName(resourceId)

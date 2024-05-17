@@ -4,15 +4,11 @@ import android.app.Application
 import android.app.WallpaperManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import android.provider.Settings
 import android.util.DisplayMetrics
-import android.view.View
 import android.webkit.WebView
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.Utils
 import com.google.android.gms.ads.MobileAds
@@ -45,7 +41,6 @@ import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
-import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -53,6 +48,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
+import what.a.pity.phone.call.paperthree.g.ui.con.WallPaperActivity
 
 class AppInitUtils {
 
@@ -128,6 +124,21 @@ class AppInitUtils {
         activity.finish()
     }
 
+    private fun toGuide(activity: AppCompatActivity) {
+        if (PaperThreeVariable.isBackGround) PaperThreeVariable.isBackGround = false
+        val intent = Intent(activity, WallPaperActivity::class.java)
+        activity.startActivity(intent)
+        activity.finish()
+    }
+
+    fun isMainOrGuide(activity: AppCompatActivity) {
+        if (KeyData.checkTheType.isBlank()) {
+            toGuide(activity)
+        } else {
+            toMain(activity)
+        }
+    }
+
     fun saveImg(activity: PreViewActivity, nextFun: () -> Unit) {
         if (!checkPer(activity)) {
             aaa(activity)
@@ -161,47 +172,6 @@ class AppInitUtils {
             return true
         }
     }
-
-    @AfterPermissionGranted(200)
-    fun saveFreshAppImageToGallery2(
-        context: PreViewActivity,
-        imageResId: Int,
-        nextFun: () -> Unit
-    ) {
-        val drawable = context.getDrawable(imageResId)
-
-        if (drawable is BitmapDrawable) {
-            val bitmap = drawable.bitmap
-            val displayName = "${System.currentTimeMillis()}.jpg"
-
-            val values = ContentValues().apply {
-                put(MediaStore.Images.Media.DISPLAY_NAME, displayName)
-                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-                put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000)
-            }
-
-            val contentResolver = context.contentResolver
-            val collection =
-                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-            val item = contentResolver.insert(collection, values)
-
-            item?.let { uri ->
-                try {
-                    val outputStream = contentResolver.openOutputStream(uri)
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-                    outputStream?.close()
-                    nextFun()
-                    val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
-                    mediaScanIntent.data = uri
-                    context.sendBroadcast(mediaScanIntent)
-                } catch (e: Exception) {
-                    Toast.makeText(context, "Save Failed!", Toast.LENGTH_SHORT).show()
-                    e.printStackTrace()
-                }
-            }
-        }
-    }
-
 
     fun saveFreshAppImageToGallery(
         context: AppCompatActivity,
@@ -263,6 +233,7 @@ class AppInitUtils {
             }
         }
     }
+
     fun setFreshAppWallpaper(
         activity: AppCompatActivity,
         bitmapDrawable: BitmapDrawable,
@@ -274,7 +245,7 @@ class AppInitUtils {
                 val bitmap = bitmapDrawable.bitmap
                 wallpaperManager.setBitmap(bitmap)
                 WallNetDataUtils.postPotIntData(activity, "wa10ll", "fa", "both")
-                withContext(Dispatchers.Main){
+                withContext(Dispatchers.Main) {
                     nextFun()
                 }
             } catch (e: Exception) {
@@ -289,7 +260,7 @@ class AppInitUtils {
     fun setFreshAppLockWallPaper(
         activity: PreViewActivity, bitmapDrawable: BitmapDrawable,
         type: String,
-        isLock:Boolean =false
+        isLock: Boolean = false
     ) {
         GlobalScope.launch(Dispatchers.IO) {
             val wallpaperManager = WallpaperManager.getInstance(activity)
@@ -297,7 +268,7 @@ class AppInitUtils {
 
             try {
                 wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_LOCK)
-                if(isLock){
+                if (isLock) {
                     WallNetDataUtils.postPotIntData(activity, "wa10ll", "fa", type)
                 }
             } catch (e: Exception) {
@@ -312,7 +283,6 @@ class AppInitUtils {
             }
         }
     }
-
 }
 
 class PageTwoAppObserver : DefaultLifecycleObserver {

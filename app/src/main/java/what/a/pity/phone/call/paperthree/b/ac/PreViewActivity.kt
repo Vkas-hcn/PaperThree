@@ -222,6 +222,10 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
     }
 
     private fun showPreBackAd() {
+        if ((!GetWallDataUtils.showAdCenter() || !BIBIUBADDDDUtils.canShowAD())) {
+            finish()
+            return
+        }
         if (isCanShowAd()) {
             BIBIUBADDDDUtils.interHaHaHaOPNNOPIN.showFullScreenAdBIUYBUI(this) {
                 finish()
@@ -368,7 +372,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
                 AppInitUtils().setFreshAppWallpaper(
                     detailSetActivity,
                     imageView.drawable as BitmapDrawable
-                ){}
+                ) {}
                 goEndPaper()
             })
         }
@@ -385,6 +389,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
     private fun goEndPaper() {
         PaperThreeConstant.canRefreshEndNative = true
         val intent = Intent(this, EndViewActivity::class.java)
+        intent.putExtra("type", 1)
         startActivity(intent)
     }
 

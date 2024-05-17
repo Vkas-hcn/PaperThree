@@ -99,6 +99,12 @@
             android:name=".b.ac.light.LightSettingActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+        <activity android:name=".g.ui.con.WallPaperActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity android:name=".g.ui.type.TypeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook" />

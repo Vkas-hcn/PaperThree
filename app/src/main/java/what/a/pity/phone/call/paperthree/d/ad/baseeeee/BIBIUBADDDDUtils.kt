@@ -29,6 +29,10 @@ object BIBIUBADDDDUtils {
     val mainNativeBOUVIY = EveryADLocObjectBUB(ADType.Nav_1)
     val mainNativeBOUVIY2 = EveryADLocObjectBUB(ADType.Nav_2)
 
+    val intIntroduce = EveryADLocObjectBUB(ADType.INT_INTRODUCE)
+    val intType = EveryADLocObjectBUB(ADType.INT_TYPE)
+    val rewAd = EveryADLocObjectBUB(ADType.REW_AD)
+
     fun initializeAdConfig(adConfigJson: String? = null) {
         var json = adConfigJson
         if (json.isNullOrBlank()) json = PaperThreeConstant.nfskjnkkk
@@ -43,6 +47,11 @@ object BIBIUBADDDDUtils {
         mainNativeBOUVIY.initializeSource(advertiseEntity?.main)
         interHaHaHaOPNNOPIN2.initializeSource(advertiseEntity?.inter2)
         mainNativeBOUVIY2.initializeSource(advertiseEntity?.main2)
+
+        intIntroduce.initializeSource(advertiseEntity?.intIntroduce)
+        intType.initializeSource(advertiseEntity?.intType)
+        rewAd.initializeSource(advertiseEntity?.rewAd)
+
         snlveijnaielv = advertiseEntity?.showMax ?: 0
         clickLimitBKUBOUIBI = advertiseEntity?.clickMax ?: 0
     }
@@ -84,12 +93,11 @@ object BIBIUBADDDDUtils {
         return show() && click()
     }
 
-    fun showOpenAdIfCan(activity: PaperThreeActivity) {
+    fun showOpenAdIfCan(activity: PaperThreeActivity,nextFun:()->Unit) {
         if (startOpenBOIBOIUBU.haveCache && activity.isActivityResumed()) {
             activity.job?.cancel()
             startOpenBOIBOIUBU.showFullScreenAdBIUYBUI(activity) {
-                activity.startActivity(Intent(activity, MainActivity::class.java))
-                activity.finish()
+                nextFun()
             }
         }
     }

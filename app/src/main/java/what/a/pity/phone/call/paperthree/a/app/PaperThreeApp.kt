@@ -8,6 +8,7 @@ class PaperThreeApp : Application() {
     companion object {
         lateinit var instance: PaperThreeApp
         var isGifImage = false
+        var isAdImage = false
         var isHaveLight = false
     }
 

@@ -37,7 +37,7 @@ class AppLifeCallBack : Application.ActivityLifecycleCallbacks {
         PaperThreeVariable.jaddaauwdList--
         if (PaperThreeVariable.jaddaauwdList == 0) {
             PaperThreeVariable.isBackGround = true
-            LightWindow.getInstance().showPasswordBox()
+//            LightWindow.getInstance().showPasswordBox()
             PaperThreeVariable.exitAppTime = System.currentTimeMillis()
         }
     }

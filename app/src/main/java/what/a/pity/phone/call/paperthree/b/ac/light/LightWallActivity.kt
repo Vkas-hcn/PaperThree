@@ -11,32 +11,40 @@ import android.view.View
 import android.widget.MediaController
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.activity.OnBackPressedCallback
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.blankj.utilcode.util.SPUtils
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import what.a.pity.phone.call.paperthree.R
 import what.a.pity.phone.call.paperthree.a.app.BaseActivity
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
+import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp.Companion.isAdImage
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp.Companion.isGifImage
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeVariable
+import what.a.pity.phone.call.paperthree.a.utils.AppInitUtils
+import what.a.pity.phone.call.paperthree.d.ad.baseeeee.BIBIUBADDDDUtils
 import what.a.pity.phone.call.paperthree.databinding.ActivityLightWallBinding
 import what.a.pity.phone.call.paperthree.fast.KeyData
 import what.a.pity.phone.call.paperthree.fast.light.GifWallpaperService
 import what.a.pity.phone.call.paperthree.fast.light.LightWindow
+import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
 import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils.isVisible
+import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 import java.io.IOException
 
 class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
     private var imageLightListData: MutableList<LightWallBean> = ArrayList()
     private lateinit var imageLightData: LightWallBean
     private var lightName: String = ""
-    private var wallPaperData = R.drawable.ic_blck
-
+    private var wallPaperData = -1
+    private var jobBackAd: Job? = null
     var isOpenLightPermission =
         SPUtils.getInstance().getBoolean(KeyData.isOpenLightPermission, false)
     override var viewID: Int
@@ -48,6 +56,7 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
         userLightPopList()
         showPerUi()
         setSeekBar()
+        WallNetDataUtils.postPotIntData(this, "wa17ll")
     }
 
     override fun initL() {
@@ -58,7 +67,7 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
             mBinding.clDialog.visibility = View.GONE
         }
         mBinding.pagerThreeBack.setOnClickListener {
-            finish()
+            waitForAdData()
         }
         mBinding.tvCon.setOnClickListener {
             jumpToDetail()
@@ -69,13 +78,66 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
                 showPerUi()
             }
         }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                waitForAdData()
+            }
+        })
+        mBinding.viewLoad.setOnClickListener { }
+    }
+
+    private fun backTOMain() {
+        mBinding.haveLoad = false
+        BIBIUBADDDDUtils.interHaHaHaOPNNOPIN2.showFullScreenAdBIUYBUI(this) {
+            finish()
+        }
+    }
+
+    fun waitForAdData() {
+        WallNetDataUtils.postPotIntData(this, "wa18ll")
+        if ((!GetWallDataUtils.showAdCenter() || !BIBIUBADDDDUtils.canShowAD())) {
+            finish()
+            return
+        }
+        mBinding.haveLoad = true
+        jobBackAd?.cancel()
+        jobBackAd = AppInitUtils().countDown(100, 150, MainScope(), {
+            if (it < 100 && BIBIUBADDDDUtils.interHaHaHaOPNNOPIN2.haveCache) {
+                jobBackAd?.cancel()
+                backTOMain()
+            }
+        }, {
+            jobBackAd?.cancel()
+            mBinding.haveLoad = false
+            finish()
+        })
     }
 
     private fun showImageType() {
         lightName = intent.getStringExtra("lightWall") ?: ""
-//        LightWindow.getInstance().closeThePasswordBox()
         isGifImage = lightName.contains("top")
-        mBinding.lightView.setGradientSetting2()
+        isAdImage = lightName.contains("ad")
+        if (isGifImage || isAdImage) {
+            WallNetDataUtils.postPotIntData(this, "wa15ll", "fa",lightName)
+        } else {
+            WallNetDataUtils.postPotIntData(this, "wa16ll", "fa",lightName)
+        }
+        if (isGifImage) {
+            mBinding.haveLightView = 2
+            mBinding.lightGif.setGifResource(R.drawable.ic_gif_1)
+            mBinding.textView2.visibility = View.GONE
+            mBinding.sbSpeed.visibility = View.GONE
+            mBinding.tvBorder.visibility = View.GONE
+            mBinding.sbBorder.visibility = View.GONE
+        } else {
+            mBinding.haveLightView = 1
+            mBinding.lightView.setGradientSetting2()
+            mBinding.textView2.visibility = View.VISIBLE
+            mBinding.sbSpeed.visibility = View.VISIBLE
+            mBinding.tvBorder.visibility = View.VISIBLE
+            mBinding.sbBorder.visibility = View.VISIBLE
+        }
+        mBinding.clDialog.visibility = View.VISIBLE
     }
 
     private fun showPerUi() {
@@ -91,7 +153,11 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
 
     private fun jumpToDetail() {
         val intent = Intent(this, LightSettingActivity::class.java)
-        KeyData.lightWallData = wallPaperData
+        KeyData.lightWallData = if (isAdImage && wallPaperData == -1) {
+            KeyData.getAdImage(lightName)
+        } else {
+            wallPaperData
+        }
         startActivity(intent)
     }
 
@@ -103,7 +169,7 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
             imageLightData.haveCheck = false
             imageLightListData.add(imageLightData)
         }
-        imageLightListData[0].haveCheck = true
+        imageLightListData[0].haveCheck = !isAdImage
         mBinding.clDialog.visibility = View.VISIBLE
 
         val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
@@ -154,12 +220,12 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
         }
     }
 
-    fun setSeekBar() {
-        mBinding.sbSpeed.progress = (1000 - KeyData.lightSpeed.toInt()) / 5
+    private fun setSeekBar() {
+        mBinding.sbSpeed.progress = (1000 - KeyData.lightSpeed.toInt()) / 6
         mBinding.sbBorder.progress = KeyData.lightBorder.toInt()
         mBinding.sbSpeed.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val duration = (1000 - (progress * 5)).toLong()
+                val duration = (1000 - (progress * 6)).toLong()
                 mBinding.lightView.setAnimationDuration(duration)
                 KeyData.lightSpeedApp = duration
             }
@@ -183,22 +249,4 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
             }
         })
     }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == 0x4556) {
-//            lifecycleScope.launch {
-//                delay(1000)
-//                if(this@LightWallActivity.isVisible()){
-//                    if (resultCode == Activity.RESULT_OK) {
-//                        // 用户成功设置了动态壁纸
-//                        Log.e("TAG", "有权限了: ", )
-//                    }else{
-//                        Log.e("TAG", "mei权限了: ", )
-//                    }
-//                }
-//            }
-//
-//        }
-//    }
 }

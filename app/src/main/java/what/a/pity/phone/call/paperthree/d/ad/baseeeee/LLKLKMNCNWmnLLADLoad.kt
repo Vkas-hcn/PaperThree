@@ -27,12 +27,12 @@ class LLKLKMNCNWmnLLADLoad(
             canusdkbcaushdconLoad.invoke(false)
             return
         }
-        if ((item.where == "fa_c_pre" || item.where == "fa_c_inter") && (!GetWallDataUtils.showAdCenter())) {
-            Log.e("TAG", "买量屏蔽${item.where}广告加载 ", )
+        if ((item.where == "fa_c_pre" || item.where == "introductionIV" || item.where == "personalizeIV") && (!GetWallDataUtils.showAdCenter())) {
+            Log.e("TAG", "买量屏蔽${item.where}广告加载 ")
             return
         }
-        if ((item.where == "fa_c_pre" || item.where == "fa_c_inter") && (!GetWallDataUtils.showAdBlacklist())) {
-            Log.e("TAG", "黑名单屏蔽${item.where}广告加载 ", )
+        if ((item.where == "fa_c_pre" || item.where == "fa_c_inter" || item.where == "introductionIV" || item.where == "personalizeIV") && (!GetWallDataUtils.showAdBlacklist())) {
+            Log.e("TAG", "黑名单屏蔽${item.where}广告加载 ")
             return
         }
         val baseAdanscinc = when (item.adYype) {

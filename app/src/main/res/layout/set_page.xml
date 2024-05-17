@@ -30,7 +30,7 @@
                     android:layout_height="22dp"
                     android:layout_marginStart="26dp"
                     android:layout_marginTop="49dp"
-                    android:src="@mipmap/wallpaper" />
+                    android:src="@drawable/wallpaper" />
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/close"
                     android:layout_marginTop="49dp"

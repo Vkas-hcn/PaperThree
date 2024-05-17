@@ -51,7 +51,7 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
         window.decorView.systemUiVisibility =
             View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE
 
-        window.navigationBarColor = resources.getColor(what.a.pity.phone.call.paperthree.R.color.navigation_bar_color)
+        window.navigationBarColor = resources.getColor(R.color.navigation_bar_color)
         updateUserOpinions()
         GetWallDataUtils.getBlackData(this)
         PaperThreeConstant.canRefreshHomeNative = true
@@ -62,29 +62,6 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
         WallNetDataUtils.getSessionList(this)
         WallNetDataUtils.postPotIntData(this, "wa1ll")
         startServiceAndBroadcast()
-    }
-
-    private fun startWallpaperSettings() {
-        PaperThreeApp.isGifImage = true
-        lifecycleScope.launch(Dispatchers.IO) {
-            val wallpaperManager = WallpaperManager.getInstance(this@PaperThreeActivity)
-            val defaultWallpaper =
-                BitmapFactory.decodeResource(this@PaperThreeActivity.resources, R.drawable.ic_blck)
-            try {
-                wallpaperManager.setBitmap(defaultWallpaper)
-                withContext(Dispatchers.Main) {
-                    PaperThreeVariable.isToRequestPer = true
-                    val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
-                    intent.putExtra(
-                        WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
-                        ComponentName(this@PaperThreeActivity, GifWallpaperService::class.java)
-                    )
-                    startActivityForResult(intent, 0)
-                }
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
     }
 
     private fun startServiceAndBroadcast() {
@@ -99,11 +76,20 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
         if (!SPUtils.getInstance().getBoolean(KeyData.ad_user_state)) {
             return
         }
+        if (GetWallDataUtils.isOrganic() && !SPUtils.getInstance().getBoolean(KeyData.openFirst,false)) {
+            WallNetDataUtils.postPotIntData(this, "wa28ll")
+            Log.d("TAG", "The ref is Organic not show")
+            SPUtils.getInstance().put(KeyData.openFirst, true)
+            AppInitUtils().isMainOrGuide(this)
+            return
+        }
         if (BIBIUBADDDDUtils.canShowAD()) {
             job = AppInitUtils().countDown(100, 100, MainScope(), {
                 mBinding.clakemcpb.progress = it
                 if (it > 10)
-                    BIBIUBADDDDUtils.showOpenAdIfCan(this@PaperThreeActivity)
+                    BIBIUBADDDDUtils.showOpenAdIfCan(this@PaperThreeActivity) {
+                        AppInitUtils().isMainOrGuide(this)
+                    }
             }, {
                 startActivity(Intent(this@PaperThreeActivity, MainActivity::class.java))
                 finish()
@@ -146,6 +132,11 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
         BIBIUBADDDDUtils.interHaHaHaOPNNOPIN.preload(this)
         BIBIUBADDDDUtils.mainNativeBOUVIY2.preload(this)
         BIBIUBADDDDUtils.interHaHaHaOPNNOPIN2.preload(this)
+        BIBIUBADDDDUtils.rewAd.preload(this)
+        if (KeyData.checkTheType.isBlank()) {
+            BIBIUBADDDDUtils.intIntroduce.preload(this)
+            BIBIUBADDDDUtils.intType.preload(this)
+        }
     }
 
     override fun initL() {
@@ -159,7 +150,7 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
         AppInitUtils().countDown(100, 20, MainScope(), {
             mBinding.clakemcpb.progress = it
         }, {
-            AppInitUtils().toMain(this)
+            AppInitUtils().isMainOrGuide(this)
         })
     }
 

@@ -58,7 +58,10 @@ class MyGifImageView : AppCompatImageView {
             paused = true
         }
     }
-
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.getSize(heightMeasureSpec))
+    }
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         movie?.let {
@@ -68,11 +71,13 @@ class MyGifImageView : AppCompatImageView {
             }
             val elapsedTime = if (!paused) (now - startTime) % duration else 0
             it.setTime(elapsedTime.toInt())
+            val scaleWidth = width.toFloat() / it.width()
+            val scaleHeight = height.toFloat() / it.height()
+            canvas.scale(scaleWidth, scaleHeight)
             it.draw(canvas, 0f, 0f)
             if (!paused) {
                 invalidate()
             }
-            canvas.scale(width.toFloat(), height.toFloat())
         }
     }
 }
