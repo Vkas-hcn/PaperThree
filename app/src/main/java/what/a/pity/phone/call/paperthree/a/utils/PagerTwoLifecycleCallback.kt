@@ -24,11 +24,6 @@ class AppLifeCallBack : Application.ActivityLifecycleCallbacks {
             if (PaperThreeVariable.isToRequestPer) return
             if ((System.currentTimeMillis() - PaperThreeVariable.exitAppTime) / 1000 > hotSeconds) {
                 mslkcmkc(activity)
-            } else if (PaperThreeVariable.isAppBackFor) {
-//                PaperThreeVariable.isAppBackFor = false
-//                mslkcmkc(activity)
-            } else if (activity is PaperThreeActivity) {
-//                mslkcmkc(activity)
             }
         }
     }
@@ -37,7 +32,7 @@ class AppLifeCallBack : Application.ActivityLifecycleCallbacks {
         PaperThreeVariable.jaddaauwdList--
         if (PaperThreeVariable.jaddaauwdList == 0) {
             PaperThreeVariable.isBackGround = true
-//            LightWindow.getInstance().showPasswordBox()
+            LightWindow.getInstance().showPasswordBox()
             PaperThreeVariable.exitAppTime = System.currentTimeMillis()
         }
     }

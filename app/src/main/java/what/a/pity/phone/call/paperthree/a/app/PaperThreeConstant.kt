@@ -100,7 +100,7 @@ class PaperThreeConstant {
 
         const val adBlockingData = """
   {
-    "tsdesk": "3",
+    "tsdesk": "1",
     "quoswer": "1",
     "preback": "2",
     "preuse": "1",

@@ -16,7 +16,7 @@ class LightBroadcast : BroadcastReceiver() {
 
             // Home键
             if (reason == SYSTEM_DIALOG_REASON_HOME_KEY) {
-//                LightWindow.InstanceHelper.lockWindowHelper.closeThePasswordBox()
+//                LightWindow.InstanceHelper.lockWindowHelper.showPasswordBox()
             }
 
             // 最近任务列表键

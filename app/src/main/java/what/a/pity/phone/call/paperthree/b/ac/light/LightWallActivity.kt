@@ -88,7 +88,7 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
 
     private fun backTOMain() {
         mBinding.haveLoad = false
-        BIBIUBADDDDUtils.interHaHaHaOPNNOPIN2.showFullScreenAdBIUYBUI(this) {
+        BIBIUBADDDDUtils.interHaHaHaOPNNOPIN.showFullScreenAdBIUYBUI(this) {
             finish()
         }
     }
@@ -102,7 +102,7 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
         mBinding.haveLoad = true
         jobBackAd?.cancel()
         jobBackAd = AppInitUtils().countDown(100, 150, MainScope(), {
-            if (it < 100 && BIBIUBADDDDUtils.interHaHaHaOPNNOPIN2.haveCache) {
+            if (it < 100 && BIBIUBADDDDUtils.interHaHaHaOPNNOPIN.haveCache) {
                 jobBackAd?.cancel()
                 backTOMain()
             }
@@ -222,7 +222,6 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
 
     private fun setSeekBar() {
         mBinding.sbSpeed.progress = (1000 - KeyData.lightSpeed.toInt()) / 6
-        mBinding.sbBorder.progress = KeyData.lightBorder.toInt()
         mBinding.sbSpeed.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 val duration = (1000 - (progress * 6)).toLong()
@@ -236,6 +235,7 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
         })
+        mBinding.sbBorder.progress = KeyData.lightBorder.toInt()
         mBinding.sbBorder.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 mBinding.lightView.setStrokeWidth((progress).toFloat())

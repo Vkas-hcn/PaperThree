@@ -34,7 +34,7 @@ class EveryADLocObjectBUB(private val snvlinjvk: ADType) {
         }
         baseAd.showMyNameIsHei(activity = activity, onAdDismissed = onAdDismissed)
         vsnoevn = {}
-        if (baseAd.adBean.where != "fa_c_ongre") {
+        if (baseAd.adBean.where != "fa_c_ongre" && baseAd.adBean.where != "introductionIV" && baseAd.adBean.where != "personalizeIV") {
             preload(activity)
         }
     }
