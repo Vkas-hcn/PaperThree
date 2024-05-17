@@ -66,7 +66,7 @@ class RotatingGradientRectangleView : View {
     }
 
     fun setAnimationDuration(duration: Long) {
-        this.animationDuration = duration
+        this.animationDuration = (1000 - (duration * 7))
         startRotationAnimation()
     }
 

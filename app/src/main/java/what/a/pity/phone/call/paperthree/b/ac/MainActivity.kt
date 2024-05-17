@@ -45,7 +45,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initV() {
         if (!BIBIUBADDDDUtils.canShowAD()) {
-            mBinding.nativeFrameQr.isInvisible = true
+//            mBinding.nativeFrameQr.isInvisible = true
         }
         mBinding.showLoading = false
         BIBIUBADDDDUtils.interHaHaHaOPNNOPIN2.preload(this)
@@ -217,23 +217,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         lifecycleScope.launch(Dispatchers.Main) {
             delay(200)
             showBianJie()
-            if (!BIBIUBADDDDUtils.canShowAD()) {
-                mBinding.nativeFrameQr.isVisible = false
-            } else if (PaperThreeConstant.canRefreshHomeNative) {
-                BIBIUBADDDDUtils.mainNativeBOUVIY.preload(this@MainActivity)
-                mBinding.nativeFrameQr.isVisible = true
-                while (true) {
-                    if (BIBIUBADDDDUtils.mainNativeBOUVIY.haveCache) {
-                        PaperThreeConstant.canRefreshHomeNative = false
-                        BIBIUBADDDDUtils.mainNativeBOUVIY.showVIUVYNativeAd(
-                            this@MainActivity,
-                            mBinding.nativeFrameQr
-                        ) { baseAd = it }
-                        break
-                    }
-                    delay(300)
-                }
-            }
+//            if (!BIBIUBADDDDUtils.canShowAD()) {
+//                mBinding.nativeFrameQr.isVisible = false
+//            } else if (PaperThreeConstant.canRefreshHomeNative) {
+//                BIBIUBADDDDUtils.mainNativeBOUVIY.preload(this@MainActivity)
+//                mBinding.nativeFrameQr.isVisible = true
+//                while (true) {
+//                    if (BIBIUBADDDDUtils.mainNativeBOUVIY.haveCache) {
+//                        PaperThreeConstant.canRefreshHomeNative = false
+//                        BIBIUBADDDDUtils.mainNativeBOUVIY.showVIUVYNativeAd(
+//                            this@MainActivity,
+//                            mBinding.nativeFrameQr
+//                        ) { baseAd = it }
+//                        break
+//                    }
+//                    delay(300)
+//                }
+//            }
         }
     }
 

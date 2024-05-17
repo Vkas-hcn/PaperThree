@@ -239,7 +239,7 @@
                 android:id="@+id/native_frame_qr"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
-                android:background="@mipmap/qqqaqaqa"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/ll_botton" />
 
             <LinearLayout

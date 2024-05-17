@@ -96,8 +96,8 @@ object GetWallDataUtils {
             return
         }
 //        installReferrer = "facebook"
-        installReferrer = "utm_source=google-play&utm_medium=organic"
-        SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
+//        installReferrer = "utm_source=google-play&utm_medium=organic"
+//        SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
         runCatching {
             val referrerClient = InstallReferrerClient.newBuilder(context).build()
             referrerClient.startConnection(object : InstallReferrerStateListener {
@@ -106,7 +106,7 @@ object GetWallDataUtils {
                         InstallReferrerClient.InstallReferrerResponse.OK -> {
                             val installReferrer =
                                 referrerClient.installReferrer.installReferrer ?: ""
-//                            SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
+                            SPUtils.getInstance().put(KeyData.phone_ref, installReferrer)
                             if (!SPUtils.getInstance().getBoolean(KeyData.haveWallInstall)) {
                                 runCatching {
                                     installReferrer?.run {

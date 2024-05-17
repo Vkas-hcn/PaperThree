@@ -48,7 +48,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
     override var viewID: Int
         get() = R.layout.preview_layout
         set(value) {}
-    private var curImg = R.mipmap.qiuqiu1
+    private var curImg = R.drawable.nt1
     private var baseAd: SoWhatCanYouDo? = null
 
     companion object {
@@ -56,7 +56,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
     }
 
     override fun initV() {
-        curImg = intent.getIntExtra("intentImgResID", R.mipmap.qiuqiu1)
+        curImg = intent.getIntExtra("intentImgResID",  R.drawable.nt1)
         mBinding.curImage.setImageResource(curImg)
         BIBIUBADDDDUtils.interHaHaHaOPNNOPIN.preload(this)
         PaperThreeConstant.canRefreshHomeNative2 = true

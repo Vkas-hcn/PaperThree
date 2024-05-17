@@ -49,7 +49,7 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
     override var viewID: Int
         get() = R.layout.light_setting_layout
         set(value) {}
-    private var curImg = R.mipmap.qiuqiu1
+    private var curImg =  R.drawable.nt1
     private var baseAd: SoWhatCanYouDo? = null
     val REQUEST_CODE_SET_WALLPAPER = 0x756
     private var jobBackAd: Job? = null

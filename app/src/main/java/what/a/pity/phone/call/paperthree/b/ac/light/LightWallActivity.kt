@@ -223,10 +223,10 @@ class LightWallActivity : BaseActivity<ActivityLightWallBinding>() {
     }
 
     private fun setSeekBar() {
-        mBinding.sbSpeed.progress = (1000 - KeyData.lightSpeed.toInt()) / 6
+        mBinding.sbSpeed.progress = KeyData.lightSpeed.toInt()
         mBinding.sbSpeed.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val duration = (1000 - (progress * 6)).toLong()
+                val duration = progress.toLong()
                 mBinding.lightView.setAnimationDuration(duration)
                 KeyData.lightSpeedApp = duration
             }

@@ -23,7 +23,6 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 import what.a.pity.phone.call.paperthree.BuildConfig
 import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
-import what.a.pity.phone.call.paperthree.a.app.PaperThreeVariable.Companion.imageList
 import what.a.pity.phone.call.paperthree.d.ad.baseeeee.EveryADBean
 import what.a.pity.phone.call.paperthree.fast.KeyData
 import what.a.pity.phone.call.paperthree.fast.KeyData.tba_wall_url

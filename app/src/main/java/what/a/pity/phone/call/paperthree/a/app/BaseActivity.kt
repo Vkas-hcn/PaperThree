@@ -1,6 +1,7 @@
 package what.a.pity.phone.call.paperthree.a.app
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -19,6 +20,13 @@ abstract class BaseActivity<V : ViewDataBinding> : AppCompatActivity(), Init {
     override fun onCreate(savedInstanceState: Bundle?) {
         AppInitUtils().screenAndroid(this)
         super.onCreate(savedInstanceState)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         mBinding = DataBindingUtil.setContentView(this, viewID)
         mBinding.lifecycleOwner = this
         setContentView(mBinding.root)

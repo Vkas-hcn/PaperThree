@@ -53,12 +53,12 @@ object KeyData {
             field = value
         }
         get() = SPUtils.getInstance().getInt("isImagePos", 0)
-    var lightSpeed = 40L
+    var lightSpeed = 50L
         set(value) {
             SPUtils.getInstance().put("lightSpeed", value)
             field = value
         }
-        get() = SPUtils.getInstance().getLong("lightSpeed", 40L)
+        get() = SPUtils.getInstance().getLong("lightSpeed", 50L)
 
 
     var lightBorder = 50f
