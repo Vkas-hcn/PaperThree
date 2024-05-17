@@ -112,10 +112,10 @@ class PaperThreeConstant {
 
         const val ref_load_data = """fb4a&facebook"""
 
-        const val yyq="""
+        const val yyq = """
 {
-    "wp": "ic_beautiful_2,ic_beautiful_3",
-    "bb": "ic_top_fire,ic_58,ic_59,ic_6"
+    "wp": "bt2,bt12,bt24,bt32,bt38,bt46,nt12,nt13,nt20,nt23,nt33,nt38,ct2,ct11,ct21,ct27,ct40,at2,at23,at27,at34,at44,cl1,cl18,cl29,cl38,cl54,am4,am9,am18,am32,am50,am58",
+    "bb": "ic_57,ic_58,ic_59,ic_60,ic_61,ic_62"
 }
         """
 

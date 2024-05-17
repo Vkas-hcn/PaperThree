@@ -145,9 +145,9 @@ object KeyData {
         val resourceName = activity.resources.getResourceName(resourceId)
         val fileName = resourceName.substringAfterLast("/")
         return if (isWallPaper) {
-            getYyqData().wp.contains(fileName, true) && !getLocalRvData(activity, resourceId)
+            !getYyqData().wp.contains(fileName, true) && !getLocalRvData(activity, resourceId)
         } else {
-            getYyqData().bb.contains(fileName, true) && !getLocalRvData(activity, resourceId)
+            !getYyqData().bb.contains(fileName, true) && !getLocalRvData(activity, resourceId)
         }
     }
 
