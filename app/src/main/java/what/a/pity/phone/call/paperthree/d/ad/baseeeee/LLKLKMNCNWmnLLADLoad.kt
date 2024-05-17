@@ -21,6 +21,7 @@ class LLKLKMNCNWmnLLADLoad(
     }
 
     private fun preloadAdByIndexibscdaiuhsdbcuahsbcukashbcu(index: Int) {
+        GetWallDataUtils.wa27ll(contextcaniscnaiesbc)
         val item = svdkalc.getOrNull(index)
         if (null == item) {
             LogUtils.e("WallPaper AD-${item?.where}- item null")

@@ -39,7 +39,6 @@ class WallPaperActivity : BaseActivity<WallpaperGuideBinding>() {
         WallNetDataUtils.postPotIntData(this, "wa29ll")
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private fun userWallPaperGuideList() {
         guideDataBeanList = ArrayList()
         for (i in 0..2) {
@@ -68,7 +67,6 @@ class WallPaperActivity : BaseActivity<WallpaperGuideBinding>() {
             guideDataBeanList.add(guideDataBean)
         }
         val recyclerView = findViewById<RecyclerView>(R.id.rv_guide)
-        recyclerView.setOnTouchListener { v, event -> true } // Return true to consume the touch event
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.layoutManager = layoutManager
         guideAdapter = GuideAdapter(this, guideDataBeanList)

@@ -38,8 +38,6 @@ class TypeActivity  : BaseActivity<TypeGuideBinding>() {
         mBinding.rvLightPop.adapter = typeAdapter
     }
 
-
-
     override fun initL() {
         mBinding.tvNext.setOnClickListener {
             waitForRvData()
@@ -66,6 +64,7 @@ class TypeActivity  : BaseActivity<TypeGuideBinding>() {
     private fun nextFun(){
         typeAdapter.setCheckTypeName()
         AppInitUtils().toMain(this)
+        WallNetDataUtils.postPotIntData(this, "wa35ll","fa",KeyData.checkTheType)
     }
     private fun showRvAd() {
         mBinding.haveLoad = false
@@ -74,9 +73,7 @@ class TypeActivity  : BaseActivity<TypeGuideBinding>() {
         }
     }
 
-
     private fun waitForRvData() {
-        WallNetDataUtils.postPotIntData(this, "wa35ll","fa",KeyData.checkTheType)
         if ((!GetWallDataUtils.showAdCenter() || !GetWallDataUtils.showAdBlacklist()) || !BIBIUBADDDDUtils.canShowAD()) {
             nextFun()
             return

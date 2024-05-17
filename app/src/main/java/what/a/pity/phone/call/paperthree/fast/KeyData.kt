@@ -111,6 +111,13 @@ object KeyData {
         }
         get() = SPUtils.getInstance().getString("checkTheType", "")
 
+    var referGetType = false
+        set(value) {
+            SPUtils.getInstance().put("referGetType", value)
+            field = value
+        }
+        get() = SPUtils.getInstance().getBoolean("referGetType", false)
+
     private fun getYyqData(): Yyq {
         val dataJson = yyq_online.let {
             if (it.isEmpty()) {

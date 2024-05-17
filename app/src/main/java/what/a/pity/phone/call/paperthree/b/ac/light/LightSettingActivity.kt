@@ -77,17 +77,21 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
     }
 
     private fun applyFun() {
-        val gaoji = PaperThreeApp.isGifImage || PaperThreeApp.isAdImage
+        val gaoji = if(PaperThreeApp.isGifImage || PaperThreeApp.isAdImage){
+            "1"
+        }else{
+            "2"
+        }
         val isOpenLightPermission =
             SPUtils.getInstance().getBoolean(KeyData.isOpenLightPermission, false)
-        val sheRe = !gaoji && (KeyData.lightWallData != 0 && KeyData.lightWallData != -1)
+        val sheRe = (gaoji=="2") && (KeyData.lightWallData != 0 && KeyData.lightWallData != -1)
         WallNetDataUtils.postPotIntData(
             this,
             "wa21ll",
             "fa",
             isOpenLightPermission.toString(),
             "fa1",
-            gaoji.toString(),
+            gaoji,
             "fa2",
             sheRe.toString(),
         )
@@ -181,24 +185,29 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
 
     private fun goEndPaper() {
         val intent = Intent(this, EndViewActivity::class.java)
-        startActivity(intent)
         if (PaperThreeApp.isGifImage || PaperThreeApp.isAdImage) {
-            intent.putExtra("type", 2)
+            intent.putExtra("typeEnd", "2")
         } else {
-            intent.putExtra("type", 3)
+            intent.putExtra("typeEnd", "3")
         }
+        startActivity(intent)
+
         PaperThreeApp.isHaveLight = true
-        val gaoji = PaperThreeApp.isGifImage || PaperThreeApp.isAdImage
+        val gaoji = if(PaperThreeApp.isGifImage || PaperThreeApp.isAdImage){
+            "1"
+        }else{
+            "2"
+        }
         val isOpenLightPermission =
             SPUtils.getInstance().getBoolean(KeyData.isOpenLightPermission, false)
-        val sheRe = !gaoji && (KeyData.lightWallData != 0 && KeyData.lightWallData != -1)
+        val sheRe = (gaoji=="2") && (KeyData.lightWallData != 0 && KeyData.lightWallData != -1)
         WallNetDataUtils.postPotIntData(
             this,
             "wa22ll",
             "fa",
             isOpenLightPermission.toString(),
             "fa1",
-            gaoji.toString(),
+            gaoji,
             "fa2",
             sheRe.toString(),
         )

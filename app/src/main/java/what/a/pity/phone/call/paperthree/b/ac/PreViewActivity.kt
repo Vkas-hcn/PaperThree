@@ -389,7 +389,7 @@ class PreViewActivity : BaseActivity<PreviewLayoutBinding>(), EasyPermissions.Pe
     private fun goEndPaper() {
         PaperThreeConstant.canRefreshEndNative = true
         val intent = Intent(this, EndViewActivity::class.java)
-        intent.putExtra("type", 1)
+        intent.putExtra("typeEnd", "1")
         startActivity(intent)
     }
 

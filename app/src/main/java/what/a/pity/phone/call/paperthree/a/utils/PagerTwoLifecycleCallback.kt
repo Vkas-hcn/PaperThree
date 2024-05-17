@@ -25,10 +25,10 @@ class AppLifeCallBack : Application.ActivityLifecycleCallbacks {
             if ((System.currentTimeMillis() - PaperThreeVariable.exitAppTime) / 1000 > hotSeconds) {
                 mslkcmkc(activity)
             } else if (PaperThreeVariable.isAppBackFor) {
-                PaperThreeVariable.isAppBackFor = false
-                mslkcmkc(activity)
+//                PaperThreeVariable.isAppBackFor = false
+//                mslkcmkc(activity)
             } else if (activity is PaperThreeActivity) {
-                mslkcmkc(activity)
+//                mslkcmkc(activity)
             }
         }
     }

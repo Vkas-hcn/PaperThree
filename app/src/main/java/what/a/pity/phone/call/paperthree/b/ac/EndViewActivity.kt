@@ -29,30 +29,30 @@ import what.a.pity.phone.call.paperthree.fast.utils.GetWallDataUtils
 import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 
 class EndViewActivity : BaseActivity<EndLayoutBinding>() {
-    var type = 0
+    var type = "0"
     override var viewID: Int
         get() = R.layout.end_layout
         set(value) {}
 
     override fun initV() {
-         type = intent.getIntExtra("type", 0)
-        WallNetDataUtils.postPotIntData(this, "wa11ll", "fa", type.toString())
+         type = intent.getStringExtra("typeEnd")?:""
+        WallNetDataUtils.postPotIntData(this, "wa11ll", "fa", type)
     }
 
     override fun initL() {
         mBinding.actContinue.setOnClickListener {
-            WallNetDataUtils.postPotIntData(this, "wa13ll", "fa", type.toString())
+            WallNetDataUtils.postPotIntData(this, "wa13ll", "fa", type)
             backToMainFun()
         }
 
         mBinding.pagerThreeBack.setOnClickListener {
-            WallNetDataUtils.postPotIntData(this, "wa12ll", "fa", type.toString())
+            WallNetDataUtils.postPotIntData(this, "wa12ll", "fa", type)
 
             backToMainFun()
         }
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                WallNetDataUtils.postPotIntData(this@EndViewActivity, "wa12ll", "fa", type.toString())
+                WallNetDataUtils.postPotIntData(this@EndViewActivity, "wa12ll", "fa", type)
                 backToMainFun()
             }
         })

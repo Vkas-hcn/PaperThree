@@ -365,10 +365,10 @@ object WallNetDataUtils {
                 put("${pName1}@verify", pValue1)
             }
             if (pName2 != null) {
-                put("${pName1}@verify", pValue2)
+                put("${pName2}@verify", pValue2)
             }
             if (pName3 != null) {
-                put("${pName1}@verify", pValue3)
+                put("${pName3}@verify", pValue3)
             }
         }.toString()
     }
