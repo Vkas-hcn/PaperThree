@@ -220,13 +220,7 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
 
     private fun startWallpaperSettings() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val wallpaperManager = WallpaperManager.getInstance(this@LightSettingActivity)
-            val defaultWallpaper = BitmapFactory.decodeResource(
-                this@LightSettingActivity.resources,
-                R.drawable.ic_blck
-            )
             try {
-                wallpaperManager.setBitmap(defaultWallpaper)
                 withContext(Dispatchers.Main) {
                     PaperThreeVariable.isToRequestPer = true
                     val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER)
