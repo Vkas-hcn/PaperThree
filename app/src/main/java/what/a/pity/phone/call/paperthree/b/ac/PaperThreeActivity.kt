@@ -91,8 +91,7 @@ class PaperThreeActivity : BaseActivity<SsssssssssBinding>() {
                         AppInitUtils().isMainOrGuide(this)
                     }
             }, {
-                startActivity(Intent(this@PaperThreeActivity, MainActivity::class.java))
-                finish()
+                AppInitUtils().isMainOrGuide(this)
             })
         } else {
             LogUtils.e()

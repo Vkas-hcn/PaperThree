@@ -49,7 +49,7 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
     override var viewID: Int
         get() = R.layout.light_setting_layout
         set(value) {}
-    private var curImg =  R.drawable.nt1
+    private var curImg = R.drawable.nt1
     private var baseAd: SoWhatCanYouDo? = null
     val REQUEST_CODE_SET_WALLPAPER = 0x756
     private var jobBackAd: Job? = null
@@ -184,6 +184,7 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
     }
 
     private fun goEndPaper() {
+        PaperThreeApp.reallySetWall = 2
         val intent = Intent(this, EndViewActivity::class.java)
         if (PaperThreeApp.isGifImage || PaperThreeApp.isAdImage) {
             intent.putExtra("typeEnd", "2")
@@ -220,6 +221,7 @@ class LightSettingActivity : BaseActivity<LightSettingLayoutBinding>(),
 
     private fun startWallpaperSettings() {
         lifecycleScope.launch(Dispatchers.IO) {
+            PaperThreeApp.reallySetWall = 1
             try {
                 withContext(Dispatchers.Main) {
                     PaperThreeVariable.isToRequestPer = true

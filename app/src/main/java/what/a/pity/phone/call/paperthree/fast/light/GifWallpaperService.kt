@@ -71,43 +71,52 @@ class GifWallpaperService : WallpaperService() {
 
             if (canvas != null) {
                 canvas.drawColor(Color.BLACK)
-                if (wallpaperView == null) {
-                    wallpaperView = layoutInflater.inflate(R.layout.layout_lock_screen2, null)
-                    scrImage = wallpaperView?.findViewById(R.id.lightView)
-                    gifImage = wallpaperView?.findViewById(R.id.lightGif)
-                    imageWindow = wallpaperView?.findViewById(R.id.image_window)
-
-                    imageWindow?.isVisible = true
-                    if (KeyData.lightWallData != 0 && KeyData.lightWallData != -1) {
-                        imageWindow?.setImageResource(KeyData.lightWallData)
-                    } else {
-                        imageWindow?.setImageResource(R.drawable.ic_blck)
-                    }
-
-                    wallpaperView?.measure(canvas.width, canvas.height)
-                    wallpaperView?.layout(0, 0, canvas.width, canvas.height)
-                    if (PaperThreeApp.isGifImageApp) {
-                        gifImage?.isVisible = true
-                        scrImage?.isVisible = false
-                        gifImage?.setGifResource(R.drawable.ic_gif_1)
-                        gifImage?.measure(canvas.width, canvas.height)
-                        gifImage?.layout(0, 0, canvas.width, canvas.height)
-                    } else {
-                        scrImage?.isVisible = true
-                        gifImage?.isVisible = false
-                        scrImage?.setGradientSetting2()
-                        scrImage?.measure(canvas.width, canvas.height)
-                        scrImage?.layout(0, 0, canvas.width, canvas.height)
-                    }
-                }
+                setWallPaperIsShow(canvas)
+                Log.e("TAG", "draw: 111111")
                 wallpaperView?.draw(canvas)
                 surfaceHolder.unlockCanvasAndPost(canvas)
             }
 
             if (visible) {
+                Log.e("TAG", "draw: 22222222")
                 handler.removeCallbacks(drawRunnable)
                 handler.postDelayed(drawRunnable, 1000 / 60)
             }
+        }
+
+        private fun setWallPaperIsShow(canvas: Canvas) {
+            if (wallpaperView == null) {
+                wallpaperView = layoutInflater.inflate(R.layout.layout_lock_screen2, null)
+                scrImage = wallpaperView?.findViewById(R.id.lightView)
+                gifImage = wallpaperView?.findViewById(R.id.lightGif)
+                imageWindow = wallpaperView?.findViewById(R.id.image_window)
+                imageWindow?.isVisible = true
+                if (KeyData.lightWallData != 0 && KeyData.lightWallData != -1) {
+                    imageWindow?.setImageResource(KeyData.lightWallData)
+                } else {
+                    imageWindow?.setImageResource(R.drawable.ic_blck)
+                }
+
+                wallpaperView?.measure(canvas.width, canvas.height)
+                wallpaperView?.layout(0, 0, canvas.width, canvas.height)
+                if (PaperThreeApp.isGifImageApp) {
+                    gifImage?.isVisible = true
+                    scrImage?.isVisible = false
+                    gifImage?.setGifResource(R.drawable.ic_gif_1)
+                    gifImage?.measure(canvas.width, canvas.height)
+                    gifImage?.layout(0, 0, canvas.width, canvas.height)
+                } else {
+                    scrImage?.isVisible = true
+                    gifImage?.isVisible = false
+                    scrImage?.setGradientSetting2()
+                    scrImage?.measure(canvas.width, canvas.height)
+                    scrImage?.layout(0, 0, canvas.width, canvas.height)
+                }
+            }
+        }
+        fun stopWallpaper() {
+            handler.removeCallbacks(drawRunnable)
+            visible = false
         }
     }
 

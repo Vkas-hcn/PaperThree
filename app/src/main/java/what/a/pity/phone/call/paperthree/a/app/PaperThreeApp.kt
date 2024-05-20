@@ -12,6 +12,7 @@ class PaperThreeApp : Application() {
 
         var isAdImage = false
         var isHaveLight = false
+        var reallySetWall:Int = 0
     }
 
     override fun onCreate() {

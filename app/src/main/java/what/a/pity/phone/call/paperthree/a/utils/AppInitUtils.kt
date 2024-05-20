@@ -46,6 +46,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
+import what.a.pity.phone.call.paperthree.a.app.PaperThreeApp
 import what.a.pity.phone.call.paperthree.fast.utils.WallNetDataUtils
 import what.a.pity.phone.call.paperthree.guide.ui.conwall.WallPaperActivity
 
@@ -225,6 +226,7 @@ class AppInitUtils {
                 val bitmap = bitmapDrawable.bitmap
                 wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_SYSTEM)
                 WallNetDataUtils.postPotIntData(activity, "wa10ll", "fa", "home")
+                PaperThreeApp.reallySetWall = 2
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(activity, "Failed to set wallpaper!", Toast.LENGTH_SHORT).show()
@@ -247,6 +249,7 @@ class AppInitUtils {
                 withContext(Dispatchers.Main) {
                     nextFun()
                 }
+                PaperThreeApp.reallySetWall = 2
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(activity, "Failed to set wallpaper!", Toast.LENGTH_SHORT).show()
@@ -270,6 +273,7 @@ class AppInitUtils {
                 if (isLock) {
                     WallNetDataUtils.postPotIntData(activity, "wa10ll", "fa", type)
                 }
+                PaperThreeApp.reallySetWall = 2
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
