@@ -56,7 +56,6 @@ class PaperThreeVariable {
             R.drawable.nt8,
             R.drawable.nt9,
             R.drawable.nt10,
-
             R.drawable.nt11,
             R.drawable.nt12,
             R.drawable.nt13,
@@ -72,7 +71,6 @@ class PaperThreeVariable {
             R.drawable.nt27,
             R.drawable.nt29,
             R.drawable.nt30,
-
             R.drawable.nt31,
             R.drawable.nt33,
             R.drawable.nt34,

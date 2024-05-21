@@ -162,5 +162,6 @@ class WallPaperActivity : BaseActivity<WallpaperGuideBinding>() {
     private fun goToType() {
         val intent = Intent(this, TypeActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }
